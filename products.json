@@ -1,0 +1,11 @@
+{
+
+  "name":"pierogi",
+  "price":15,
+  "description":"pierogi z miesem"
+}
+{
+  "name":"rosol",
+  "price":50,
+  "description":"rosol z kury"
+}
