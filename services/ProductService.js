@@ -1,4 +1,5 @@
 import { uuid } from "uuidv4";
+import Product from "../models/productModel.js";
 export class ProductModel {
   constructor(name, price, description, id) {
     this.name = name;
@@ -12,35 +13,73 @@ export class ProductService {
   constructor() {
     this.items = [];
   }
-  getProducts() {
-    return this.items;
-  }
-  createProduct(name, price, description, id) {
-    if (Array.isArray(this.items)) {
-      let newProduct = new ProductModel(name, price, description);
-      newProduct = { ...newProduct, id: id };
-      this.items = [...this.items, newProduct];
+  async getProducts() {
+    try {
+      const products = await Product.find();
+
+      return products;
+    } catch (error) {
+      return error.message;
     }
-    console.log(this.items);
-    return this.items;
   }
-  getProductById(productId) {
+  async createProduct(name, price, description) {
+    const post = {
+      name: name,
+      price: price,
+      description: description,
+    };
+    const newProduct = new Product(post);
+    try {
+      await newProduct.save();
+      return "Produkt został dodany!";
+    } catch (error) {
+      return error.message;
+    }
+    // if (Array.isArray(this.items)) {
+    //   let newProduct = new ProductModel(name, price, description);
+    //   newProduct = { ...newProduct, id: id };
+    //   this.items = [...this.items, newProduct];
+    // }
+    // console.log(this.items);
+    // return this.items;
+  }
+  async getProductById(productId) {
     const id = productId;
+    let product;
+    try {
+      product = await Product.findById(id);
+    } catch (error) {
+      return error.message("error occured when looking for product");
+    }
+    if (!product) {
+      return "cant find product";
+    }
 
-    return this.items.find((product) => product.id === id);
+    return product;
+
+    // return this.items.find((product) => product.id === id);
   }
-  deleteProduct(productId) {
-    const id = productId;
-
-    this.items = this.items.filter((product) => product.id !== id);
-
-    return this.items;
+  async deleteProduct(productId) {
+    await Product.deleteOne({ _id: productId });
+    return `Product with id ${productId} DELETED`;
   }
-  updateProduct(productId, body) {
+  // deleteProduct(productId) {
+  //   const id = productId;
+  //
+  //   this.items = this.items.filter((product) => product.id !== id);
+  //
+  //   return this.items;
+  // }
+  // async getSingleProduct() {
+  //   const productDb = await this.getProductById(productId);
+  //
+  //   return productDb;
+  // }
+  async updateProduct(productId, body) {
     const id = productId;
     const { name, price, description } = body;
 
-    const updatedProduct = this.items.find((product) => product.id === id);
+    const updatedProduct = await this.getProductById(id);
 
     if (name) updatedProduct.name = name;
 
@@ -48,8 +87,9 @@ export class ProductService {
 
     if (description) updatedProduct.description = description;
 
-    // return `Product with id ${id} updated!`;
-    return this.items;
+    const newProduct = new Product(updatedProduct);
+    await newProduct.save();
+    return `Product with id ${id} updated`;
   }
 }
 

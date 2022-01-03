@@ -6,8 +6,7 @@ import { ProductService, ProductModel } from "../services/ProductService.js";
 const router = express.Router();
 const product = new ProductService();
 router.get("/", (req, res) => {
-  console.log(product.getProducts());
-  res.send(product.getProducts());
+  product.getProducts().then((r) => res.send(r));
 });
 
 router.post("/", (req, res) => {
@@ -16,27 +15,30 @@ router.post("/", (req, res) => {
   // console.log(myBody.name, myBody.price, myBody.description);
 
   res.send(
-    product.createProduct(myBody.name, myBody.price, myBody.description, uuid())
+    product.createProduct(myBody.name, myBody.price, myBody.description)
   );
 });
 
 router.get("/:id", (req, res) => {
   const id = req.params.id;
 
-  res.send(product.getProductById(id));
+  product.getProductById(id).then((r) => res.send(r));
 });
 
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
 
-  res.send(product.deleteProduct(id));
+  product.deleteProduct(id).then((r) => {
+    res.send(r);
+  });
 });
 //
 router.patch("/:id", (req, res) => {
   const id = req.params.id;
   const body = req.body;
-
-  res.send(product.updateProduct(id, body));
+  product.updateProduct(id, body).then((r) => {
+    res.send(r);
+  });
 });
 
 export default router;
