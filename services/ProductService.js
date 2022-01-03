@@ -16,9 +16,38 @@ export class ProductService {
   }
   createProduct(name, price, description) {
     if (Array.isArray(this.items)) {
-      const newProduct = new ProductModel(name, price, description);
+      let newProduct = new ProductModel(name, price, description);
+      newProduct = { ...newProduct, id: "5555" };
       this.items = [...this.items, newProduct];
     }
+    console.log(this.items);
+    return this.items;
+  }
+  getProductById(productId) {
+    const id = productId;
+
+    return this.items.find((product) => product.id === id);
+  }
+  deleteProduct(productId) {
+    const id = productId;
+
+    this.items = this.items.filter((product) => product.id !== id);
+
+    return this.items;
+  }
+  updateProduct(productId, body) {
+    const id = productId;
+    const { name, price, description } = body;
+
+    const updatedProduct = this.items.find((product) => product.id === id);
+
+    if (name) updatedProduct.name = name;
+
+    if (price) updatedProduct.price = price;
+
+    if (description) updatedProduct.description = description;
+
+    // return `Product with id ${id} updated!`;
     return this.items;
   }
 }

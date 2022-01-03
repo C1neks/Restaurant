@@ -19,25 +19,25 @@ router.post("/", (req, res) => {
     product.createProduct(myBody.name, myBody.price, myBody.description)
   );
 });
+
+router.get("/:id", (req, res) => {
+  const id = req.params.id;
+
+  res.send(product.getProductById(id));
+});
+
+router.delete("/:id", (req, res) => {
+  const id = req.params.id;
+
+  const product = new ProductService();
+  res.send(product.deleteProduct(id));
+});
 //
-// router.get("/:id", (req, res) => {
-//   const id = req.params.id;
-//   const singleProduct = new ProductService();
-//   res.send(singleProduct.getProductById(id));
-// });
-//
-// router.delete("/:id", (req, res) => {
-//   const id = req.params.id;
-//
-//   const product = new ProductService();
-//   res.send(product.deleteProduct(id));
-// });
-//
-// router.patch("/:id", (req, res) => {
-//   const id = req.params.id;
-//   const body = req.body;
-//   const product = new ProductService();
-//   res.send(product.updateProduct(id, body));
-// });
+router.patch("/:id", (req, res) => {
+  const id = req.params.id;
+  const body = req.body;
+
+  res.send(product.updateProduct(id, body));
+});
 
 export default router;
