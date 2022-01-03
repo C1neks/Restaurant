@@ -1,9 +1,10 @@
 import { uuid } from "uuidv4";
 export class ProductModel {
-  constructor(name, price, description) {
+  constructor(name, price, description, id) {
     this.name = name;
     this.price = price;
     this.description = description;
+    this.id = id;
   }
 }
 
@@ -14,10 +15,10 @@ export class ProductService {
   getProducts() {
     return this.items;
   }
-  createProduct(name, price, description) {
+  createProduct(name, price, description, id) {
     if (Array.isArray(this.items)) {
       let newProduct = new ProductModel(name, price, description);
-      newProduct = { ...newProduct, id: "5555" };
+      newProduct = { ...newProduct, id: id };
       this.items = [...this.items, newProduct];
     }
     console.log(this.items);

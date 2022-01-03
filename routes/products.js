@@ -16,7 +16,7 @@ router.post("/", (req, res) => {
   // console.log(myBody.name, myBody.price, myBody.description);
 
   res.send(
-    product.createProduct(myBody.name, myBody.price, myBody.description)
+    product.createProduct(myBody.name, myBody.price, myBody.description, uuid())
   );
 });
 
@@ -29,7 +29,6 @@ router.get("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
 
-  const product = new ProductService();
   res.send(product.deleteProduct(id));
 });
 //
