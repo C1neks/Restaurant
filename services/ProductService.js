@@ -1,5 +1,6 @@
 import { uuid } from "uuidv4";
 import Product from "../models/productModel.js";
+import { Repository } from "../repository/repository.js";
 export class ProductModel {
   constructor(name, price, description, id) {
     this.name = name;
@@ -10,31 +11,27 @@ export class ProductModel {
 }
 
 export class ProductService {
-  constructor() {
-    this.items = [];
-  }
+  constructor() {}
   async getProducts() {
-    try {
-      const products = await Product.find();
+    const Items = new Repository(Product);
 
-      return products;
-    } catch (error) {
-      return error.message;
-    }
+    return await Items.getItems();
   }
   async createProduct(name, price, description) {
-    const post = {
+    const product = {
       name: name,
       price: price,
       description: description,
     };
-    const newProduct = new Product(post);
-    try {
-      await newProduct.save();
-      return "Produkt został dodany!";
-    } catch (error) {
-      return error.message;
-    }
+    const newitem = new Repository(Product);
+    await newitem.createItem(product);
+    // const newProduct = new Product(post);
+    // try {
+    //   await newProduct.save();
+    //   return "Produkt został dodany!";
+    // } catch (error) {
+    //   return error.message;
+    // }
     // if (Array.isArray(this.items)) {
     //   let newProduct = new ProductModel(name, price, description);
     //   newProduct = { ...newProduct, id: id };
@@ -43,25 +40,17 @@ export class ProductService {
     // console.log(this.items);
     // return this.items;
   }
-  async getProductById(productId) {
-    const id = productId;
-    let product;
-    try {
-      product = await Product.findById(id);
-    } catch (error) {
-      return error.message("error occured when looking for product");
-    }
-    if (!product) {
-      return "cant find product";
-    }
+  async getProductById(id) {
+    const newitem = new Repository(Product);
 
-    return product;
+    return await newitem.getItemById(id);
 
     // return this.items.find((product) => product.id === id);
   }
   async deleteProduct(productId) {
-    await Product.deleteOne({ _id: productId });
-    return `Product with id ${productId} DELETED`;
+    const repository = new Repository(Product);
+
+    return await repository.deleteItem(productId);
   }
   // deleteProduct(productId) {
   //   const id = productId;
@@ -78,7 +67,7 @@ export class ProductService {
   async updateProduct(productId, body) {
     const id = productId;
     const { name, price, description } = body;
-
+    const repository = new Repository(Product);
     const updatedProduct = await this.getProductById(id);
 
     if (name) updatedProduct.name = name;
@@ -87,9 +76,7 @@ export class ProductService {
 
     if (description) updatedProduct.description = description;
 
-    const newProduct = new Product(updatedProduct);
-    await newProduct.save();
-    return `Product with id ${id} updated`;
+    return await repository.updateItem(updatedProduct);
   }
 }
 

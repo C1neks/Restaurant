@@ -1,7 +1,7 @@
 import express from "express";
 import { uuid } from "uuidv4";
 
-import { ProductService, ProductModel } from "../services/ProductService.js";
+import { ProductService } from "../services/ProductService.js";
 
 const router = express.Router();
 const product = new ProductService();
