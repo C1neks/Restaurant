@@ -1,6 +1,4 @@
 
-
-
 import {userService} from "../routes/users.js";
 
 export class UserService {
@@ -20,7 +18,7 @@ export class UserService {
       password: password,
     };
 
-    await userService.repository.createItem(user);
+    return await userService.repository.createItem(user);
   }
   async getUserById(id) {
 

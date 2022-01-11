@@ -4,7 +4,7 @@ import {Repository} from "../repository/repository.js";
 import User from "../models/userModel.js";
 
 const router = express.Router();
-
+// export const repository = new Repository(User)
 
 export const userService = new UserService(new Repository(User));
 
