@@ -1,14 +1,17 @@
-import { Repository } from "../repository/repository.js";
 
-import User from "../models/userModel.js";
+
+
+import {userService} from "../routes/users.js";
 
 export class UserService {
-  constructor() {}
+  constructor(repository) {
+    this.repository = repository;
+  }
 
   async getUsers() {
-    const Items = new Repository(User);
 
-    return await Items.getItems();
+
+    return await userService.repository.getItems();
   }
 
   async createUser(name, password) {
@@ -16,28 +19,29 @@ export class UserService {
       name: name,
       password: password,
     };
-    const newitem = new Repository(User);
-    await newitem.createItem(user);
+
+    await userService.repository.createItem(user);
   }
   async getUserById(id) {
-    const newitem = new Repository(User);
 
-    return await newitem.getItemById(id);
+
+    return await userService.repository.getItemById(id);
   }
   async deleteUser(userId) {
-    const repository = new Repository(User);
-    return await repository.deleteItem(userId);
+
+    return await userService.repository.deleteItem(userId);
   }
   async updateUser(userId, body) {
     const id = userId;
     const { name, password } = body;
-    const repository = new Repository(User);
+    // const repository = new Repository(User);
     const updatedProduct = await this.getUserById(id);
 
     if (name) updatedProduct.name = name;
 
     if (password) updatedProduct.password = password;
 
-    return await repository.updateItem(updatedProduct);
+    return await userService.repository.updateItem(updatedProduct);
   }
 }
+

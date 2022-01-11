@@ -1,10 +1,10 @@
 export class Repository {
-  constructor(documentName) {
-    this.documentName = documentName;
+  constructor(Document) {
+    this.Document = Document;
   }
   async getItems() {
     try {
-      const items = await this.documentName.find();
+      const items = await this.Document.find();
 
       return items;
     } catch (error) {
@@ -12,10 +12,11 @@ export class Repository {
     }
   }
   async createItem(item) {
-    const newItem = new this.documentName(item);
+    const newItem = new this.Document(item);
     try {
       await newItem.save();
-      return "Item saved!";
+      console.log(newItem);
+      return newItem;
     } catch (error) {
       return error.message;
     }
@@ -23,23 +24,27 @@ export class Repository {
   async getItemById(id) {
     let item;
     try {
-      item = await this.documentName.findById(id);
-    } catch (error) {
-      return error.message("error occured when looking for item");
+      item = await this.Document.findById(id);
+    } catch (error) {a.message("error occured when looking for item");
     }
     if (!item) {
-      return `cant find item with id: ${id}`;
+      return `Cannot find item of id: ${id}`;
     }
     return item;
   }
   async deleteItem(productId) {
-    await this.documentName.deleteOne({ _id: productId });
-    return `Item with id ${productId} DELETED`;
+    const isDeleted = await this.Document.deleteOne({ _id: productId });
+
+
+    if(isDeleted.deletedCount===1){
+  return true;
+} else
+{return false}
   }
 
   async updateItem(item) {
-    const itemToUpdate = new this.documentName(item);
+    const itemToUpdate = new this.Document(item);
     await itemToUpdate.save();
-    return `Item with id ${item._id} updated`;
+    return itemToUpdate;
   }
 }

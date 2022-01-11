@@ -1,14 +1,7 @@
 import { uuid } from "uuidv4";
 import Product from "../models/productModel.js";
 import { Repository } from "../repository/repository.js";
-export class ProductModel {
-  constructor(name, price, description, id) {
-    this.name = name;
-    this.price = price;
-    this.description = description;
-    this.id = id;
-  }
-}
+
 
 export class ProductService {
   constructor() {}
