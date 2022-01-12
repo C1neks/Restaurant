@@ -1,14 +1,10 @@
-
-import {productService} from "../routes/products.js";
-
+import { productService } from "../routes/products.js";
 
 export class ProductService {
   constructor(repository) {
-    this.repository = repository
+    this.repository = repository;
   }
   async getProducts() {
-
-
     return await productService.repository.getItems();
   }
   async createProduct(name, price, description) {
@@ -19,32 +15,14 @@ export class ProductService {
     };
 
     return await productService.repository.createItem(product);
-
   }
   async getProductById(id) {
-
-
     return await productService.repository.getItemById(id);
-
-
   }
   async deleteProduct(productId) {
-
-
     return await productService.repository.deleteItem(productId);
   }
-  // deleteProduct(productId) {
-  //   const id = productId;
-  //
-  //   this.items = this.items.filter((product) => product.id !== id);
-  //
-  //   return this.items;
-  // }
-  // async getSingleProduct() {
-  //   const productDb = await this.getProductById(productId);
-  //
-  //   return productDb;
-  // }
+
   async updateProduct(productId, body) {
     const id = productId;
     const { name, price, description } = body;
@@ -60,4 +38,3 @@ export class ProductService {
     return await productService.repository.updateItem(updatedProduct);
   }
 }
-

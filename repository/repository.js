@@ -6,45 +6,85 @@ export class Repository {
     try {
       const items = await this.Document.find();
 
-      return items;
+      return {
+        data: items,
+        error: null,
+      };
     } catch (error) {
-      return error.message;
+      return {
+        data: null,
+        error: error,
+      };
     }
   }
   async createItem(item) {
     const newItem = new this.Document(item);
     try {
       await newItem.save();
-      console.log(newItem);
-      return newItem;
+
+      return {
+        data: newItem,
+        error: null,
+      };
     } catch (error) {
-      return error.message;
+      return {
+        data: null,
+        error: error,
+      };
     }
   }
   async getItemById(id) {
     let item;
+
     try {
       item = await this.Document.findById(id);
-    } catch (error) {a.message("error occured when looking for item");
+    } catch (error) {
+      return {
+        data: null,
+        error: error,
+      };
     }
     if (!item) {
-      return `Cannot find item of id: ${id}`;
+      return { data: null, error: null };
     }
     return item;
   }
   async deleteItem(productId) {
-    const isDeleted = await this.Document.deleteOne({ _id: productId });
-
-
-    if(isDeleted.deletedCount===1){
-  return true;
-} else
-{return false}
+    try {
+      const isDeleted = await this.Document.deleteOne({ _id: productId });
+      if (isDeleted.deletedCount === 1) {
+        return {
+          data: true,
+          error: null,
+        };
+      } else {
+        return {
+          data: false,
+          error: null,
+        };
+      }
+    } catch (error) {
+      return {
+        data: null,
+        error: error,
+      };
+    }
   }
 
   async updateItem(item) {
-    const itemToUpdate = new this.Document(item);
-    await itemToUpdate.save();
-    return itemToUpdate;
+    try {
+      const itemToUpdate = new this.Document(item);
+
+      await itemToUpdate.save();
+      return {
+        data: itemToUpdate,
+        error: null,
+      };
+    } catch (error) {
+      return {
+        data: null,
+        error: error,
+      };
+    }
   }
 }

@@ -1,12 +1,10 @@
 import express from "express";
 
-
 import { ProductService } from "../services/ProductService.js";
 
-import {Repository} from "../repository/repository.js";
+import { Repository } from "../repository/repository.js";
 
 import Product from "../models/productModel.js";
-
 
 const router = express.Router();
 export const productService = new ProductService(new Repository(Product));
@@ -17,15 +15,11 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   const myBody = req.body;
 
-  // userService.createUser(myBody.name, myBody.password).then((r) => {
-  //   res.send(r);
-  // });
-productService.createProduct(myBody.name, myBody.price, myBody.description).then((r)=>{
-  res.send(r);
-})
-  // res.send(
-  //   productService.createProduct(myBody.name, myBody.price, myBody.description)
-  // );
+  productService
+    .createProduct(myBody.name, myBody.price, myBody.description)
+    .then((r) => {
+      res.send(r);
+    });
 });
 
 router.get("/:id", (req, res) => {

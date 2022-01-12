@@ -1,5 +1,4 @@
-
-import {userService} from "../routes/users.js";
+import { userService } from "../routes/users.js";
 
 export class UserService {
   constructor(repository) {
@@ -7,8 +6,6 @@ export class UserService {
   }
 
   async getUsers() {
-
-
     return await userService.repository.getItems();
   }
 
@@ -21,25 +18,23 @@ export class UserService {
     return await userService.repository.createItem(user);
   }
   async getUserById(id) {
-
-
     return await userService.repository.getItemById(id);
   }
   async deleteUser(userId) {
-
     return await userService.repository.deleteItem(userId);
   }
   async updateUser(userId, body) {
     const id = userId;
     const { name, password } = body;
-    // const repository = new Repository(User);
-    const updatedProduct = await this.getUserById(id);
 
-    if (name) updatedProduct.name = name;
+    const oldUser = await this.getUserById(id);
 
-    if (password) updatedProduct.password = password;
+    const newUser = {
+      ...oldUser,
+      name: body.name || oldUser.name,
+      password: body.password || oldUser.password,
+    };
 
-    return await userService.repository.updateItem(updatedProduct);
+    return await userService.repository.updateItem(newUser);
   }
 }
-
