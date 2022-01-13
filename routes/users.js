@@ -1,10 +1,9 @@
 import express from "express";
 import { UserService } from "../services/UserService.js";
-import {Repository} from "../repository/repository.js";
+import { Repository } from "../repository/repository.js";
 import User from "../models/userModel.js";
 
 const router = express.Router();
-// export const repository = new Repository(User)
 
 export const userService = new UserService(new Repository(User));
 
@@ -13,9 +12,9 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const myBody = req.body;
+  const { name, password } = req.body;
 
-  userService.createUser(myBody.name, myBody.password).then((r) => {
+  userService.createUser(name, password).then((r) => {
     res.send(r);
   });
 });

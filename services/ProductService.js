@@ -24,17 +24,6 @@ export class ProductService {
   }
 
   async updateProduct(productId, body) {
-    const id = productId;
-    const { name, price, description } = body;
-
-    const updatedProduct = await this.getProductById(id);
-
-    if (name) updatedProduct.name = name;
-
-    if (price) updatedProduct.price = price;
-
-    if (description) updatedProduct.description = description;
-
-    return await productService.repository.updateItem(updatedProduct);
+    return await productService.repository.updateItem(productId, body);
   }
 }

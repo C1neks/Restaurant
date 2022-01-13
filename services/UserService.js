@@ -24,17 +24,6 @@ export class UserService {
     return await userService.repository.deleteItem(userId);
   }
   async updateUser(userId, body) {
-    const id = userId;
-    const { name, password } = body;
-
-    const oldUser = await this.getUserById(id);
-
-    const newUser = {
-      ...oldUser,
-      name: body.name || oldUser.name,
-      password: body.password || oldUser.password,
-    };
-
-    return await userService.repository.updateItem(newUser);
+    return await userService.repository.updateItem(userId, body);
   }
 }

@@ -13,13 +13,11 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const myBody = req.body;
+  const { name, price, description } = req.body;
 
-  productService
-    .createProduct(myBody.name, myBody.price, myBody.description)
-    .then((r) => {
-      res.send(r);
-    });
+  productService.createProduct(name, price, description).then((r) => {
+    res.send(r);
+  });
 });
 
 router.get("/:id", (req, res) => {
@@ -35,7 +33,7 @@ router.delete("/:id", (req, res) => {
     res.send(r);
   });
 });
-//
+
 router.patch("/:id", (req, res) => {
   const id = req.params.id;
   const body = req.body;
