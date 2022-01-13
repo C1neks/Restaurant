@@ -27,8 +27,8 @@ export class Repository {
   getItemById(id) {
     return this.execute(this.Document.findById(id));
   }
-  async deleteItem(productId) {
-    return this.execute(this.Document.findOneAndDelete({ _id: productId }));
+  async deleteItem(id) {
+    return this.execute(this.Document.findOneAndDelete({ _id: id }));
   }
 
   async updateItem(id, body) {
