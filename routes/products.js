@@ -1,48 +1,45 @@
 import express from "express";
-import { uuid } from "uuidv4";
+
+import { ProductService } from "../services/ProductService.js";
+
+import { Repository } from "../repository/repository.js";
+
+import Product from "../models/productModel.js";
 
 const router = express.Router();
-
-let products = [];
-
+export const productService = new ProductService(new Repository(Product));
 router.get("/", (req, res) => {
-  res.send(products);
+  productService.getProducts().then((r) => res.send(r));
 });
 
 router.post("/", (req, res) => {
-  const product = req.body;
+  const { name, price, description } = req.body;
 
-  products.push({ ...product, id: uuid() });
-  res.send(`Product ${product.name} added to the DB`);
+  productService.createProduct(name, price, description).then((r) => {
+    res.send(r);
+  });
 });
 
 router.get("/:id", (req, res) => {
-  const { id } = req.params;
-  const foundProduct = products.find((product) => product.id === id);
-  res.send(foundProduct);
+  const id = req.params.id;
+
+  productService.getProductById(id).then((r) => res.send(r));
 });
 
 router.delete("/:id", (req, res) => {
-  const { id } = req.params;
+  const id = req.params.id;
 
-  products = products.filter((product) => product.id !== id);
-
-  res.send(`Product with id ${id} deleted from DB!`);
+  productService.deleteProduct(id).then((r) => {
+    res.send(r);
+  });
 });
 
 router.patch("/:id", (req, res) => {
-  const { id } = req.params;
-  const { name, price, description } = req.body;
-
-  const updatedProduct = products.find((product) => product.id === id);
-
-  if (name) updatedProduct.name = name;
-
-  if (price) updatedProduct.price = price;
-
-  if (description) updatedProduct.description = description;
-
-  res.send(`Product with id ${id} updated!`);
+  const id = req.params.id;
+  const body = req.body;
+  productService.updateProduct(id, body).then((r) => {
+    res.send(r);
+  });
 });
 
 export default router;
