@@ -28,13 +28,7 @@ export class Repository {
     return this.execute(this.Document.findById(id));
   }
   async deleteItem(productId) {
-    const isDeleted = await this.Document.deleteOne({ _id: productId });
-
-    if (isDeleted.deletedCount === 1) {
-      return this.execute(true);
-    } else {
-      return this.execute(false);
-    }
+    return this.execute(this.Document.findOneAndDelete({ _id: productId }));
   }
 
   async updateItem(id, body) {
