@@ -16,9 +16,13 @@ export class OrderService {
       quantity: quantity,
       status: status,
     };
+    const isProductExist = await productService.repository.getItemById(
+      productId
+    );
 
-    if (productService.repository.getItemById(productId).data != null)
+    if (isProductExist.data != null) {
       return await orderService.repository.createItem(order);
+    }
   }
   async getOrderById(id) {
     return await orderService.repository.getItemById(id);
