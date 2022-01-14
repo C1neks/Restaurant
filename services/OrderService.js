@@ -10,12 +10,13 @@ export class OrderService {
     return await orderService.repository.getItems();
   }
 
-  async createOrder(productId, quantity, status) {
+  async createOrder(productId, status) {
     const order = {
       product: productId,
-      quantity: quantity,
+      quantity: productId.length,
       status: status,
     };
+
     const isProductExist = await productService.repository.getItemById(
       productId
     );
