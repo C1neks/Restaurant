@@ -12,9 +12,9 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { name, password } = req.body;
+  const { name, email, password } = req.body;
 
-  userService.createUser(name, password).then((r) => {
+  userService.createUser(name, email, password).then((r) => {
     res.send(r);
   });
 });

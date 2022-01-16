@@ -9,9 +9,10 @@ export class UserService {
     return await userService.repository.getItems();
   }
 
-  async createUser(name, password) {
+  async createUser(name, email, password) {
     const user = {
       name: name,
+      email: email,
       password: password,
     };
 
