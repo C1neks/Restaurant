@@ -1,20 +1,20 @@
 import express from "express";
-import { UserService } from "../services/UserService.js";
+import { CategoryService } from "../services/CategoryService.js";
 import { Repository } from "../repository/repository.js";
-import User from "../models/userModel.js";
+import Category from "../models/categoryModel.js";
 
 const router = express.Router();
 
-export const userService = new UserService(new Repository(User));
+export const categoryService = new CategoryService(new Repository(Category));
 
 router.get("/", (req, res) => {
-  userService.getUsers().then((r) => res.send(r));
+  categoryService.getCategories().then((r) => res.send(r));
 });
 
 router.post("/", (req, res) => {
-  const { name, email, password } = req.body;
+  const { name } = req.body;
 
-  userService.createUser(name, email, password).then((r) => {
+  categoryService.createCategory(name).then((r) => {
     res.send(r);
   });
 });
@@ -22,13 +22,13 @@ router.post("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const id = req.params.id;
 
-  userService.getUserById(id).then((r) => res.send(r));
+  categoryService.getCategoryById(id).then((r) => res.send(r));
 });
 
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
 
-  userService.deleteUser(id).then((r) => {
+  categoryService.deleteCategory(id).then((r) => {
     res.send(r);
   });
 });
@@ -36,7 +36,7 @@ router.delete("/:id", (req, res) => {
 router.patch("/:id", (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  userService.updateUser(id, body).then((r) => {
+  categoryService.updateCategory(id, body).then((r) => {
     res.send(r);
   });
 });

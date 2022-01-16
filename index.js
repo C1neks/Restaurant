@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 
 import productsRoutes from "./routes/products.js";
 import usersRoutes from "./routes/users.js";
+import categoriesRoutes from "./routes/categories.js";
+import ordersRoutes from "./routes/orders.js";
 import mongoose from "mongoose";
 
 const app = express();
@@ -11,6 +13,8 @@ app.use(bodyParser.json());
 
 app.use("/products", productsRoutes);
 app.use("/users", usersRoutes);
+app.use("/categories", categoriesRoutes);
+app.use("/orders", ordersRoutes);
 
 app.get("/", (req, res) => {
   res.send("HOMEPAGE");
