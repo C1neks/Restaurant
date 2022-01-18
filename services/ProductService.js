@@ -5,7 +5,7 @@ export class ProductService {
     this.repository = repository;
   }
   async getProducts() {
-    return await productService.repository.getItems();
+    return await this.repository.getItems();
   }
   async createProduct(name, price, description) {
     const product = {
@@ -14,16 +14,16 @@ export class ProductService {
       description: description,
     };
 
-    return await productService.repository.createItem(product);
+    return await this.repository.createItem(product);
   }
   async getProductById(id) {
-    return await productService.repository.getItemById(id);
+    return await this.repository.getItemById(id);
   }
   async deleteProduct(productId) {
-    return await productService.repository.deleteItem(productId);
+    return await this.repository.deleteItem(productId);
   }
 
   async updateProduct(productId, body) {
-    return await productService.repository.updateItem(productId, body);
+    return await this.repository.updateItem(productId, body);
   }
 }

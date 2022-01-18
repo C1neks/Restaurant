@@ -7,7 +7,7 @@ export class OrderService {
   }
 
   async getOrders() {
-    return await orderService.repository.getItems();
+    return await this.repository.getItems();
   }
 
   async createOrder(productId, status) {
@@ -22,16 +22,16 @@ export class OrderService {
     );
 
     if (isProductExist.data != null) {
-      return await orderService.repository.createItem(order);
+      return await this.repository.createItem(order);
     }
   }
   async getOrderById(id) {
-    return await orderService.repository.getItemById(id);
+    return await this.repository.getItemById(id);
   }
   async deleteOrder(id) {
-    return await orderService.repository.deleteItem(id);
+    return await this.repository.deleteItem(id);
   }
   async updateOrder(id, body) {
-    return await orderService.repository.updateItem(id, body);
+    return await this.repository.updateItem(id, body);
   }
 }

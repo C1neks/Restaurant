@@ -6,7 +6,7 @@ export class UserService {
   }
 
   async getUsers() {
-    return await userService.repository.getItems();
+    return await this.repository.getItems();
   }
 
   async createUser(name, email, password) {
@@ -16,15 +16,15 @@ export class UserService {
       password: password,
     };
 
-    return await userService.repository.createItem(user);
+    return await this.repository.createItem(user);
   }
   async getUserById(id) {
-    return await userService.repository.getItemById(id);
+    return await this.repository.getItemById(id);
   }
   async deleteUser(userId) {
-    return await userService.repository.deleteItem(userId);
+    return await this.repository.deleteItem(userId);
   }
   async updateUser(userId, body) {
-    return await userService.repository.updateItem(userId, body);
+    return await this.repository.updateItem(userId, body);
   }
 }

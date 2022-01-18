@@ -6,7 +6,7 @@ export class CategoryService {
   }
 
   async getCategories() {
-    return await categoryService.repository.getItems();
+    return await this.repository.getItems();
   }
 
   async createCategory(name) {
@@ -14,15 +14,15 @@ export class CategoryService {
       name: name,
     };
 
-    return await categoryService.repository.createItem(category);
+    return await this.repository.createItem(category);
   }
   async getCategoryById(id) {
-    return await categoryService.repository.getItemById(id);
+    return await this.repository.getItemById(id);
   }
   async deleteCategory(id) {
-    return await categoryService.repository.deleteItem(id);
+    return await this.repository.deleteItem(id);
   }
   async updateCategory(id, body) {
-    return await categoryService.repository.updateItem(id, body);
+    return await this.repository.updateItem(id, body);
   }
 }
