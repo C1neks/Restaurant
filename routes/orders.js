@@ -12,9 +12,9 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { product, status } = req.body;
+  const { product, user, status } = req.body;
 
-  orderService.createOrder(product).then((r) => {
+  orderService.createOrder(product, user, status).then((r) => {
     res.send(r);
   });
 });

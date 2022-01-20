@@ -17,12 +17,12 @@ export class ProductService {
     };
     const updatedProduct = await this.repository.createItem(product);
 
-    const isCategoryExists = await categoryService.getCategories();
-    const a = isCategoryExists.data.filter(
+    const allCategories = await categoryService.getCategories();
+    const wantedCategory = allCategories.data.filter(
       (isExists) => isExists.name === category
     )[0];
 
-    await categoryService.updateCategory(a._id, a);
+    await categoryService.updateCategory(wantedCategory._id, wantedCategory);
     return updatedProduct;
   }
   async createProduct(name, price, category, description) {

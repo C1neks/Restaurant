@@ -10,9 +10,10 @@ export class OrderService {
     return await this.repository.getItems();
   }
 
-  async createOrder(productId, status) {
+  async createOrder(productId, user, status) {
     const order = {
       product: productId,
+      user: user,
       quantity: productId.length,
       status: status,
     };
