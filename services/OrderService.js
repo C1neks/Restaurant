@@ -1,4 +1,3 @@
-import { orderService } from "../routes/orders.js";
 import { productService } from "../routes/products.js";
 
 export class OrderService {
@@ -6,14 +5,23 @@ export class OrderService {
     this.repository = repository;
   }
 
-  async getOrders() {
-    return await this.repository.getItems();
+  async getOrders(sortValue) {
+    return "asc" === sortValue
+      ? await this.repository.getItemsAsc()
+      : await this.repository.getItemsDesc();
   }
 
   async createOrder(productId, user, status) {
+    const products = productId;
+    let sum = 0;
+    for (let i in products) {
+      let item = await productService.repository.getItemById(products[i]);
+      sum += item.data.price;
+    }
     const order = {
       product: productId,
       user: user,
+      price: sum,
       quantity: productId.length,
       status: status,
     };

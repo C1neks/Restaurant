@@ -16,6 +16,12 @@ export class Repository {
       };
     }
   }
+  getItemsAsc() {
+    return this.execute(this.Document.find().sort({ created_at: 1 }));
+  }
+  getItemsDesc() {
+    return this.execute(this.Document.find().sort({ created_at: -1 }));
+  }
   getItems() {
     return this.execute(this.Document.find());
   }
