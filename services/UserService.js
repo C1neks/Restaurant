@@ -5,8 +5,15 @@ export class UserService {
   constructor(repository) {
     this.repository = repository;
   }
-
+  async refreshUsers() {
+    const users = await this.repository.getItems();
+    for (let i in users.data) {
+      let user = users.data[i];
+      await this.getUserById(user._id.toString());
+    }
+  }
   async getUsers() {
+    await this.refreshUsers();
     return await this.repository.getItems();
   }
 

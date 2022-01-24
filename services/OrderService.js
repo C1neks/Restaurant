@@ -11,28 +11,33 @@ export class OrderService {
       : await this.repository.getItemsDesc();
   }
 
-  async createOrder(productId, user, status) {
-    const products = productId;
-    let sum = 0;
-    for (let i in products) {
-      let item = await productService.repository.getItemById(products[i]);
-      sum += item.data.price;
+  async createOrder(items, user) {
+    let cartItems = [];
+    let subTotal = 0;
+    for (let item of items) {
+      const dbItem = await productService.repository.getItemById(
+        item.productId
+      );
+      const total = dbItem.data.price * item.quantity;
+      subTotal += total;
+      cartItems = [
+        ...cartItems,
+        {
+          productId: item.productId,
+          total,
+          price: dbItem.data.price,
+          quantity: item.quantity,
+        },
+      ];
     }
+
     const order = {
-      product: productId,
-      user: user,
-      price: sum,
-      quantity: productId.length,
-      status: status,
+      items: cartItems,
+      subTotal,
+      user,
     };
 
-    const isProductExist = await productService.repository.getItemById(
-      productId
-    );
-
-    if (isProductExist.data != null) {
-      return await this.repository.createItem(order);
-    }
+    return await this.repository.createItem(order);
   }
   async getOrderById(id) {
     return await this.repository.getItemById(id);

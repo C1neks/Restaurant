@@ -14,9 +14,9 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { product, user, price, status } = req.body;
+  const { items, user } = req.body;
 
-  orderService.createOrder(product, user, status).then((r) => {
+  orderService.createOrder(items, user).then((r) => {
     res.send(r);
   });
 });
