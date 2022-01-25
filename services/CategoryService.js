@@ -1,4 +1,4 @@
-import { categoryService } from "../routes/categories.js";
+import { productService } from "../routes/products.js";
 
 export class CategoryService {
   constructor(repository) {
@@ -9,9 +9,23 @@ export class CategoryService {
     return await this.repository.getItems();
   }
 
+  async addProductsToCategory(name) {
+    const exisitngProducts = await productService.getProducts();
+    let products = [];
+
+    products = exisitngProducts.data.filter(
+      (product) => product.category === name
+    );
+
+    return products;
+  }
+
   async createCategory(name) {
+    const products = await this.addProductsToCategory(name);
+
     const category = {
       name: name,
+      products: products,
     };
 
     return await this.repository.createItem(category);
@@ -23,6 +37,8 @@ export class CategoryService {
     return await this.repository.deleteItem(id);
   }
   async updateCategory(id, body) {
+    body.products = await this.addProductsToCategory(body.name);
+
     return await this.repository.updateItem(id, body);
   }
 }

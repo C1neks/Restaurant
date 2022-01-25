@@ -6,6 +6,7 @@ const categorySchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  products: [],
 });
 
 const Category = mongoose.model("Category", categorySchema);

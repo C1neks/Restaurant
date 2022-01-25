@@ -8,13 +8,15 @@ const router = express.Router();
 export const orderService = new OrderService(new Repository(Order));
 
 router.get("/", (req, res) => {
-  orderService.getOrders().then((r) => res.send(r));
+  const isDescOrAsc = "asc" in req.query ? "asc" : "desc";
+
+  orderService.getOrders(isDescOrAsc).then((r) => res.send(r));
 });
 
 router.post("/", (req, res) => {
-  const { product, status } = req.body;
+  const { items, user } = req.body;
 
-  orderService.createOrder(product).then((r) => {
+  orderService.createOrder(items, user).then((r) => {
     res.send(r);
   });
 });

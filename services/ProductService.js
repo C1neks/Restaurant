@@ -1,4 +1,4 @@
-import { productService } from "../routes/products.js";
+import { categoryService } from "../routes/categories.js";
 
 export class ProductService {
   constructor(repository) {
@@ -7,20 +7,62 @@ export class ProductService {
   async getProducts() {
     return await this.repository.getItems();
   }
-  async createProduct(name, price, description) {
+  async createProductHelper(name, price, category, description) {
     const product = {
       name: name,
       price: price,
+      category: category,
       description: description,
     };
+    const updatedProduct = await this.repository.createItem(product);
 
-    return await this.repository.createItem(product);
+    const allCategories = await categoryService.getCategories();
+    const wantedCategory = allCategories.data.filter(
+      (isExists) => isExists.name === category
+    )[0];
+
+    await categoryService.updateCategory(wantedCategory._id, wantedCategory);
+    return updatedProduct;
+  }
+  async createProduct(name, price, category, description) {
+    const isCategoryExists = await categoryService.getCategories();
+
+    if (
+      isCategoryExists.data.some((isExists) => isExists.name === category) ===
+      false
+    ) {
+      const a = await categoryService.createCategory(category);
+
+      return await this.createProductHelper(name, price, category, description);
+    } else {
+      return await this.createProductHelper(name, price, category, description);
+    }
   }
   async getProductById(id) {
     return await this.repository.getItemById(id);
   }
   async deleteProduct(productId) {
-    return await this.repository.deleteItem(productId);
+    const productToDelete = await this.getProductById(productId);
+
+    if (productToDelete.data != null) {
+      const categoryToUpdate = productToDelete.data.category;
+
+      const getCategory = await categoryService.getCategories();
+
+      const idOfCategoryOfProduct = getCategory.data.filter(
+        (product) => product.name === categoryToUpdate
+      )[0];
+      const deletedProduct = await this.repository.deleteItem(productId);
+      await categoryService.updateCategory(
+        idOfCategoryOfProduct._id.toString(),
+        {
+          name: categoryToUpdate,
+        }
+      );
+      return deletedProduct;
+    } else {
+      return await this.repository.deleteItem(productId);
+    }
   }
 
   async updateProduct(productId, body) {

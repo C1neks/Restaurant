@@ -12,6 +12,7 @@ const userSchema = mongoose.Schema({
     },
   },
   password: { type: String, required: true },
+  orders: [],
 });
 
 const User = mongoose.model("User", userSchema);

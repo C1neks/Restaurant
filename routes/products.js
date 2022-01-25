@@ -13,9 +13,9 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { name, price, description } = req.body;
+  const { name, price, category, description } = req.body;
 
-  productService.createProduct(name, price, description).then((r) => {
+  productService.createProduct(name, price, category, description).then((r) => {
     res.send(r);
   });
 });
