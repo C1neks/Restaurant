@@ -16,17 +16,22 @@ export class OrderService {
       const dbItem = await productService.repository.getItemById(
         item.productId
       );
-      const total = dbItem.data.price * item.quantity;
-      subTotal += total;
-      cartItems = [
-        ...cartItems,
-        {
-          productId: item.productId,
-          total,
-          price: dbItem.data.price,
-          quantity: item.quantity,
-        },
-      ];
+
+      try {
+        const total = dbItem.data.price * item.quantity;
+        subTotal += total;
+        cartItems = [
+          ...cartItems,
+          {
+            productId: item.productId,
+            total,
+            price: dbItem.data.price,
+            quantity: item.quantity,
+          },
+        ];
+      } catch (error) {
+        return error;
+      }
     }
 
     const order = {
