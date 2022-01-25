@@ -1,4 +1,3 @@
-import { productService } from "../routes/products.js";
 import { categoryService } from "../routes/categories.js";
 
 export class ProductService {
@@ -43,7 +42,27 @@ export class ProductService {
     return await this.repository.getItemById(id);
   }
   async deleteProduct(productId) {
-    return await this.repository.deleteItem(productId);
+    const productToDelete = await this.getProductById(productId);
+
+    if (productToDelete.data != null) {
+      const categoryToUpdate = productToDelete.data.category;
+
+      const getCategory = await categoryService.getCategories();
+
+      const idOfCategoryOfProduct = getCategory.data.filter(
+        (product) => product.name === categoryToUpdate
+      )[0];
+      const deletedProduct = await this.repository.deleteItem(productId);
+      await categoryService.updateCategory(
+        idOfCategoryOfProduct._id.toString(),
+        {
+          name: categoryToUpdate,
+        }
+      );
+      return deletedProduct;
+    } else {
+      return await this.repository.deleteItem(productId);
+    }
   }
 
   async updateProduct(productId, body) {

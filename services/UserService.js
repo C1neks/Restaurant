@@ -29,7 +29,9 @@ export class UserService {
   async getUserById(id) {
     const allOrders = await orderService.getOrders();
 
-    const userOrders = allOrders.data.filter((order) => order.user === id);
+    const userOrders = allOrders.data.filter(
+      (order) => order.user.toString() === id
+    );
 
     await this.updateUser(id, {}, userOrders);
     return await this.repository.getItemById(id);

@@ -6,9 +6,7 @@ export class OrderService {
   }
 
   async getOrders(sortValue) {
-    return "asc" === sortValue
-      ? await this.repository.getItemsAsc()
-      : await this.repository.getItemsDesc();
+    return this.repository.getItemsSorted(sortValue);
   }
 
   async createOrder(items, user) {
