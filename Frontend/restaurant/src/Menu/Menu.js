@@ -11,7 +11,8 @@ import {
 } from "./Menu.styles";
 import { Button } from "../GlobalStyles";
 
-const Menu = () => {
+const Menu = (props) => {
+  const { onAddToCart } = props;
   const [menu, setMenu] = useState([]);
   const [category, setCategory] = useState([]);
   const getMenu = () => {
@@ -53,6 +54,7 @@ const Menu = () => {
                     <h3>{m.price}</h3>
                     <p>{m.description}</p>
                     <Button onClick={() => deleteProduct(m._id)}>Delete</Button>
+                    <Button onClick={() => onAddToCart(m)}>Add to Cart</Button>
                   </Item>
                 ) : null
               )}

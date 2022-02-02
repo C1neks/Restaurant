@@ -13,8 +13,10 @@ import {
   MenuItemBtn,
   MenuLinkBtn,
 } from "./Navbar.styles";
+import CartCount from "../Basket/CartCount";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const { countCartItems } = props;
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
@@ -39,7 +41,9 @@ const Navbar = () => {
               <MenuLink to="/addProducts">addProducts</MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink to="/login">Login</MenuLink>
+              <MenuLink to="/login">
+                <CartCount countCartItems={countCartItems} />
+              </MenuLink>
             </MenuItem>
             <MenuItemBtn>
               <MenuLinkBtn to="/menu">
