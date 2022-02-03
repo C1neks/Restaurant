@@ -9,6 +9,7 @@ import Main from "./Main/Main";
 import Form from "./FormField/Form";
 import axios from "axios";
 import Basket from "./Basket/Basket";
+import Checkout from "./Checkout/Checkout";
 
 const initialFormState = {
   name: "",
@@ -93,6 +94,9 @@ function App() {
             handleAddProduct={handleAddProduct}
             handleInputChange={handleInputChange}
           />
+        </Route>
+        <Route path="/checkout">
+          <Checkout cartItems={cartItems} />
         </Route>
       </Switch>
     </Router>
