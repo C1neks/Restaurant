@@ -33,7 +33,7 @@ const Menu = (props) => {
   const deleteProduct = (id) => {
     axios.delete(`http://localhost:4000/products/${id}`).then((response) => {
       console.log(response.data.data);
-      window.location.reload(false);
+      window.location.reload();
     });
   };
 

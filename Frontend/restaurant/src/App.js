@@ -70,6 +70,10 @@ function App() {
       );
     }
   };
+  const [totalPrice, setTotalPrice] = useState([]);
+  const totalPriceCalc = () => {
+    setTotalPrice(cartItems.reduce((a, c) => a + c.price * c.quantity, 0));
+  };
 
   return (
     <Router>
@@ -96,7 +100,11 @@ function App() {
           />
         </Route>
         <Route path="/checkout">
-          <Checkout cartItems={cartItems} />
+          <Checkout
+            cartItems={cartItems}
+            totalPriceCalc={totalPriceCalc}
+            totalPrice={totalPrice}
+          />
         </Route>
       </Switch>
     </Router>
