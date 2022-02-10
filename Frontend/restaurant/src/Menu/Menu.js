@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import axios from "axios";
 
@@ -11,10 +11,10 @@ import {
   CategoryName,
 } from "./Menu.styles";
 import { Button } from "../StyledComponents/Button";
+import { ItemsContext } from "../App";
 
-const Menu = (props) => {
-  const { onAddToCart } = props;
-
+const Menu = () => {
+  const context = useContext(ItemsContext);
   const [category, setCategory] = useState([]);
 
   const getCategories = () => {
@@ -48,7 +48,9 @@ const Menu = (props) => {
                     <h3>{m.price}</h3>
                     <p>{m.description}</p>
                     <Button onClick={() => deleteProduct(m._id)}>Delete</Button>
-                    <Button onClick={() => onAddToCart(m)}>Add to Cart</Button>
+                    <Button onClick={() => context.onAddToCart(m)}>
+                      Add to Cart
+                    </Button>
                   </Item>
                 ) : null
               )}

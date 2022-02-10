@@ -19,6 +19,13 @@ const initialFormState = {
   description: "",
 };
 
+export const ItemsContext = React.createContext({
+  cartItems: [],
+  totalPrice: 0,
+  onAddToCart: () => {},
+  onRemoveFromCart: () => {},
+});
+
 function App() {
   const addProductToDB = (a) => {
     axios.post("http://localhost:4000/products", a).then((response) => {
@@ -82,32 +89,31 @@ function App() {
   return (
     <Router>
       <GlobalStyles />
-      <Navbar countCartItems={cartItems.length} />
+      <ItemsContext.Provider
+        value={{ cartItems, totalPrice, onAddToCart, onRemoveFromCart }}
+      >
+        <Navbar countCartItems={cartItems.length} />
 
-      <Switch>
-        <Route path="/" exact>
-          <Main />
-        </Route>
-        <Route path="/menu">
-          <Basket
-            onAddToCart={onAddToCart}
-            onRemoveFromCart={onRemoveFromCart}
-            cartItems={cartItems}
-            totalPrice={totalPrice}
-          />
-          <Menu onAddToCart={onAddToCart} />
-        </Route>
-        <Route path="/addProducts">
-          <Form
-            formValues={formValues}
-            handleAddProduct={handleAddProduct}
-            handleInputChange={handleInputChange}
-          />
-        </Route>
-        <Route path="/checkout">
-          <Checkout cartItems={cartItems} totalPrice={totalPrice} />
-        </Route>
-      </Switch>
+        <Switch>
+          <Route path="/" exact>
+            <Main />
+          </Route>
+          <Route path="/menu">
+            <Basket />
+            <Menu />
+          </Route>
+          <Route path="/addProducts">
+            <Form
+              formValues={formValues}
+              handleAddProduct={handleAddProduct}
+              handleInputChange={handleInputChange}
+            />
+          </Route>
+          <Route path="/checkout">
+            <Checkout />
+          </Route>
+        </Switch>
+      </ItemsContext.Provider>
     </Router>
   );
 }
