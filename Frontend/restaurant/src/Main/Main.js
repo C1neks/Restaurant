@@ -1,5 +1,6 @@
 import React from "react";
-import GlobalStyles, { Button } from "../GlobalStyles";
+import GlobalStyles from "../GlobalStyles";
+import { Button } from "../StyledComponents/Button";
 import {
   MainContainer,
   MainContent,

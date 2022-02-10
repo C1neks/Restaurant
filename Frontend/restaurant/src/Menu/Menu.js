@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import axios from "axios";
 
 import {
@@ -9,19 +10,13 @@ import {
   ItemWrapper,
   CategoryName,
 } from "./Menu.styles";
-import { Button } from "../GlobalStyles";
+import { Button } from "../StyledComponents/Button";
 
 const Menu = (props) => {
   const { onAddToCart } = props;
-  const [menu, setMenu] = useState([]);
+
   const [category, setCategory] = useState([]);
-  const getMenu = () => {
-    axios.get("http://localhost:4000/products").then((response) => {
-      console.log(response.data.data);
-      const myMenu = response.data.data;
-      setMenu(myMenu);
-    });
-  };
+
   const getCategories = () => {
     axios.get("http://localhost:4000/categories").then((response) => {
       console.log(response.data.data);
@@ -33,11 +28,10 @@ const Menu = (props) => {
   const deleteProduct = (id) => {
     axios.delete(`http://localhost:4000/products/${id}`).then((response) => {
       console.log(response.data.data);
-      window.location.reload();
+      getCategories();
     });
   };
 
-  useEffect(() => getMenu(), []);
   useEffect(() => getCategories(), []);
 
   return (
@@ -47,7 +41,7 @@ const Menu = (props) => {
           <Category key={repos._id}>
             <CategoryName>{repos.name.toUpperCase()}</CategoryName>
             <ItemWrapper>
-              {menu.map((m) =>
+              {repos.products.map((m) =>
                 m.category === repos.name ? (
                   <Item key={m._id}>
                     <h2>{m.name}</h2>

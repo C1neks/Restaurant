@@ -1,16 +1,15 @@
 import React from "react";
 import { Cart } from "./Basket.styles";
-import { Button } from "../GlobalStyles";
+import { Button } from "../StyledComponents/Button";
 import { MenuItem, MenuLink } from "../NavBar/Navbar.styles";
 import CartCount from "./CartCount";
 
 const Basket = (props) => {
-  const { cartItems, onAddToCart, onRemoveFromCart } = props;
-  const totalPrice = cartItems.reduce((a, c) => a + c.price * c.quantity, 0);
+  const { cartItems, onAddToCart, onRemoveFromCart, totalPrice } = props;
+
   return (
     <Cart>
-      {/*{console.log("CART ITEMS:", cartItems)}*/}
-      <div>{cartItems.length === 0 && <div>Cart Is Empty</div>}</div>
+      {cartItems.length === 0 && <div>Cart Is Empty</div>}
       {cartItems.map((item) => (
         <div key={item._id}>
           <div>{item.name}</div>

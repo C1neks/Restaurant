@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { BiRestaurant } from "react-icons/bi";
-import { Container } from "../GlobalStyles";
+import { Container } from "../StyledComponents/Container";
 
 export const Nav = styled.nav`
   font-size: 18px;

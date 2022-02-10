@@ -1,6 +1,6 @@
 import React from "react";
 import { MainSubTitle } from "../Main/Main.styles";
-import { Button } from "../GlobalStyles";
+import { Button } from "../StyledComponents/Button";
 
 import FormField from "./FormField";
 import { Container } from "./Form.styles";

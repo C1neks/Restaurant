@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import GlobalStyles, { Container } from "./GlobalStyles";
+import GlobalStyles from "./GlobalStyles";
+
 import Menu from "./Menu/Menu";
-import { Wrapper } from "./Menu/Menu.styles";
+
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Navbar from "./NavBar/Navbar";
 import Main from "./Main/Main";
@@ -47,9 +48,9 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const onAddToCart = (product) => {
     console.log(product);
-    const exist = cartItems.find((x) => x === product);
+    const exist = cartItems.find((x) => x._id === product._id);
     if (exist) {
-      setCartItems(
+      setCartItems((cartItems) =>
         cartItems.map((x) =>
           x === product ? { ...exist, quantity: exist.quantity + 1 } : x
         )
@@ -63,7 +64,7 @@ function App() {
     if (exist.quantity === 1) {
       setCartItems(cartItems.filter((x) => x !== product));
     } else {
-      setCartItems(
+      setCartItems((cartItems) =>
         cartItems.map((x) =>
           x === product ? { ...exist, quantity: exist.quantity - 1 } : x
         )
@@ -71,9 +72,12 @@ function App() {
     }
   };
   const [totalPrice, setTotalPrice] = useState([]);
-  const totalPriceCalc = () => {
-    setTotalPrice(cartItems.reduce((a, c) => a + c.price * c.quantity, 0));
-  };
+
+  useEffect(
+    () =>
+      setTotalPrice(cartItems.reduce((a, c) => a + c.price * c.quantity, 0)),
+    [cartItems]
+  );
 
   return (
     <Router>
@@ -89,6 +93,7 @@ function App() {
             onAddToCart={onAddToCart}
             onRemoveFromCart={onRemoveFromCart}
             cartItems={cartItems}
+            totalPrice={totalPrice}
           />
           <Menu onAddToCart={onAddToCart} />
         </Route>
@@ -100,11 +105,7 @@ function App() {
           />
         </Route>
         <Route path="/checkout">
-          <Checkout
-            cartItems={cartItems}
-            totalPriceCalc={totalPriceCalc}
-            totalPrice={totalPrice}
-          />
+          <Checkout cartItems={cartItems} totalPrice={totalPrice} />
         </Route>
       </Switch>
     </Router>

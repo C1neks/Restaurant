@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BiMenu, BiX } from "react-icons/bi";
-import GlobalStyles, { Button } from "../GlobalStyles";
+import GlobalStyles from "../GlobalStyles";
+import { Button } from "../StyledComponents/Button";
 import {
   Nav,
   NavbarContainer,
