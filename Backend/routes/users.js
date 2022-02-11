@@ -2,6 +2,7 @@ import express from "express";
 import { UserService } from "../services/UserService.js";
 import { Repository } from "../repository/repository.js";
 import User from "../models/userModel.js";
+import bcrypt from "bcrypt";
 
 const router = express.Router();
 
@@ -11,10 +12,24 @@ router.get("/", (req, res) => {
   userService.getUsers().then((r) => res.send(r));
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { name, email, password } = req.body;
+  try {
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
+    console.log(salt);
+    console.log(hashedPassword);
+    userService.createUser(name, email, hashedPassword).then((r) => {
+      res.send(r);
+    });
+  } catch {
+    res.status(501).send();
+  }
+});
 
-  userService.createUser(name, email, password).then((r) => {
+router.post("/login", async (req, res) => {
+  const { name, password } = req.body;
+  userService.checkUser(name, password).then((r) => {
     res.send(r);
   });
 });

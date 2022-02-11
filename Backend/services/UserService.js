@@ -1,5 +1,6 @@
 import { userService } from "../routes/users.js";
 import { orderService } from "../routes/orders.js";
+import bcrypt from "bcrypt";
 
 export class UserService {
   constructor(repository) {
@@ -15,6 +16,29 @@ export class UserService {
   async getUsers() {
     await this.refreshUsers();
     return await this.repository.getItems();
+  }
+
+  async checkUser(name, password) {
+    const users = await this.repository.getItems();
+    const user = users.data.find((user) => user.name === name);
+    console.log(user);
+    console.log(password);
+    if (user === null) {
+      return "Cannot find user";
+    }
+    try {
+      if (await bcrypt.compare(password, user.password)) {
+        console.log(password);
+        console.log(user.password);
+        return "User logged in!";
+      } else {
+        console.log(password);
+        console.log(user.password);
+        return "Cannot logged user";
+      }
+    } catch {
+      return "Something went wrong!";
+    }
   }
 
   async createUser(name, email, password) {
