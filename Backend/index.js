@@ -1,13 +1,15 @@
 import express from "express";
 import bodyParser from "body-parser";
-
 import productsRoutes from "./routes/products.js";
 import usersRoutes from "./routes/users.js";
 import categoriesRoutes from "./routes/categories.js";
 import ordersRoutes from "./routes/orders.js";
 import mongoose from "mongoose";
 
+import cors from "cors";
+
 const app = express();
+app.use(cors());
 const PORT = 4000;
 app.use(bodyParser.json());
 
