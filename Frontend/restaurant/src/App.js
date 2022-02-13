@@ -11,12 +11,24 @@ import Form from "./FormField/Form";
 import axios from "axios";
 import Basket from "./Basket/Basket";
 import Checkout from "./Checkout/Checkout";
+import Register from "./Register/Register";
+import Login from "./Login/Login";
 
 const initialFormState = {
   name: "",
   price: "",
   category: "",
   description: "",
+};
+
+const initialUserFormState = {
+  name: "",
+  email: "",
+  password: "",
+};
+const initialLoginFormState = {
+  name: "",
+  password: "",
 };
 
 export const ItemsContext = React.createContext({
@@ -32,7 +44,19 @@ function App() {
       console.log(response.data.data);
     });
   };
+
+  const addUserToDB = (a) => {
+    axios.post("http://localhost:4000/users", a).then((response) => {
+      console.log(response.data.data);
+    });
+  };
+  const loginUser = (a) => {
+    axios.post("http://localhost:4000/users/login", a).then((response) => {
+      console.log(response);
+    });
+  };
   const [formValues, setFormValues] = useState(initialFormState);
+
   const handleInputChange = (e) => {
     console.log(formValues);
     setFormValues({
@@ -86,6 +110,45 @@ function App() {
     [cartItems]
   );
 
+  const [formUserValues, setFormUserValues] = useState(initialUserFormState);
+
+  const handleUserInputChange = (e) => {
+    console.log(formUserValues);
+    setFormUserValues({
+      ...formUserValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleAddUser = (e) => {
+    e.preventDefault();
+    const newUser = {
+      name: formUserValues.name,
+      email: formUserValues.email,
+      password: formUserValues.password,
+    };
+    addUserToDB(newUser);
+    setFormUserValues(initialUserFormState);
+  };
+
+  const [loginValues, setLoginValues] = useState(initialLoginFormState);
+  const handleLoginInputChange = (e) => {
+    console.log(loginValues);
+    setLoginValues({
+      ...loginValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLoginUser = (e) => {
+    e.preventDefault();
+    const UserToLogin = {
+      name: loginValues.name,
+      password: loginValues.password,
+    };
+    loginUser(UserToLogin);
+    setLoginValues(initialLoginFormState);
+  };
   return (
     <Router>
       <GlobalStyles />
@@ -107,6 +170,20 @@ function App() {
               formValues={formValues}
               handleAddProduct={handleAddProduct}
               handleInputChange={handleInputChange}
+            />
+          </Route>
+          <Route path="/register">
+            <Register
+              formUserValues={formUserValues}
+              handleUserInputChange={handleUserInputChange}
+              handleAddUser={handleAddUser}
+            />
+          </Route>
+          <Route path="/login">
+            <Login
+              loginValues={loginValues}
+              handleLoginInputChange={handleLoginInputChange}
+              handleLoginUser={handleLoginUser}
             />
           </Route>
           <Route path="/checkout">

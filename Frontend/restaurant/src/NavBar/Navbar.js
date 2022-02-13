@@ -46,6 +46,9 @@ const Navbar = (props) => {
                 <CartCount countCartItems={countCartItems} />
               </MenuLink>
             </MenuItem>
+            <MenuItem>
+              <MenuLink to="/register">Register</MenuLink>
+            </MenuItem>
             <MenuItemBtn>
               <MenuLinkBtn to="/menu">
                 <Button primary bigFont>

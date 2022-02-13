@@ -1,15 +1,38 @@
+import "dotenv/config";
+
 import express from "express";
 import { UserService } from "../services/UserService.js";
 import { Repository } from "../repository/repository.js";
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 
+import jwt from "jsonwebtoken";
+
 const router = express.Router();
 
 export const userService = new UserService(new Repository(User));
 
-router.get("/", (req, res) => {
-  userService.getUsers().then((r) => res.send(r));
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  console.log("AUTHHEADER:", authHeader);
+  console.log("TOKEN", token);
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
+
+router.get("/", authenticateToken, (req, res) => {
+  console.log("USERFROM:", req.user);
+  userService
+    .getUsers()
+    .then((r) =>
+      res.send(r.data.filter((user) => user.name === req.user.name))
+    );
 });
 
 router.post("/", async (req, res) => {
@@ -29,9 +52,14 @@ router.post("/", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { name, password } = req.body;
-  userService.checkUser(name, password).then((r) => {
-    res.send(r);
-  });
+  const isValid = await userService.checkUser(name, password);
+
+  const user = {
+    name: isValid.name,
+    password: isValid.password,
+  };
+  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+  res.json({ accessToken: accessToken });
 });
 
 router.get("/:id", (req, res) => {

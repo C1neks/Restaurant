@@ -22,19 +22,14 @@ export class UserService {
     const users = await this.repository.getItems();
     const user = users.data.find((user) => user.name === name);
     console.log(user);
-    console.log(password);
     if (user === null) {
       return "Cannot find user";
     }
     try {
       if (await bcrypt.compare(password, user.password)) {
-        console.log(password);
-        console.log(user.password);
-        return "User logged in!";
+        return user;
       } else {
-        console.log(password);
-        console.log(user.password);
-        return "Cannot logged user";
+        return null;
       }
     } catch {
       return "Something went wrong!";
