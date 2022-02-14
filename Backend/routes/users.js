@@ -53,12 +53,18 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { name, password } = req.body;
   const isValid = await userService.checkUser(name, password);
+  console.log("ISVALID", isValid);
+  // const user = {
+  //   _id: isValid._id,
+  //   name: isValid.name,
+  //   email: isValid.email,
+  //   password: isValid.password,
+  // };
+  const accessToken = jwt.sign(
+    isValid.toJSON(),
+    process.env.ACCESS_TOKEN_SECRET
+  );
 
-  const user = {
-    name: isValid.name,
-    password: isValid.password,
-  };
-  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
   res.json({ accessToken: accessToken });
 });
 

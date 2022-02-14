@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
+import { useHistory } from "react-router-dom";
 
 import Menu from "./Menu/Menu";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import Navbar from "./NavBar/Navbar";
 import Main from "./Main/Main";
 import Form from "./FormField/Form";
@@ -39,6 +46,7 @@ export const ItemsContext = React.createContext({
 });
 
 function App() {
+  const history = useHistory();
   const addProductToDB = (a) => {
     axios.post("http://localhost:4000/products", a).then((response) => {
       console.log(response.data.data);
@@ -52,7 +60,8 @@ function App() {
   };
   const loginUser = (a) => {
     axios.post("http://localhost:4000/users/login", a).then((response) => {
-      console.log(response);
+      console.log("RESPO:", response);
+      localStorage.setItem("userInfo", response.data.accessToken);
     });
   };
   const [formValues, setFormValues] = useState(initialFormState);
@@ -149,6 +158,7 @@ function App() {
     loginUser(UserToLogin);
     setLoginValues(initialLoginFormState);
   };
+
   return (
     <Router>
       <GlobalStyles />
