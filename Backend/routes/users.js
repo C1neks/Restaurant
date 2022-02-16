@@ -65,7 +65,7 @@ router.post("/login", async (req, res) => {
     process.env.ACCESS_TOKEN_SECRET
   );
 
-  res.json({ accessToken: accessToken });
+  res.json({ isValid, accessToken: accessToken });
 });
 
 router.get("/:id", (req, res) => {

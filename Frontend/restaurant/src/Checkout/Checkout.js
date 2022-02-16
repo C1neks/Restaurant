@@ -5,9 +5,11 @@ import { CheckoutWrapper } from "./Checkout.styles";
 import { ItemsContext } from "../App";
 import { Item } from "../Menu/Menu.styles";
 
-const Checkout = () => {
+const Checkout = ({ userDetails }) => {
   let items = [];
   const context = useContext(ItemsContext);
+  const user = userDetails[0];
+  console.log("USER!!!:", user);
   const createOrder = (cartItems) => {
     let order = cartItems.map(
       (cartItems) =>
@@ -19,7 +21,8 @@ const Checkout = () => {
           },
         ])
     );
-    order = { items, user: "62096dd4ec3a58cb9e7a0196" };
+
+    order = { items, user: user._id };
     console.log("ORDER:", order);
     axios.post("http://localhost:4000/orders", order).then((response) => {
       console.log(response.data.data);

@@ -20,6 +20,7 @@ import Basket from "./Basket/Basket";
 import Checkout from "./Checkout/Checkout";
 import Register from "./Register/Register";
 import Login from "./Login/Login";
+import Account from "./Account/Account";
 
 const initialFormState = {
   name: "",
@@ -46,7 +47,6 @@ export const ItemsContext = React.createContext({
 });
 
 function App() {
-  const history = useHistory();
   const addProductToDB = (a) => {
     axios.post("http://localhost:4000/products", a).then((response) => {
       console.log(response.data.data);
@@ -62,6 +62,7 @@ function App() {
     axios.post("http://localhost:4000/users/login", a).then((response) => {
       console.log("RESPO:", response);
       localStorage.setItem("userInfo", response.data.accessToken);
+      window.location.reload();
     });
   };
   const [formValues, setFormValues] = useState(initialFormState);
@@ -159,6 +160,28 @@ function App() {
     setLoginValues(initialLoginFormState);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("userInfo");
+    window.location.reload();
+  };
+
+  const [userDetails, setUserDetails] = useState([]);
+  const getUserDetails = () => {
+    const token = localStorage.getItem("userInfo");
+    axios
+      .get("http://localhost:4000/users", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        const details = response.data;
+        console.log(details);
+        setUserDetails(details);
+      });
+  };
+  useEffect(() => getUserDetails(), []);
+
   return (
     <Router>
       <GlobalStyles />
@@ -172,8 +195,14 @@ function App() {
             <Main />
           </Route>
           <Route path="/menu">
-            <Basket />
-            <Menu />
+            {localStorage.getItem("userInfo") ? (
+              <>
+                <Basket />
+                <Menu />
+              </>
+            ) : (
+              <Redirect to="/login" />
+            )}
           </Route>
           <Route path="/addProducts">
             <Form
@@ -194,10 +223,15 @@ function App() {
               loginValues={loginValues}
               handleLoginInputChange={handleLoginInputChange}
               handleLoginUser={handleLoginUser}
+              userDetails={userDetails}
+              handleLogout={handleLogout}
             />
           </Route>
+          <Route path="/account">
+            <Account userDetails={userDetails} />
+          </Route>
           <Route path="/checkout">
-            <Checkout />
+            <Checkout userDetails={userDetails} />
           </Route>
         </Switch>
       </ItemsContext.Provider>

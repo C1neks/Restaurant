@@ -47,7 +47,10 @@ const Navbar = (props) => {
               </MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink to="/register">Register</MenuLink>
+              <MenuLink to="/register">Login</MenuLink>
+            </MenuItem>
+            <MenuItem>
+              <MenuLink to="/account">My Account</MenuLink>
             </MenuItem>
             <MenuItemBtn>
               <MenuLinkBtn to="/menu">
