@@ -36,10 +36,11 @@ export class UserService {
     }
   }
 
-  async createUser(name, email, password) {
+  async createUser(name, email, isAdmin, password) {
     const user = {
       name: name,
       email: email,
+      isAdmin: false,
       password: password,
     };
 

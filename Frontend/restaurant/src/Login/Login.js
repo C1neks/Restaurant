@@ -5,12 +5,7 @@ import FormField from "../FormField/FormField";
 import { Button } from "../StyledComponents/Button";
 import { LoginLink } from "../Register/Register.styles";
 
-const Login = ({
-  loginValues,
-  handleLoginInputChange,
-  handleLoginUser,
-  handleLogout,
-}) => {
+const Login = ({ loginValues, handleLoginInputChange, handleLoginUser }) => {
   return (
     <>
       <Container as="form" onSubmit={handleLoginUser}>
@@ -32,7 +27,6 @@ const Login = ({
           onChange={handleLoginInputChange}
         />
         <Button type="submit">Login</Button>
-        <Button onClick={() => handleLogout()}>Logout</Button>
         <LoginLink to="/register">I don't have an account</LoginLink>
       </Container>
     </>

@@ -4,7 +4,7 @@ const Account = ({ userDetails }) => {
   return (
     <>
       {userDetails.map((x) => (
-        <div>
+        <div key={x._id}>
           <h2>Name:{x.name}</h2>
           <h3>Email:{x.email}</h3>
           <h3>

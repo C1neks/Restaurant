@@ -16,8 +16,7 @@ import {
 } from "./Navbar.styles";
 import CartCount from "../Basket/CartCount";
 
-const Navbar = (props) => {
-  const { countCartItems } = props;
+const Navbar = ({ countCartItems, handleLogout, userDetails }) => {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
@@ -39,7 +38,13 @@ const Navbar = (props) => {
               <MenuLink to="/">Home</MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink to="/addProducts">addProducts</MenuLink>
+              {userDetails.map((user) =>
+                user.isAdmin === true ? (
+                  <MenuLink key={user._id} to="/admin">
+                    Admin Panel
+                  </MenuLink>
+                ) : null
+              )}
             </MenuItem>
             <MenuItem>
               <MenuLink to="/menu">
@@ -47,7 +52,13 @@ const Navbar = (props) => {
               </MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink to="/register">Login</MenuLink>
+              {localStorage.getItem("userInfo") ? (
+                <MenuLink to="/" onClick={() => handleLogout()}>
+                  Logout
+                </MenuLink>
+              ) : (
+                <MenuLink to="/register">Login</MenuLink>
+              )}
             </MenuItem>
             <MenuItem>
               <MenuLink to="/account">My Account</MenuLink>

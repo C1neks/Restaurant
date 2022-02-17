@@ -13,7 +13,7 @@ import {
 import { Button } from "../StyledComponents/Button";
 import { ItemsContext } from "../App";
 
-const Menu = () => {
+const Menu = ({ userDetails }) => {
   const context = useContext(ItemsContext);
   const [category, setCategory] = useState([]);
 
@@ -47,10 +47,22 @@ const Menu = () => {
                     <h2>{m.name}</h2>
                     <h3>{m.price}</h3>
                     <p>{m.description}</p>
-                    <Button onClick={() => deleteProduct(m._id)}>Delete</Button>
-                    <Button onClick={() => context.onAddToCart(m)}>
-                      Add to Cart
-                    </Button>
+                    {userDetails.map((user) =>
+                      user.isAdmin === false ? (
+                        <Button onClick={() => context.onAddToCart(m)}>
+                          Add to Cart
+                        </Button>
+                      ) : (
+                        <>
+                          <Button onClick={() => context.onAddToCart(m)}>
+                            Add to Cart
+                          </Button>
+                          <Button onClick={() => deleteProduct(m._id)}>
+                            Delete
+                          </Button>
+                        </>
+                      )
+                    )}
                   </Item>
                 ) : null
               )}

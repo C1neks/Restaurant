@@ -58,6 +58,47 @@ function App() {
       console.log(response.data.data);
     });
   };
+  const [loginValues, setLoginValues] = useState(initialLoginFormState);
+  const handleLoginInputChange = (e) => {
+    console.log(loginValues);
+    setLoginValues({
+      ...loginValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLoginUser = (e) => {
+    e.preventDefault();
+    const UserToLogin = {
+      name: loginValues.name,
+      password: loginValues.password,
+    };
+    loginUser(UserToLogin);
+    setLoginValues(initialLoginFormState);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userInfo");
+    window.location.reload();
+  };
+
+  const [userDetails, setUserDetails] = useState([]);
+  const getUserDetails = () => {
+    const token = localStorage.getItem("userInfo");
+    axios
+      .get("http://localhost:4000/users", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        const details = response.data;
+        console.log(details);
+        setUserDetails(details);
+      });
+  };
+  useEffect(() => getUserDetails(), []);
+
   const loginUser = (a) => {
     axios.post("http://localhost:4000/users/login", a).then((response) => {
       console.log("RESPO:", response);
@@ -141,54 +182,17 @@ function App() {
     setFormUserValues(initialUserFormState);
   };
 
-  const [loginValues, setLoginValues] = useState(initialLoginFormState);
-  const handleLoginInputChange = (e) => {
-    console.log(loginValues);
-    setLoginValues({
-      ...loginValues,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleLoginUser = (e) => {
-    e.preventDefault();
-    const UserToLogin = {
-      name: loginValues.name,
-      password: loginValues.password,
-    };
-    loginUser(UserToLogin);
-    setLoginValues(initialLoginFormState);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("userInfo");
-    window.location.reload();
-  };
-
-  const [userDetails, setUserDetails] = useState([]);
-  const getUserDetails = () => {
-    const token = localStorage.getItem("userInfo");
-    axios
-      .get("http://localhost:4000/users", {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((response) => {
-        const details = response.data;
-        console.log(details);
-        setUserDetails(details);
-      });
-  };
-  useEffect(() => getUserDetails(), []);
-
   return (
     <Router>
       <GlobalStyles />
       <ItemsContext.Provider
         value={{ cartItems, totalPrice, onAddToCart, onRemoveFromCart }}
       >
-        <Navbar countCartItems={cartItems.length} />
+        <Navbar
+          countCartItems={cartItems.length}
+          handleLogout={handleLogout}
+          userDetails={userDetails}
+        />
 
         <Switch>
           <Route path="/" exact>
@@ -198,13 +202,13 @@ function App() {
             {localStorage.getItem("userInfo") ? (
               <>
                 <Basket />
-                <Menu />
+                <Menu userDetails={userDetails} />
               </>
             ) : (
               <Redirect to="/login" />
             )}
           </Route>
-          <Route path="/addProducts">
+          <Route path="/admin">
             <Form
               formValues={formValues}
               handleAddProduct={handleAddProduct}
@@ -219,16 +223,24 @@ function App() {
             />
           </Route>
           <Route path="/login">
-            <Login
-              loginValues={loginValues}
-              handleLoginInputChange={handleLoginInputChange}
-              handleLoginUser={handleLoginUser}
-              userDetails={userDetails}
-              handleLogout={handleLogout}
-            />
+            {localStorage.getItem("userInfo") ? (
+              <Redirect to="/" />
+            ) : (
+              <Login
+                loginValues={loginValues}
+                handleLoginInputChange={handleLoginInputChange}
+                handleLoginUser={handleLoginUser}
+                userDetails={userDetails}
+                handleLogout={handleLogout}
+              />
+            )}
           </Route>
           <Route path="/account">
-            <Account userDetails={userDetails} />
+            {localStorage.getItem("userInfo") ? (
+              <Account userDetails={userDetails} />
+            ) : (
+              <Redirect to="/login" />
+            )}
           </Route>
           <Route path="/checkout">
             <Checkout userDetails={userDetails} />

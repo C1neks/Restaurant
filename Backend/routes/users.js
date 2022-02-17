@@ -15,8 +15,6 @@ export const userService = new UserService(new Repository(User));
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  console.log("AUTHHEADER:", authHeader);
-  console.log("TOKEN", token);
   if (token == null) return res.sendStatus(401);
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
@@ -27,7 +25,6 @@ const authenticateToken = (req, res, next) => {
 };
 
 router.get("/", authenticateToken, (req, res) => {
-  console.log("USERFROM:", req.user);
   userService
     .getUsers()
     .then((r) =>
@@ -36,13 +33,13 @@ router.get("/", authenticateToken, (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, isAdmin, password } = req.body;
   try {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     console.log(salt);
     console.log(hashedPassword);
-    userService.createUser(name, email, hashedPassword).then((r) => {
+    userService.createUser(name, email, isAdmin, hashedPassword).then((r) => {
       res.send(r);
     });
   } catch {
@@ -53,13 +50,6 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { name, password } = req.body;
   const isValid = await userService.checkUser(name, password);
-  console.log("ISVALID", isValid);
-  // const user = {
-  //   _id: isValid._id,
-  //   name: isValid.name,
-  //   email: isValid.email,
-  //   password: isValid.password,
-  // };
   const accessToken = jwt.sign(
     isValid.toJSON(),
     process.env.ACCESS_TOKEN_SECRET
