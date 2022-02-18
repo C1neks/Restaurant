@@ -96,8 +96,11 @@ export class ProductService {
   }
 
   async updateProduct(productId, body) {
-    console.log(body.rating);
-
+    if (body.rating) {
+      console.log("JEST RATING");
+      return await this.repository.updateRates(productId, body);
+    }
+    console.log("NIE MA RATINGU");
     return await this.repository.updateItem(productId, body);
   }
 }

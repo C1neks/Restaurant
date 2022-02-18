@@ -42,7 +42,9 @@ const Opinion = ({ productId }) => {
       })}
       <h3>Rating is {rating}</h3>
       <h3>{productId}</h3>
-      <Button onClick={addRating(productId, rating)}>Rate our dish</Button>
+      <Button onClick={() => addRating(productId, rating)}>
+        Rate our dish
+      </Button>
     </div>
   );
 };

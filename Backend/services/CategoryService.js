@@ -6,7 +6,15 @@ export class CategoryService {
   }
 
   async getCategories() {
-    return await this.repository.getItems();
+    const a = await this.repository.getItems();
+
+    a.data.map((category) => {
+      let id = category._id;
+      let name = category.name;
+      this.repository.updateItem(id, name);
+    });
+    const b = await this.repository.getItems();
+    return b;
   }
 
   async addProductsToCategory(name) {
@@ -36,8 +44,14 @@ export class CategoryService {
   async deleteCategory(id) {
     return await this.repository.deleteItem(id);
   }
+  // async updateCategoryAfterRates(id, body) {
+  //   return await this.repository.updateItem(id, body);
+  // }
   async updateCategory(id, body) {
-    body.products = await this.addProductsToCategory(body.name);
+    if (body.products) {
+      await this.addProductsToCategory(body.name);
+      return await this.repository.updateItem(id, body);
+    }
 
     return await this.repository.updateItem(id, body);
   }

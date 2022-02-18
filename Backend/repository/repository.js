@@ -43,6 +43,18 @@ export class Repository {
       this.Document.findOneAndUpdate(
         { _id: id },
         {
+          ...body,
+        },
+        { new: true }
+      )
+    );
+  }
+
+  async updateRates(id, body) {
+    return this.execute(
+      this.Document.findOneAndUpdate(
+        { _id: id },
+        {
           $set: {
             name: body.name,
             price: body.price,
