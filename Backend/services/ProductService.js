@@ -7,12 +7,21 @@ export class ProductService {
   async getProducts() {
     return await this.repository.getItems();
   }
-  async createProductHelper(name, price, category, description) {
+  async createProductHelper(
+    name,
+    price,
+    category,
+    description,
+    rating,
+    numberOfRates
+  ) {
     const product = {
       name: name,
       price: price,
       category: category,
       description: description,
+      rating: rating,
+      numberOfRates: numberOfRates,
     };
     const updatedProduct = await this.repository.createItem(product);
 
@@ -24,7 +33,14 @@ export class ProductService {
     await categoryService.updateCategory(wantedCategory._id, wantedCategory);
     return updatedProduct;
   }
-  async createProduct(name, price, category, description) {
+  async createProduct(
+    name,
+    price,
+    category,
+    description,
+    rating,
+    numberOfRates
+  ) {
     const isCategoryExists = await categoryService.getCategories();
 
     if (
@@ -33,9 +49,23 @@ export class ProductService {
     ) {
       const a = await categoryService.createCategory(category);
 
-      return await this.createProductHelper(name, price, category, description);
+      return await this.createProductHelper(
+        name,
+        price,
+        category,
+        description,
+        rating,
+        numberOfRates
+      );
     } else {
-      return await this.createProductHelper(name, price, category, description);
+      return await this.createProductHelper(
+        name,
+        price,
+        category,
+        description,
+        rating,
+        numberOfRates
+      );
     }
   }
   async getProductById(id) {
@@ -66,6 +96,8 @@ export class ProductService {
   }
 
   async updateProduct(productId, body) {
+    console.log(body.rating);
+
     return await this.repository.updateItem(productId, body);
   }
 }

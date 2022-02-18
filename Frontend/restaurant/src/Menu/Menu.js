@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-
+import Opinion from "../Opinion/Opinion";
 import axios from "axios";
 
 import {
@@ -51,6 +51,7 @@ const Menu = () => {
                     <Button onClick={() => context.onAddToCart(m)}>
                       Add to Cart
                     </Button>
+                    <Opinion productId={m._id} />
                   </Item>
                 ) : null
               )}
