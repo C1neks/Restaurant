@@ -1,4 +1,5 @@
 import { productService } from "../routes/products.js";
+import { categoryService } from "../routes/categories.js";
 
 export class CategoryService {
   constructor(repository) {
@@ -6,19 +7,12 @@ export class CategoryService {
   }
 
   async getCategories() {
-    const a = await this.repository.getItems();
-
-    a.data.map((category) => {
-      let id = category._id;
-      let name = category.name;
-      this.repository.updateItem(id, name);
-    });
-    const b = await this.repository.getItems();
-    return b;
+    return await this.repository.getItems();
   }
 
   async addProductsToCategory(name) {
     const exisitngProducts = await productService.getProducts();
+    console.log(exisitngProducts);
     let products = [];
 
     products = exisitngProducts.data.filter(
@@ -48,11 +42,19 @@ export class CategoryService {
   //   return await this.repository.updateItem(id, body);
   // }
   async updateCategory(id, body) {
-    if (body.products) {
-      await this.addProductsToCategory(body.name);
-      return await this.repository.updateItem(id, body);
-    }
+    // await this.addProductsToCategory(body.name)
+    const exisitngProducts = await productService.getProducts();
 
-    return await this.repository.updateItem(id, body);
+    let products = [];
+    products = exisitngProducts.data.filter(
+      (product) => product.category === body.name
+    );
+
+    const category = {
+      name: body.name,
+      products,
+    };
+
+    return await this.repository.updateItem(id, category);
   }
 }

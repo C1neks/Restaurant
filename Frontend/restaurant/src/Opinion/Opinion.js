@@ -6,7 +6,15 @@ import axios from "axios";
 const Opinion = ({ productId }) => {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+  const [totalRating,settotalRating]= useState(null)
+  const getRating = (id)=>{
+    axios
+      .get(`http://localhost:4000/products/${id}`)
+      .then((response) => {
+        settotalRating(response.data.data.rating/response.data.data.numberOfRates)
 
+      });
+  }
   const addRating = (id, rating) => {
     const body = {
       rating: rating,
@@ -41,6 +49,8 @@ const Opinion = ({ productId }) => {
         );
       })}
       <h3>Rating is {rating}</h3>
+      {getRating(productId)}
+      <h3>Total rating is :{totalRating}</h3>
       <h3>{productId}</h3>
       <Button onClick={() => addRating(productId, rating)}>
         Rate our dish
