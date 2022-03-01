@@ -21,6 +21,7 @@ import Checkout from "./Checkout/Checkout";
 import Register from "./Register/Register";
 import Login from "./Login/Login";
 import Account from "./Account/Account";
+import AdminAccount from "./Account/AdminAccount";
 
 const initialFormState = {
   name: "",
@@ -182,6 +183,16 @@ function App() {
     setFormUserValues(initialUserFormState);
   };
 
+  const [orders, setOrder] = useState();
+
+  const getOrders = () => {
+    axios.get("http://localhost:4000/orders?desc").then((response) => {
+      console.log("ORDERS:", response.data.data);
+      setOrder(response.data.data);
+    });
+  };
+  useEffect(() => getOrders(), []);
+
   return (
     <Router>
       <GlobalStyles />
@@ -209,11 +220,20 @@ function App() {
             )}
           </Route>
           <Route path="/admin">
-            <Form
-              formValues={formValues}
-              handleAddProduct={handleAddProduct}
-              handleInputChange={handleInputChange}
-            />
+            {userDetails.map((x) =>
+              x.isAdmin !== true ? (
+                <div>You are not admin!</div>
+              ) : (
+                <>
+                  <Form
+                    formValues={formValues}
+                    handleAddProduct={handleAddProduct}
+                    handleInputChange={handleInputChange}
+                  />
+                  <AdminAccount userDetails={userDetails} orders={orders} />
+                </>
+              )
+            )}
           </Route>
           <Route path="/register">
             <Register
