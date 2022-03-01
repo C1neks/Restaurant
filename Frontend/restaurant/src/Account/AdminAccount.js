@@ -3,7 +3,7 @@ import { Button } from "../StyledComponents/Button";
 import axios from "axios";
 import { Container } from "../FormField/Form.styles";
 
-const AdminAccount = ({ orders }) => {
+const AdminAccount = ({ orders, get0rders }) => {
   const [status, setStatus] = useState("done");
 
   const handleChange = (event) => {
@@ -20,6 +20,7 @@ const AdminAccount = ({ orders }) => {
   const editOrderStatus = (id, body) => {
     axios.patch(`http://localhost:4000/orders/${id}`, body).then((response) => {
       console.log(response.data.data);
+      get0rders();
     });
   };
 

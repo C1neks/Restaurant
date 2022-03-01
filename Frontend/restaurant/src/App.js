@@ -230,7 +230,11 @@ function App() {
                     handleAddProduct={handleAddProduct}
                     handleInputChange={handleInputChange}
                   />
-                  <AdminAccount userDetails={userDetails} orders={orders} />
+                  <AdminAccount
+                    userDetails={userDetails}
+                    orders={orders}
+                    get0rders={getOrders}
+                  />
                 </>
               )
             )}
