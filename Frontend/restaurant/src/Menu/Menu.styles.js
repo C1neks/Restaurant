@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  background-color: #282a35;
+  background-color: #cbd18f;
   width: 100%;
 `;
 export const StyledList = styled.div`
@@ -31,6 +31,7 @@ export const ItemWrapper = styled.div`
   @media only screen and (max-width: 600px) {
     flex-direction: row;
   }
+  
 `;
 export const CategoryName = styled.h2`
   font-size: clamp(1rem, 10vw, 5rem);
@@ -54,5 +55,9 @@ export const Item = styled.div`
   @media only screen and (max-width: 600px) {
     height: 150px;
     width: 50%;
+  }
+  :hover{
+    background: #efd29c;
+    transform: scale(1.12, 1.08) translateY(0px) translateZ(0px);
   }
 `;

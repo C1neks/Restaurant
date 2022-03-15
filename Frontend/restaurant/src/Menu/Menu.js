@@ -12,6 +12,7 @@ import {
 } from "./Menu.styles";
 import { Button } from "../StyledComponents/Button";
 import { ItemsContext } from "../App";
+import { MainSubTitle } from "../Main/Main.styles";
 
 const Menu = ({ userDetails }) => {
   const context = useContext(ItemsContext);
@@ -39,7 +40,7 @@ const Menu = ({ userDetails }) => {
       <StyledList>
         {category.map((repos) => (
           <Category key={repos._id}>
-            <CategoryName>{repos.name.toUpperCase()}</CategoryName>
+            <MainSubTitle>{repos.name.toUpperCase()}</MainSubTitle>
             <ItemWrapper>
               {repos.products.map((m) =>
                 m.category === repos.name ? (
