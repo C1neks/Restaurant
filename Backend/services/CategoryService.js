@@ -44,7 +44,7 @@ export class CategoryService {
   async updateCategory(id, body) {
     // await this.addProductsToCategory(body.name)
     const exisitngProducts = await productService.getProducts();
-
+    console.log("EXISTING!", exisitngProducts);
     let products = [];
     products = exisitngProducts.data.filter(
       (product) => product.category === body.name

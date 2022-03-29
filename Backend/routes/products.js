@@ -12,15 +12,19 @@ router.get("/", (req, res) => {
   productService.getProducts().then((r) => res.send(r));
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { name, price, category, description, rating, numberOfRates } =
     req.body;
 
-  productService
-    .createProduct(name, price, category, description, rating, numberOfRates)
-    .then((r) => {
-      res.send(r);
-    });
+  const productToCreate = await productService.createProduct(
+    name,
+    price,
+    category,
+    description,
+    rating,
+    numberOfRates
+  );
+  res.send(productToCreate);
 });
 
 router.get("/:id", (req, res) => {
