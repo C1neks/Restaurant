@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Button } from "../StyledComponents/Button";
 import axios from "axios";
 import { Container } from "../FormField/Form.styles";
+import { orderService } from "../services/services";
 
-const AdminAccount = ({ orders, get0rders }) => {
+const AdminAccount = ({ Orders, getOrders }) => {
   const [status, setStatus] = useState("done");
 
   const handleChange = (event) => {
     setStatus(event.target.value);
-    console.log(status);
   };
 
   const handleEditStatus = (id) => {
@@ -17,34 +17,36 @@ const AdminAccount = ({ orders, get0rders }) => {
     };
     editOrderStatus(id, body);
   };
+
   const editOrderStatus = (id, body) => {
-    axios.patch(`http://localhost:4000/orders/${id}`, body).then((response) => {
+    orderService.updateOrder(id, body).then((response) => {
       console.log(response.data.data);
-      get0rders();
+      getOrders();
     });
+    window.location.reload();
   };
 
   return (
     <Container>
       <h1>Edit Order Status</h1>
-      {orders.map((x) => (
-        <div key={x._id}>
-          <h2>UserId:{x.user}</h2>
+      {Orders.map((order) => (
+        <div key={order._id}>
+          <h2>UserId:{order.user}</h2>
           <h3>
             <div>
-              <p>Orderid:{x._id}</p>
-              {x.items.map((z) => (
-                <div>
-                  <p>Product:{z.productId}</p>
+              <p>Orderid:{order._id}</p>
+              {order.items.map((product) => (
+                <div key={product.productId}>
+                  <p>Product:{product.productId}</p>
                 </div>
               ))}
-              <p>Status: {x.status}</p>
-              <select key={x._id} value={status} onChange={handleChange}>
+              <p>Status: {order.status}</p>
+              <select key={order._id} value={status} onChange={handleChange}>
                 <option value="inprocessing">inprocessing</option>
                 <option value="done">done</option>
               </select>
-              <Button onClick={() => handleEditStatus(x._id)}>Edit</Button>
-              <p>Total Price: {x.subTotal}</p>
+              <Button onClick={() => handleEditStatus(order._id)}>Edit</Button>
+              <p>Total Price: {order.subTotal}</p>
             </div>
           </h3>
         </div>

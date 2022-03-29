@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 import express from "express";
 import { UserService } from "../services/UserService.js";
 import { Repository } from "../repository/repository.js";
@@ -15,7 +13,7 @@ export const userService = new UserService(new Repository(User));
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  if (token == null) return res.sendStatus(401);
+  if (token === null) return res.sendStatus(401);
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
@@ -24,12 +22,9 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-router.get("/", authenticateToken, (req, res) => {
-  userService
-    .getUsers()
-    .then((r) =>
-      res.send(r.data.filter((user) => user.name === req.user.name))
-    );
+router.get("/", async (req, res) => {
+  const users = await userService.getUsers();
+  res.send(users);
 });
 
 router.post("/", async (req, res) => {
@@ -39,9 +34,14 @@ router.post("/", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     console.log(salt);
     console.log(hashedPassword);
-    userService.createUser(name, email, isAdmin, hashedPassword).then((r) => {
-      res.send(r);
-    });
+
+    const userToCreate = await userService.createUser(
+      name,
+      email,
+      isAdmin,
+      hashedPassword
+    );
+    res.send(userToCreate);
   } catch {
     res.status(501).send();
   }
@@ -49,16 +49,23 @@ router.post("/", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { name, password } = req.body;
-  const isValid = await userService.checkUser(name, password);
-  const accessToken = jwt.sign(
-    isValid.toJSON(),
-    process.env.ACCESS_TOKEN_SECRET
-  );
-
-  res.json({ isValid, accessToken: accessToken });
+  console.log("LOG", req.body);
+  const validUser = await userService.checkUser(name, password);
+  console.log("ISVALID", validUser.user);
+  if (validUser.error === null) {
+    const accessToken = jwt.sign(
+      validUser.user.toJSON(),
+      process.env.ACCESS_TOKEN_SECRET
+    );
+    res.json({ isValid: validUser, accessToken: accessToken });
+  } else {
+    res.json({
+      message: "username or password was wrong",
+    });
+  }
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", authenticateToken, (req, res) => {
   const id = req.params.id;
 
   userService.getUserById(id).then((r) => res.send(r));

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
-import { useHistory } from "react-router-dom";
 
 import Menu from "./Menu/Menu";
 
@@ -14,120 +13,64 @@ import {
 } from "react-router-dom";
 import Navbar from "./NavBar/Navbar";
 import Main from "./Main/Main";
-import Form from "./FormField/Form";
 import axios from "axios";
 import Basket from "./Basket/Basket";
 import Checkout from "./Checkout/Checkout";
 import Register from "./Register/Register";
-import Login from "./Login/Login";
-import Account from "./Account/Account";
-import AdminAccount from "./Account/AdminAccount";
-
-const initialFormState = {
-  name: "",
-  price: "",
-  category: "",
-  description: "",
-};
-
-const initialUserFormState = {
-  name: "",
-  email: "",
-  password: "",
-};
-const initialLoginFormState = {
-  name: "",
-  password: "",
-};
+import AdminPage from "./Admin/AdminPage";
+import LoginPage from "./Login/LoginPage";
+import AccountPage from "./Account/AccountPage";
+import { userService } from "./services/services";
 
 export const ItemsContext = React.createContext({
   cartItems: [],
   totalPrice: 0,
   onAddToCart: () => {},
   onRemoveFromCart: () => {},
+  logged: null,
 });
 
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("userInfo");
+    const auth = token ? `Bearer ${token}` : "";
+    config.headers.common["Authorization"] = auth;
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 function App() {
-  const addProductToDB = (a) => {
-    axios.post("http://localhost:4000/products", a).then((response) => {
-      console.log(response.data.data);
-    });
-  };
-
-  const addUserToDB = (a) => {
-    axios.post("http://localhost:4000/users", a).then((response) => {
-      console.log(response.data.data);
-    });
-  };
-  const [loginValues, setLoginValues] = useState(initialLoginFormState);
-  const handleLoginInputChange = (e) => {
-    console.log(loginValues);
-    setLoginValues({
-      ...loginValues,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleLoginUser = (e) => {
-    e.preventDefault();
-    const UserToLogin = {
-      name: loginValues.name,
-      password: loginValues.password,
-    };
-    loginUser(UserToLogin);
-    setLoginValues(initialLoginFormState);
-  };
+  const [logged, setLogged] = useState(null);
 
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
+    localStorage.removeItem("userID");
     window.location.reload();
   };
 
+  const [userID, setUserID] = useState("");
+  const isLogged = () => {
+    const ID = localStorage.getItem("userID");
+    const info = localStorage.getItem("userInfo");
+
+    setLogged(info);
+
+    // console.log(info);
+    // console.log(logged);
+    ID ? setUserID(ID) : setUserID(null);
+  };
+  useEffect(() => isLogged(), [userID]);
+
   const [userDetails, setUserDetails] = useState([]);
-  const getUserDetails = () => {
-    const token = localStorage.getItem("userInfo");
-    axios
-      .get("http://localhost:4000/users", {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((response) => {
-        const details = response.data;
-        console.log(details);
-        setUserDetails(details);
-      });
-  };
-  useEffect(() => getUserDetails(), []);
 
-  const loginUser = (a) => {
-    axios.post("http://localhost:4000/users/login", a).then((response) => {
-      console.log("RESPO:", response);
-      localStorage.setItem("userInfo", response.data.accessToken);
-      window.location.reload();
+  const getUserDetails = (userID) => {
+    userService.getDetails(userID).then((r) => {
+      setUserDetails(r.data.data);
     });
   };
-  const [formValues, setFormValues] = useState(initialFormState);
+  useEffect(() => getUserDetails(userID), [userID]);
 
-  const handleInputChange = (e) => {
-    console.log(formValues);
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleAddProduct = (e) => {
-    e.preventDefault();
-    const newProduct = {
-      name: formValues.name,
-      price: formValues.price,
-      category: formValues.category,
-      description: formValues.description,
-    };
-    addProductToDB(newProduct);
-    setFormValues(initialFormState);
-  };
   const [cartItems, setCartItems] = useState([]);
   const onAddToCart = (product) => {
     console.log(product);
@@ -162,42 +105,11 @@ function App() {
     [cartItems]
   );
 
-  const [formUserValues, setFormUserValues] = useState(initialUserFormState);
-
-  const handleUserInputChange = (e) => {
-    console.log(formUserValues);
-    setFormUserValues({
-      ...formUserValues,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleAddUser = (e) => {
-    e.preventDefault();
-    const newUser = {
-      name: formUserValues.name,
-      email: formUserValues.email,
-      password: formUserValues.password,
-    };
-    addUserToDB(newUser);
-    setFormUserValues(initialUserFormState);
-  };
-
-  const [orders, setOrder] = useState();
-
-  const getOrders = () => {
-    axios.get("http://localhost:4000/orders?desc").then((response) => {
-      console.log("ORDERS:", response.data.data);
-      setOrder(response.data.data);
-    });
-  };
-  useEffect(() => getOrders(), []);
-
   return (
     <Router>
       <GlobalStyles />
       <ItemsContext.Provider
-        value={{ cartItems, totalPrice, onAddToCart, onRemoveFromCart }}
+        value={{ cartItems, totalPrice, onAddToCart, onRemoveFromCart, logged }}
       >
         <Navbar
           countCartItems={cartItems.length}
@@ -210,61 +122,36 @@ function App() {
             <Main />
           </Route>
           <Route path="/menu">
-            {localStorage.getItem("userInfo") ? (
-              <>
-                <Basket />
+            {logged ? (
+              cartItems.length !== 0 ? (
+                <>
+                  <Basket />
+                  <Menu userDetails={userDetails} />
+                </>
+              ) : (
                 <Menu userDetails={userDetails} />
-              </>
+              )
             ) : (
               <Redirect to="/login" />
             )}
           </Route>
           <Route path="/admin">
-            {userDetails.map((x) =>
-              x.isAdmin !== true ? (
-                <div>You are not admin!</div>
-              ) : (
-                <>
-                  <Form
-                    formValues={formValues}
-                    handleAddProduct={handleAddProduct}
-                    handleInputChange={handleInputChange}
-                  />
-                  <AdminAccount
-                    userDetails={userDetails}
-                    orders={orders}
-                    get0rders={getOrders}
-                  />
-                </>
-              )
+            {!userDetails.isAdmin ? (
+              <div>You are not admin!</div>
+            ) : (
+              <>
+                <AdminPage userDetails={userDetails} />
+              </>
             )}
           </Route>
           <Route path="/register">
-            <Register
-              formUserValues={formUserValues}
-              handleUserInputChange={handleUserInputChange}
-              handleAddUser={handleAddUser}
-            />
+            <Register />
           </Route>
           <Route path="/login">
-            {localStorage.getItem("userInfo") ? (
-              <Redirect to="/" />
-            ) : (
-              <Login
-                loginValues={loginValues}
-                handleLoginInputChange={handleLoginInputChange}
-                handleLoginUser={handleLoginUser}
-                userDetails={userDetails}
-                handleLogout={handleLogout}
-              />
-            )}
+            <LoginPage userDetails={userDetails} handleLogout={handleLogout} />
           </Route>
           <Route path="/account">
-            {localStorage.getItem("userInfo") ? (
-              <Account userDetails={userDetails} />
-            ) : (
-              <Redirect to="/login" />
-            )}
+            <AccountPage userDetails={userDetails} />
           </Route>
           <Route path="/checkout">
             <Checkout userDetails={userDetails} />

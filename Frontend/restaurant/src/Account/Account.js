@@ -3,34 +3,44 @@ import { Button } from "../StyledComponents/Button";
 import axios from "axios";
 import Form from "../FormField/Form";
 import { MainSubTitle } from "../Main/Main.styles";
+import {
+  AccountContainer,
+  Spacer,
+  UserOrder,
+  UserOrders,
+} from "./Account.styles";
 
 const Account = ({ userDetails }) => {
-
-
+  console.log("DETAILS ACCOUNT!", userDetails);
   return (
     <>
-      {userDetails.map((x) => (
-        <div key={x._id}>
+      {
+        <AccountContainer key={userDetails._id}>
           <MainSubTitle>Account Details</MainSubTitle>
-          <h2>Name:{x.name}</h2>
-          <h3>Email:{x.email}</h3>
-          <h3>
-            {x.orders.map((y) => (
-              <div>
-                <p>Orderid:{y._id}</p>
+          <Spacer></Spacer>
+          <h2>Your name:{" " + userDetails.name}</h2>
+          <h3>Your Email:{" " + userDetails.email}</h3>
+          <UserOrders>
+            <MainSubTitle>Order History</MainSubTitle>
+            {userDetails.orders.map((y) => (
+              <UserOrder key={y._id}>
+                <Spacer></Spacer>
+                <p>Your Order:{" " + y._id}</p>
                 {y.items.map((z) => (
-                  <div>
+                  <div key={z.productId}>
                     <p>Product:{z.productId}</p>
                   </div>
                 ))}
                 <p>Status: {y.status}</p>
 
-                <p>Total Price: {y.subTotal}</p>
-              </div>
+                <p>Total Price: {y.subTotal + "$"}</p>
+                <Spacer></Spacer>
+              </UserOrder>
             ))}
-          </h3>
-        </div>
-      ))}
+          </UserOrders>
+        </AccountContainer>
+      }
+      )}
     </>
   );
 };

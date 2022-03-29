@@ -23,7 +23,7 @@ export class Repository {
       : this.execute(this.Document.find().sort({ createdAt: -1 }));
   }
 
-  getItems() {
+  async getItems() {
     return this.execute(this.Document.find());
   }
   async createItem(item) {

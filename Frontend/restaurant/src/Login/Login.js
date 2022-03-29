@@ -4,6 +4,7 @@ import { MainSubTitle } from "../Main/Main.styles";
 import FormField from "../FormField/FormField";
 import { Button } from "../StyledComponents/Button";
 import { LoginLink } from "../Register/Register.styles";
+import { Redirect } from "react-router-dom";
 
 const Login = ({ loginValues, handleLoginInputChange, handleLoginUser }) => {
   return (

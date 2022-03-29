@@ -6,15 +6,15 @@ export class UserService {
   constructor(repository) {
     this.repository = repository;
   }
-  async refreshUsers() {
-    const users = await this.repository.getItems();
-    for (let i in users.data) {
-      let user = users.data[i];
-      await this.getUserById(user._id.toString());
-    }
-  }
+  // async refreshUsers() {
+  //   const users = await this.repository.getItems();
+  //   for (let i in users.data) {
+  //     let user = users.data[i];
+  //     await this.getUserById(user._id.toString());
+  //   }
+  // }
   async getUsers() {
-    await this.refreshUsers();
+    // await this.refreshUsers();
     return await this.repository.getItems();
   }
 
@@ -22,14 +22,12 @@ export class UserService {
     const users = await this.repository.getItems();
     const user = users.data.find((user) => user.name === name);
     console.log(user);
-    if (user === null) {
-      return "Cannot find user";
-    }
+
     try {
-      if (await bcrypt.compare(password, user.password)) {
-        return user;
+      if (user && (await bcrypt.compare(password, user.password))) {
+        return { user, error: null };
       } else {
-        return null;
+        return { user: null, error: "Provided username or password is wrong" };
       }
     } catch {
       return "Something went wrong!";

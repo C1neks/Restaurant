@@ -13,7 +13,7 @@ const Basket = (props) => {
     <CartContainer>
       <Cart>
         <MainSubTitle>Cart</MainSubTitle>
-      {context.cartItems.length === 0 && <div>Cart Is Empty</div>}
+      {context.cartItems.length === 0 && <div>Cart is Empty</div>}
       {context.cartItems.map((item) => (
         <CartItem key={item._id}>
           <div>{item.name}</div>
@@ -33,9 +33,14 @@ const Basket = (props) => {
 
         </>
       )}
-      <MenuLink to="/checkout">
-        <Button>Checkout</Button>
-      </MenuLink>
+        {context.cartItems.length !== 0 ?
+          <MenuLink to="/checkout">
+            <Button>Checkout</Button>
+
+
+          </MenuLink>: null
+
+        }
       </Cart>
     </CartContainer>
   );

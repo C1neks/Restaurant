@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BiMenu, BiX } from "react-icons/bi";
 import GlobalStyles from "../GlobalStyles";
 import { Button } from "../StyledComponents/Button";
@@ -15,10 +15,11 @@ import {
   MenuLinkBtn,
 } from "./Navbar.styles";
 import CartCount from "../Basket/CartCount";
+import { ItemsContext } from "../App";
 
 const Navbar = ({ countCartItems, handleLogout, userDetails }) => {
   const [click, setClick] = useState(false);
-
+  const context = useContext(ItemsContext);
   const handleClick = () => setClick(!click);
 
   return (
@@ -38,13 +39,11 @@ const Navbar = ({ countCartItems, handleLogout, userDetails }) => {
               <MenuLink to="/">Home</MenuLink>
             </MenuItem>
             <MenuItem>
-              {userDetails.map((user) =>
-                user.isAdmin === true ? (
-                  <MenuLink key={user._id} to="/admin">
-                    Admin Panel
-                  </MenuLink>
-                ) : null
-              )}
+              {userDetails.isAdmin === true ? (
+                <MenuLink key={userDetails._id} to="/admin">
+                  Admin Panel
+                </MenuLink>
+              ) : null}
             </MenuItem>
             <MenuItem>
               <MenuLink to="/menu">
@@ -52,7 +51,7 @@ const Navbar = ({ countCartItems, handleLogout, userDetails }) => {
               </MenuLink>
             </MenuItem>
             <MenuItem>
-              {localStorage.getItem("userInfo") ? (
+              {context.logged ? (
                 <MenuLink to="/" onClick={() => handleLogout()}>
                   Logout
                 </MenuLink>
