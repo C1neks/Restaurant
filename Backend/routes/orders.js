@@ -7,40 +7,39 @@ const router = express.Router();
 
 export const orderService = new OrderService(new Repository(Order));
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   const isDescOrAsc = "asc" in req.query ? "asc" : "desc";
 
-  orderService.getOrders(isDescOrAsc).then((r) => res.send(r));
+  const response = await orderService.getOrders(isDescOrAsc);
+  res.send(response);
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { items, user } = req.body;
 
-  orderService.createOrder(items, user).then((r) => {
-    res.send(r);
-  });
+  const response = await orderService.createOrder(items, user);
+  res.send(response);
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   const id = req.params.id;
 
-  orderService.getOrderById(id).then((r) => res.send(r));
+  const response = await orderService.getOrderById(id);
+  res.send(response);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   const id = req.params.id;
 
-  orderService.deleteOrder(id).then((r) => {
-    res.send(r);
-  });
+  const response = await orderService.deleteOrder(id);
+  res.send(response);
 });
 
-router.patch("/:id", (req, res) => {
+router.patch("/:id", async (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  orderService.updateOrder(id, body).then((r) => {
-    res.send(r);
-  });
+  const response = await orderService.updateOrder(id, body);
+  res.send(response);
 });
 
 export default router;

@@ -9,7 +9,7 @@ export const Nav = styled.nav`
   top: 0;
   z-index: 999;
   height: 80px;
-  background-color: #3a6b35;
+  background-color: #2b2d42;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
   display: flex;
   justify-content: center;
@@ -49,7 +49,7 @@ export const NavIcon = styled(BiRestaurant)`
 
 export const MenuIcon = styled.div`
   display: none;
-
+  color: white;
   @media (max-width: 1000px) {
     display: block;
     position: absolute;

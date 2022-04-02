@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import burger from "../images/burger.jpg";
-
+import pizza from "../images/pizzacat.jpg";
 export const Wrapper = styled.div`
-  //background-color: #cbd18f;
-  background-color: #efd29c;
+  background-color: #edf2f4;
 `;
 export const StyledList = styled.div`
   min-height: 100%;
@@ -29,6 +28,7 @@ export const MenuText = styled.div`
   letter-spacing: 1rem;
   padding-top: 1rem;
   margin-bottom: 20px;
+  border-bottom: 1px solid #2b2d42;
 `;
 
 export const ItemWrapper = styled.div`
@@ -37,10 +37,8 @@ export const ItemWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  background: #efd29c;
-  //@media only screen and (max-width: 600px) {
-  //  flex-direction: row;
-  //}
+
+  background: #edf2f4;
 `;
 export const CategoryName = styled.h2`
   font-size: clamp(1rem, 10vw, 5rem);
@@ -60,9 +58,19 @@ export const ItemDetails = styled.div`
   flex-direction: column;
   width: 50%;
 `;
+
+export const CategoryImg = styled.div`
+  background-image: url(${pizza});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  width: 100%;
+  height: 40vh;
+`;
 export const CartButton = styled.button`
   border-radius: ${({ bigRadius }) => (bigRadius ? "30px" : "10px")};
-  background-color: ${({ primary }) => (primary ? "#eeaf29" : "#000")};
+  background-color: ${({ primary }) => (primary ? "#a60b0b" : "#a60b0b")};
   color: ${({ primary }) => (primary ? "#000" : "#fff")};
   padding: ${({ big }) => (big ? "18px 30px" : "9px 12px")};
   font-size: ${({ bigFont }) => (bigFont ? "20px" : "14px")};
@@ -70,12 +78,12 @@ export const CartButton = styled.button`
   cursor: pointer;
   border: none;
   transition: all 0.5s ease;
-  margin-left: 20px;
+  margin-left: 35px;
 
   &:hover {
-    background-color: ${({ primary }) => (primary ? "#fff" : "#E38B06")};
+    background-color: ${({ primary }) => (primary ? "#fff" : "#2b2d42")};
     transform: translateY(-0.5rem) scale(1.02);
-    color: #000;
+    color: #fff;
   }
   &:active {
     transform: translateY(0.5rem);
@@ -91,6 +99,20 @@ export const ItemImg = styled.div`
   border-radius: 10px;
 `;
 
+export const CategoryItemImg = styled.div`
+  background-image: url(${burger});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 32.5rem;
+  height: 30rem;
+  border-radius: 10px;
+
+  :hover {
+    transform: scale(1.12, 1.08) translateY(-2rem) translateZ(0px);
+  }
+`;
+
 export const Details = styled.div`
   width: 100%;
 `;
@@ -100,7 +122,7 @@ export const Item = styled.div`
   justify-content: space-evenly;
   align-items: center;
   flex-direction: row;
-  background: #ebf2f3;
+  background: #fff;
 
   width: 92%;
   height: 16rem;

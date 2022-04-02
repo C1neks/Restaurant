@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Account from "./Account";
 import { Redirect } from "react-router-dom";
-import { ItemsContext } from "../App";
+import { LoggedContext } from "../App";
 
-const AccountPage = ({ userDetails }) => {
-  const context = useContext(ItemsContext);
+const AccountPage = ({ userDetails, getUserDetails }) => {
+  const context = useContext(LoggedContext);
+  useEffect(() => getUserDetails(userDetails._id), []);
+
   return (
     <>
       {context.logged ? (

@@ -6,12 +6,12 @@ import { ItemsContext } from "../App";
 import { Item } from "../Menu/Menu.styles";
 import { orderService } from "../services/services";
 
-const Checkout = ({ userDetails }) => {
+const Checkout = ({ userDetails, getUserDetails }) => {
   let items = [];
   const context = useContext(ItemsContext);
   const user = userDetails;
-  console.log("USER!!!:", user);
-  const createOrder = (cartItems) => {
+
+  const createOrder = async (cartItems) => {
     let order = cartItems.map(
       (cartItems) =>
         (items = [
@@ -24,11 +24,10 @@ const Checkout = ({ userDetails }) => {
     );
 
     order = { items, user: user._id };
-    console.log("ORDER:", order);
-    orderService.createOrder(order).then((response) => {
-      console.log(response.data.data);
-      window.location.reload();
-    });
+
+    const response = await orderService.createOrder(order);
+
+    getUserDetails(user._id);
   };
 
   return (

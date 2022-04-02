@@ -4,7 +4,7 @@ export const CartContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  //background: #efd29c;
+
   background: #ebf2f3;
 `;
 
@@ -13,14 +13,14 @@ export const Cart = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  //background: #eeaf29;
-  background-color: ${({ primary }) => (primary ? "#eeaf29" : "#efd29c")};
-  //background: #efd29c;
+
+  background-color: ${({ primary }) => (primary ? "#eeaf29" : "#ef233c")};
   min-width: 10rem;
   min-height: 10rem;
   border-radius: 20px;
   margin: 1rem;
   box-shadow: 5px 11px 12px rgb(0 0 0 / 7%);
+  color: white;
 `;
 
 export const CartButton = styled.button`

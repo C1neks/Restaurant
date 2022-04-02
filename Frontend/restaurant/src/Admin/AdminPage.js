@@ -11,30 +11,20 @@ const initialFormState = {
   description: "",
 };
 const AdminPage = ({ userDetails }) => {
-  const [Orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([]);
 
-  const getOrders = () => {
-    return orderService.getOrders().then((response) => {
-      return response.data.data;
-    });
+  const getOrders = async () => {
+    const result = await orderService.getOrders();
+
+    setOrders(result.data.data);
   };
-  useEffect(() => {
-    (async () => {
-      const result = await getOrders();
 
-      setOrders(result);
-    })();
-  }, []);
-
-  const addProductToDB = (a) => {
-    productService.addProduct(a).then((response) => {
-      console.log(response.data.data);
-    });
+  const addProductToDB = async (a) => {
+    await productService.addProduct(a);
   };
   const [formValues, setFormValues] = useState(initialFormState);
 
   const handleInputChange = (e) => {
-    console.log(formValues);
     setFormValues({
       ...formValues,
       [e.target.name]: e.target.value,
@@ -60,7 +50,7 @@ const AdminPage = ({ userDetails }) => {
         handleAddProduct={handleAddProduct}
         handleInputChange={handleInputChange}
       />
-      <AdminAccount Orders={Orders} getOrders={getOrders} />
+      <AdminAccount orders={orders} getOrders={getOrders} />
     </>
   );
 };

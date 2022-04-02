@@ -6,22 +6,16 @@ export class UserService {
   constructor(repository) {
     this.repository = repository;
   }
-  // async refreshUsers() {
-  //   const users = await this.repository.getItems();
-  //   for (let i in users.data) {
-  //     let user = users.data[i];
-  //     await this.getUserById(user._id.toString());
-  //   }
-  // }
+
   async getUsers() {
-    // await this.refreshUsers();
     return await this.repository.getItems();
   }
 
   async checkUser(name, password) {
-    const users = await this.repository.getItems();
-    const user = users.data.find((user) => user.name === name);
-    console.log(user);
+    const { data: user, error } = await this.repository.getItemByProperty(
+      "name",
+      name
+    );
 
     try {
       if (user && (await bcrypt.compare(password, user.password))) {

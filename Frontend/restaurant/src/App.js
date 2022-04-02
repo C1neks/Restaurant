@@ -21,12 +21,16 @@ import AdminPage from "./Admin/AdminPage";
 import LoginPage from "./Login/LoginPage";
 import AccountPage from "./Account/AccountPage";
 import { userService } from "./services/services";
+import Product from "./Product/Product";
 
 export const ItemsContext = React.createContext({
   cartItems: [],
   totalPrice: 0,
   onAddToCart: () => {},
   onRemoveFromCart: () => {},
+});
+
+export const LoggedContext = React.createContext({
   logged: null,
 });
 
@@ -56,8 +60,6 @@ function App() {
 
     setLogged(info);
 
-    // console.log(info);
-    // console.log(logged);
     ID ? setUserID(ID) : setUserID(null);
   };
   useEffect(() => isLogged(), [userID]);
@@ -73,7 +75,6 @@ function App() {
 
   const [cartItems, setCartItems] = useState([]);
   const onAddToCart = (product) => {
-    console.log(product);
     const exist = cartItems.find((x) => x._id === product._id);
     if (exist) {
       setCartItems((cartItems) =>
@@ -104,59 +105,69 @@ function App() {
       setTotalPrice(cartItems.reduce((a, c) => a + c.price * c.quantity, 0)),
     [cartItems]
   );
-
+  const [cat, setCat] = useState(" Default Value ");
   return (
     <Router>
       <GlobalStyles />
       <ItemsContext.Provider
-        value={{ cartItems, totalPrice, onAddToCart, onRemoveFromCart, logged }}
+        value={{ cartItems, totalPrice, onAddToCart, onRemoveFromCart }}
       >
-        <Navbar
-          countCartItems={cartItems.length}
-          handleLogout={handleLogout}
-          userDetails={userDetails}
-        />
+        <LoggedContext.Provider value={{ logged }}>
+          <Navbar
+            countCartItems={cartItems.length}
+            handleLogout={handleLogout}
+            userDetails={userDetails}
+          />
 
-        <Switch>
-          <Route path="/" exact>
-            <Main />
-          </Route>
-          <Route path="/menu">
-            {logged ? (
-              cartItems.length !== 0 ? (
-                <>
-                  <Basket />
-                  <Menu userDetails={userDetails} />
-                </>
+          <Switch>
+            <Route path="/" exact>
+              <Main />
+            </Route>
+            <Route path="/menu">
+              {logged ? (
+                cartItems.length !== 0 ? (
+                  <>
+                    <Basket />
+                    <Menu userDetails={userDetails} setCat={setCat} />
+                  </>
+                ) : (
+                  <Menu userDetails={userDetails} setCat={setCat} />
+                )
               ) : (
-                <Menu userDetails={userDetails} />
-              )
-            ) : (
-              <Redirect to="/login" />
-            )}
-          </Route>
-          <Route path="/admin">
-            {!userDetails.isAdmin ? (
-              <div>You are not admin!</div>
-            ) : (
-              <>
+                <Redirect to="/login" />
+              )}
+            </Route>
+            {userDetails.isAdmin && (
+              <Route path="/admin">
                 <AdminPage userDetails={userDetails} />
-              </>
+              </Route>
             )}
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/login">
-            <LoginPage userDetails={userDetails} handleLogout={handleLogout} />
-          </Route>
-          <Route path="/account">
-            <AccountPage userDetails={userDetails} />
-          </Route>
-          <Route path="/checkout">
-            <Checkout userDetails={userDetails} />
-          </Route>
-        </Switch>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/login">
+              <LoginPage
+                userDetails={userDetails}
+                handleLogout={handleLogout}
+              />
+            </Route>
+            <Route path="/account">
+              <AccountPage
+                userDetails={userDetails}
+                getUserDetails={getUserDetails}
+              />
+            </Route>
+            <Route path="/checkout">
+              <Checkout
+                userDetails={userDetails}
+                getUserDetails={getUserDetails}
+              />
+            </Route>
+            <Route path="/category">
+              <Product cat={cat} userDetails={userDetails} />
+            </Route>
+          </Switch>
+        </LoggedContext.Provider>
       </ItemsContext.Provider>
     </Router>
   );

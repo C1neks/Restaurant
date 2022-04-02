@@ -2,8 +2,10 @@ import styled from "styled-components";
 
 export const Button = styled.button`
   border-radius: ${({ bigRadius }) => (bigRadius ? "30px" : "20px")};
-  background-color: ${({ primary }) => (primary ? "#eeaf29" : "#000")};
-  color: ${({ primary }) => (primary ? "#000" : "#fff")};
+  background-color: ${({ primary }) => (primary ? "#a60b0b" : "#a60b0b")};
+  background-color: ${({ checkout }) => (checkout ? "#2b2d42" : "#a60b0b")};
+  color: ${({ primary }) => (primary ? "#fff" : "#fff")};
+  font-weight: ${({ checkout }) => (checkout ? "600" : "normal")};
   padding: ${({ big }) => (big ? "18px 30px" : "10px 28px")};
   font-size: ${({ bigFont }) => (bigFont ? "20px" : "18px")};
   outline: none;
@@ -12,9 +14,9 @@ export const Button = styled.button`
   transition: all 0.5s ease;
 
   &:hover {
-    background-color: ${({ primary }) => (primary ? "#fff" : "#E38B06")};
+    background-color: ${({ primary }) => (primary ? "#fff" : "#fff")};
     transform: translateY(-0.5rem) scale(1.02);
-    color: #000;
+    color: black;
   }
   &:active {
     transform: translateY(0.5rem);

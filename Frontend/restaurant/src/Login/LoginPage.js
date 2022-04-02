@@ -9,7 +9,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import { userService } from "../services/services";
-import { ItemsContext } from "../App";
+import { LoggedContext } from "../App";
 
 const initialLoginFormState = {
   name: "",
@@ -17,7 +17,7 @@ const initialLoginFormState = {
 };
 
 const LoginPage = ({ userDetails, handleLogout }) => {
-  const context = useContext(ItemsContext);
+  const context = useContext(LoggedContext);
   const [loginValues, setLoginValues] = useState(initialLoginFormState);
   const handleLoginInputChange = (e) => {
     setLoginValues({
@@ -26,15 +26,14 @@ const LoginPage = ({ userDetails, handleLogout }) => {
     });
   };
 
-  const loginUser = (credentials) => {
-    userService.loginUser(credentials).then((response) => {
-      console.log("RESPO:", response.data.isValid.user._id);
-      const info = response.data.accessToken;
-      localStorage.setItem("userInfo", info);
+  const loginUser = async (credentials) => {
+    const response = await userService.loginUser(credentials);
 
-      localStorage.setItem("userID", response.data.isValid.user._id);
-      window.location.reload();
-    });
+    const info = response.data.accessToken;
+    localStorage.setItem("userInfo", info);
+
+    localStorage.setItem("userID", response.data.isValid.user._id);
+    window.location.reload();
   };
 
   const handleLoginUser = (e) => {

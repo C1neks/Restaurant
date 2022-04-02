@@ -15,11 +15,11 @@ import {
   MenuLinkBtn,
 } from "./Navbar.styles";
 import CartCount from "../Basket/CartCount";
-import { ItemsContext } from "../App";
+import { LoggedContext } from "../App";
 
 const Navbar = ({ countCartItems, handleLogout, userDetails }) => {
   const [click, setClick] = useState(false);
-  const context = useContext(ItemsContext);
+  const context = useContext(LoggedContext);
   const handleClick = () => setClick(!click);
 
   return (

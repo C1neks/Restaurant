@@ -13,34 +13,36 @@ const Basket = (props) => {
     <CartContainer>
       <Cart>
         <MainSubTitle>Cart</MainSubTitle>
-      {context.cartItems.length === 0 && <div>Cart is Empty</div>}
-      {context.cartItems.map((item) => (
-        <CartItem key={item._id}>
-          <div>{item.name}</div>
-          <div>
-            <CartButton onClick={() => context.onAddToCart(item)}>+</CartButton>
-            <CartButton onClick={() => context.onRemoveFromCart(item)}>-</CartButton>
-          </div>
-          <div>
-            {item.quantity} x {item.price}PLN
-          </div>
-        </CartItem>
-      ))}
-      {context.cartItems.length !== 0 && (
-        <>
-          <div><p>Total Price</p>
-          <p>{context.totalPrice}</p></div>
-
-        </>
-      )}
-        {context.cartItems.length !== 0 ?
+        {context.cartItems.length === 0 && <div>Cart is Empty</div>}
+        {context.cartItems.map((item) => (
+          <CartItem key={item._id}>
+            <div>{item.name}</div>
+            <div>
+              <CartButton onClick={() => context.onAddToCart(item)}>
+                +
+              </CartButton>
+              <CartButton onClick={() => context.onRemoveFromCart(item)}>
+                -
+              </CartButton>
+            </div>
+            <div>
+              {item.quantity} x {item.price}PLN
+            </div>
+          </CartItem>
+        ))}
+        {context.cartItems.length !== 0 && (
+          <>
+            <div>
+              <p>Total Price</p>
+              <p>{context.totalPrice}</p>
+            </div>
+          </>
+        )}
+        {context.cartItems.length !== 0 ? (
           <MenuLink to="/checkout">
-            <Button>Checkout</Button>
-
-
-          </MenuLink>: null
-
-        }
+            <Button checkout>Checkout</Button>
+          </MenuLink>
+        ) : null}
       </Cart>
     </CartContainer>
   );

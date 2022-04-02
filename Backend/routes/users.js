@@ -52,39 +52,37 @@ router.post("/login", async (req, res) => {
   console.log("LOG", req.body);
   const validUser = await userService.checkUser(name, password);
   console.log("ISVALID", validUser.user);
-  if (validUser.error === null) {
-    const accessToken = jwt.sign(
-      validUser.user.toJSON(),
-      process.env.ACCESS_TOKEN_SECRET
-    );
-    res.json({ isValid: validUser, accessToken: accessToken });
-  } else {
-    res.json({
-      message: "username or password was wrong",
-    });
+  if (validUser.error) {
+    res.status(403).send(validUser.error);
+
+    return;
   }
+  const accessToken = jwt.sign(
+    validUser.user.toJSON(),
+    process.env.ACCESS_TOKEN_SECRET
+  );
+  res.json({ isValid: validUser, accessToken: accessToken });
 });
 
-router.get("/:id", authenticateToken, (req, res) => {
+router.get("/:id", authenticateToken, async (req, res) => {
   const id = req.params.id;
 
-  userService.getUserById(id).then((r) => res.send(r));
+  const response = await userService.getUserById(id);
+  res.send(response);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   const id = req.params.id;
 
-  userService.deleteUser(id).then((r) => {
-    res.send(r);
-  });
+  const response = await userService.deleteUser(id);
+  res.send(response);
 });
 
-router.patch("/:id", (req, res) => {
+router.patch("/:id", async (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  userService.updateUser(id, body).then((r) => {
-    res.send(r);
-  });
+  const response = await userService.updateUser(id, body);
+  res.send(response);
 });
 
 export default router;

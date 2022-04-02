@@ -18,8 +18,6 @@ export const UserOrders = styled.div`
 
   width: 92%;
 
-  //border-radius: 10px;
-  //box-shadow: 0 5px 15px -10px rgba(0, 0, 0, 0.3);
   margin-bottom: 1.5rem;
 `;
 

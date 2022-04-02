@@ -1,4 +1,4 @@
-import { ENDPOINT_RESTAURANT } from "../constans";
+import { ENDPOINT_RESTAURANT } from "../constants";
 import axios from "axios";
 
 export const userService = {

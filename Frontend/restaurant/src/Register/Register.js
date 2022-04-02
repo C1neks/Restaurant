@@ -15,7 +15,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import Login from "../Login/Login";
-import { ItemsContext } from "../App";
+import { LoggedContext } from "../App";
 
 const initialUserFormState = {
   name: "",
@@ -24,12 +24,10 @@ const initialUserFormState = {
 };
 
 const Register = () => {
-  const context = useContext(ItemsContext);
+  const context = useContext(LoggedContext);
   const [formUserValues, setFormUserValues] = useState(initialUserFormState);
-  const createUser = (registerValues) => {
-    userService.registerUser(registerValues).then((response) => {
-      console.log(response.data.data);
-    });
+  const createUser = async (registerValues) => {
+    await userService.registerUser(registerValues);
   };
 
   const handleAddUser = (e) => {
@@ -43,7 +41,6 @@ const Register = () => {
     setFormUserValues(initialUserFormState);
   };
   const handleUserInputChange = (e) => {
-    console.log(formUserValues);
     setFormUserValues({
       ...formUserValues,
       [e.target.name]: e.target.value,
