@@ -25,7 +25,6 @@ const LoginPage = ({ userDetails, handleLogout }) => {
       [e.target.name]: e.target.value,
     });
   };
-  const [log, setLog] = useState(false);
 
   const loginUser = async (credentials) => {
     const response = await userService.loginUser(credentials);
@@ -34,7 +33,7 @@ const LoginPage = ({ userDetails, handleLogout }) => {
     localStorage.setItem("userInfo", info);
 
     localStorage.setItem("userID", response.data.isValid.user._id);
-    setLog(true);
+
     window.location.reload();
   };
 
@@ -53,15 +52,13 @@ const LoginPage = ({ userDetails, handleLogout }) => {
       {context.logged ? (
         <Redirect to="/" />
       ) : (
-        <>
-          <Login
-            loginValues={loginValues}
-            handleLoginInputChange={handleLoginInputChange}
-            handleLoginUser={handleLoginUser}
-            userDetails={userDetails}
-            handleLogout={handleLogout}
-          />
-        </>
+        <Login
+          loginValues={loginValues}
+          handleLoginInputChange={handleLoginInputChange}
+          handleLoginUser={handleLoginUser}
+          userDetails={userDetails}
+          handleLogout={handleLogout}
+        />
       )}
     </>
   );
