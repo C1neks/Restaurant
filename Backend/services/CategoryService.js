@@ -42,10 +42,8 @@ export class CategoryService {
   //   return await this.repository.updateItem(id, body);
   // }
   async updateCategory(id, body) {
-    // await this.addProductsToCategory(body.name);
     const exisitngProducts = await productService.getProducts();
-    // const a = await this.repository.getItemById(id);
-    // console.log("NEW LOG", a.data.products);
+
     console.log("EXISTING!", exisitngProducts);
     let products = [];
     products = exisitngProducts.data.filter(
