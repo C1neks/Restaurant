@@ -14,13 +14,16 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { name, price, category, description } = req.body;
+  const { name, price, category, description, rating, numberOfRates } =
+    req.body;
 
   const response = await productService.createProduct(
     name,
     price,
     category,
-    description
+    description,
+    rating,
+    numberOfRates
   );
   res.send(response);
 });
@@ -42,6 +45,14 @@ router.delete("/:id", async (req, res) => {
 router.patch("/:id", async (req, res) => {
   const id = req.params.id;
   const body = req.body;
+  const response = await productService.updateProduct(id, body);
+  res.send(response);
+});
+
+router.patch("/rating/:id", async (req, res) => {
+  const id = req.params.id;
+  const body = req.body;
+
   const response = await productService.updateProduct(id, body);
   res.send(response);
 });

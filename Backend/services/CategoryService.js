@@ -36,9 +36,21 @@ export class CategoryService {
   async deleteCategory(id) {
     return await this.repository.deleteItem(id);
   }
-  async updateCategory(id, body) {
-    body.products = await this.addProductsToCategory(body.name);
 
-    return await this.repository.updateItem(id, body);
+  async updateCategory(id, body) {
+    const exisitngProducts = await productService.getProducts();
+
+    console.log("EXISTING!", exisitngProducts);
+    let products = [];
+    products = exisitngProducts.data.filter(
+      (product) => product.category === body.name
+    );
+
+    const category = {
+      name: body.name,
+      products,
+    };
+
+    return await this.repository.updateItem(id, category, null);
   }
 }
