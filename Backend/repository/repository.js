@@ -34,6 +34,9 @@ export class Repository {
   getItemById(id) {
     return this.execute(this.Document.findById(id));
   }
+  getItemByProperty(property, value) {
+    return this.execute(this.Document.findOne({ [property]: value }));
+  }
   async deleteItem(id) {
     return this.execute(this.Document.findOneAndDelete({ _id: id }));
   }

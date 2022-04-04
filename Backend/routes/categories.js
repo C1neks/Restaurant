@@ -7,38 +7,37 @@ const router = express.Router();
 
 export const categoryService = new CategoryService(new Repository(Category));
 
-router.get("/", (req, res) => {
-  categoryService.getCategories().then((r) => res.send(r));
+router.get("/", async (req, res) => {
+  const response = await categoryService.getCategories();
+  res.send(response);
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { name } = req.body;
 
-  categoryService.createCategory(name).then((r) => {
-    res.send(r);
-  });
+  const response = await categoryService.createCategory(name);
+  res.send(response);
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   const id = req.params.id;
 
-  categoryService.getCategoryById(id).then((r) => res.send(r));
+  const response = await categoryService.getCategoryById(id);
+  res.send(response);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   const id = req.params.id;
 
-  categoryService.deleteCategory(id).then((r) => {
-    res.send(r);
-  });
+  const response = await categoryService.deleteCategory(id);
+  res.send(response);
 });
 
-router.patch("/:id", (req, res) => {
+router.patch("/:id", async (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  categoryService.updateCategory(id, body).then((r) => {
-    res.send(r);
-  });
+  const response = await categoryService.updateCategory(id, body);
+  res.send(response);
 });
 
 export default router;

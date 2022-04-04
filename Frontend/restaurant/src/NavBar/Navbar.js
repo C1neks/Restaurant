@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BiMenu, BiX } from "react-icons/bi";
 import GlobalStyles from "../GlobalStyles";
 import { Button } from "../StyledComponents/Button";
@@ -15,11 +15,11 @@ import {
   MenuLinkBtn,
 } from "./Navbar.styles";
 import CartCount from "../Basket/CartCount";
+import { LoggedContext } from "../App";
 
-const Navbar = (props) => {
-  const { countCartItems } = props;
+const Navbar = ({ countCartItems, handleLogout, userDetails }) => {
   const [click, setClick] = useState(false);
-
+  const context = useContext(LoggedContext);
   const handleClick = () => setClick(!click);
 
   return (
@@ -39,12 +39,28 @@ const Navbar = (props) => {
               <MenuLink to="/">Home</MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink to="/addProducts">addProducts</MenuLink>
+              {userDetails.isAdmin === true ? (
+                <MenuLink key={userDetails._id} to="/admin">
+                  Admin Panel
+                </MenuLink>
+              ) : null}
             </MenuItem>
             <MenuItem>
               <MenuLink to="/menu">
                 <CartCount countCartItems={countCartItems} />
               </MenuLink>
+            </MenuItem>
+            <MenuItem>
+              {context.logged ? (
+                <MenuLink to="/" onClick={() => handleLogout()}>
+                  Logout
+                </MenuLink>
+              ) : (
+                <MenuLink to="/register">Login</MenuLink>
+              )}
+            </MenuItem>
+            <MenuItem>
+              <MenuLink to="/account">My Account</MenuLink>
             </MenuItem>
             <MenuItemBtn>
               <MenuLinkBtn to="/menu">

@@ -66,6 +66,7 @@ export const MainSubTitle = styled.h2`
   font-weight: 300;
   letter-spacing: 1rem;
   padding-top: 1rem;
+  text-align: center;
 `;
 
 export const MainText = styled.h3`

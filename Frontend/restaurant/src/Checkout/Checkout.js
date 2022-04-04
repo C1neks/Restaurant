@@ -4,11 +4,14 @@ import { Button } from "../StyledComponents/Button";
 import { CheckoutWrapper } from "./Checkout.styles";
 import { ItemsContext } from "../App";
 import { Item } from "../Menu/Menu.styles";
+import { orderService } from "../services/services";
 
-const Checkout = () => {
+const Checkout = ({ userDetails, getUserDetails }) => {
   let items = [];
   const context = useContext(ItemsContext);
-  const createOrder = (cartItems) => {
+  const user = userDetails;
+
+  const createOrder = async (cartItems) => {
     let order = cartItems.map(
       (cartItems) =>
         (items = [
@@ -19,12 +22,12 @@ const Checkout = () => {
           },
         ])
     );
-    order = { items, user: "61e41f143a517d8f7b45a2fc" };
-    console.log("ORDER:", order);
-    axios.post("http://localhost:4000/orders", order).then((response) => {
-      console.log(response.data.data);
-      window.location.reload();
-    });
+
+    order = { items, user: user._id };
+
+    const response = await orderService.createOrder(order);
+
+    getUserDetails(user._id);
   };
 
   return (

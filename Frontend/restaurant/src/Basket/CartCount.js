@@ -4,8 +4,7 @@ const CartCount = (props) => {
   const { countCartItems } = props;
   return (
     <div>
-      {""}
-      {countCartItems ? <div>Cart:{countCartItems}</div> : ""}
+      {countCartItems ? <div>Cart:{countCartItems}</div> : <div>Cart</div>}
     </div>
   );
 };

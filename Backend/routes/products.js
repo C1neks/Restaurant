@@ -8,38 +8,42 @@ import Product from "../models/productModel.js";
 
 const router = express.Router();
 export const productService = new ProductService(new Repository(Product));
-router.get("/", (req, res) => {
-  productService.getProducts().then((r) => res.send(r));
+router.get("/", async (req, res) => {
+  const response = await productService.getProducts();
+  res.send(response);
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { name, price, category, description } = req.body;
 
-  productService.createProduct(name, price, category, description).then((r) => {
-    res.send(r);
-  });
+  const response = await productService.createProduct(
+    name,
+    price,
+    category,
+    description
+  );
+  res.send(response);
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   const id = req.params.id;
 
-  productService.getProductById(id).then((r) => res.send(r));
+  const response = await productService.getProductById(id);
+  res.send(response);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   const id = req.params.id;
 
-  productService.deleteProduct(id).then((r) => {
-    res.send(r);
-  });
+  const response = await productService.deleteProduct(id);
+  res.send(response);
 });
 
-router.patch("/:id", (req, res) => {
+router.patch("/:id", async (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  productService.updateProduct(id, body).then((r) => {
-    res.send(r);
-  });
+  const response = await productService.updateProduct(id, body);
+  res.send(response);
 });
 
 export default router;
