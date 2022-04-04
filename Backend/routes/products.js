@@ -50,4 +50,13 @@ router.patch("/:id", (req, res) => {
   });
 });
 
+router.patch("/rating/:id", (req, res) => {
+  const id = req.params.id;
+  const body = req.body;
+
+  productService.updateProduct(id, body).then((r) => {
+    res.send(r);
+  });
+});
+
 export default router;

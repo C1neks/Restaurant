@@ -38,33 +38,57 @@ export class Repository {
     return this.execute(this.Document.findOneAndDelete({ _id: id }));
   }
 
-  async updateItem(id, body) {
+  // async updateItem(id, body) {
+  //   console.log("cialo", body);
+  //   return this.execute(
+  //     this.Document.findOneAndUpdate(
+  //       { _id: id },
+  //       {
+  //         ...body,
+  //       },
+  //       { new: true }
+  //     )
+  //   );
+  // }
+  async updateItem(id, set, inc) {
+    console.log("SET", set);
+    console.log("INC", inc);
     return this.execute(
       this.Document.findOneAndUpdate(
         { _id: id },
         {
-          ...body,
+          ...(set
+            ? {
+                $set: {
+                  set,
+                },
+              }
+            : {}),
+          ...(inc
+            ? { $inc: { rating: inc.rating, numberOfRates: inc.numberOfRates } }
+            : {}),
         },
         { new: true }
       )
     );
   }
 
-  async updateRates(id, body) {
-    return this.execute(
-      this.Document.findOneAndUpdate(
-        { _id: id },
-        {
-          $set: {
-            name: body.name,
-            price: body.price,
-            category: body.category,
-            description: body.description,
-          },
-          $inc: { rating: body.rating, numberOfRates: body.numberOfRates },
-        },
-        { new: true }
-      )
-    );
-  }
+  // async updateRates(id, body) {
+  //   console.log("BODI", body);
+  //   return this.execute(
+  //     this.Document.findOneAndUpdate(
+  //       { _id: id },
+  //       {
+  //         $set: {
+  //           name: body.name,
+  //           price: body.price,
+  //           category: body.category,
+  //           description: body.description,
+  //         },
+  //         $inc: { rating: body.rating, numberOfRates: body.numberOfRates },
+  //       },
+  //       { new: true }
+  //     )
+  //   );
+  // }
 }

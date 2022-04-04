@@ -21,7 +21,7 @@ const Opinion = ({ productId }) => {
       numberOfRates: 1,
     };
     axios
-      .patch(`http://localhost:4000/products/${id}`, body)
+      .patch(`http://localhost:4000/products/rating/${id}`, body)
       .then((response) => {});
     setRating(null);
   };
@@ -55,10 +55,11 @@ const Opinion = ({ productId }) => {
       ) : (
         <h3>Total rating is :</h3>
       )}
-
-      <Button onClick={() => addRating(productId, rating)}>
-        Rate our dish
-      </Button>
+      {rating === null ? null : (
+        <Button onClick={() => addRating(productId, rating)}>
+          Rate our dish
+        </Button>
+      )}
     </div>
   );
 };

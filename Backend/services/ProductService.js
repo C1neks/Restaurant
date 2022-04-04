@@ -96,11 +96,18 @@ export class ProductService {
   }
 
   async updateProduct(productId, body) {
-    if (body.rating) {
-      console.log("JEST RATING");
-      return await this.repository.updateRates(productId, body);
+    if (body.rating > 0) {
+      const inc = { rating: body.rating, numberOfRates: body.numberOfRates };
+      return await this.repository.updateItem(productId, null, inc);
     }
-    console.log("NIE MA RATINGU");
-    return await this.repository.updateItem(productId, body);
+
+    return await this.repository.updateItem(productId, body, null);
   }
+
+  // async updateProductRating(productId, body) {
+  //   if (body.rating) {
+  //     console.log("JEST RATING");
+  //     return await this.repository.updateRates(productId, body);
+  //   }
+  // }
 }
