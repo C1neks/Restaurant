@@ -26,3 +26,9 @@ export const productService = {
 export const categoryService = {
   getAll: () => axios.get(`${ENDPOINT_RESTAURANT}/categories/`),
 };
+
+export const opinionService = {
+  getRate: (id) => axios.get(`${ENDPOINT_RESTAURANT}/products/${id}`),
+  addRating: (id, payload) =>
+    axios.patch(`${ENDPOINT_RESTAURANT}/products/rating/${id}`, payload),
+};

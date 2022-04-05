@@ -14,6 +14,7 @@ import {
 import { FaStar } from "react-icons/fa";
 import { ItemsContext } from "../App";
 import { MainSubTitle } from "../Main/Main.styles";
+import Opinion from "../Opinion/Opinion";
 
 const Product = ({ cat, userDetails }) => {
   const context = useContext(ItemsContext);
@@ -52,7 +53,8 @@ const Product = ({ cat, userDetails }) => {
             <ItemDetails>
               <Details>
                 <h2>{m.name}</h2>
-                <FaStar color="orange" size={15} />
+                {/*<FaStar color="orange" size={15} />*/}
+                <Opinion productId={m._id} />
                 <p>{m.description}</p>
               </Details>
               <PriceAndButtonContainer>
