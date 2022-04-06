@@ -53,7 +53,7 @@ router.patch("/rating/:id", async (req, res) => {
   const id = req.params.id;
   const body = req.body;
 
-  const response = await productService.updateProduct(id, body);
+  const response = await productService.updateRating(id, body);
   res.send(response);
 });
 
