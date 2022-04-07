@@ -12,6 +12,7 @@ export class ProductService {
     price,
     category,
     description,
+    image,
     rating,
     numberOfRates
   ) {
@@ -20,6 +21,7 @@ export class ProductService {
       price: price,
       category: category,
       description: description,
+      image: image,
       rating: rating,
       numberOfRates: numberOfRates,
     };
@@ -38,6 +40,7 @@ export class ProductService {
     price,
     category,
     description,
+    image,
     rating,
     numberOfRates
   ) {
@@ -54,6 +57,7 @@ export class ProductService {
         price,
         category,
         description,
+        image,
         rating,
         numberOfRates
       );
@@ -63,6 +67,7 @@ export class ProductService {
         price,
         category,
         description,
+        image,
         rating,
         numberOfRates
       );

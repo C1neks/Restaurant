@@ -39,6 +39,7 @@ const Form = ({ handleAddProduct, formValues, handleInputChange }) => {
           value={formValues.description}
           onChange={handleInputChange}
         />
+
         <Button type="submit">Add</Button>
       </Container>
     </>
