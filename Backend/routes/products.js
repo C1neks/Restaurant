@@ -20,10 +20,9 @@ router.get("/", async (req, res) => {
 router.post("/", upload.single("image"), async (req, res) => {
   const { name, price, category, description, rating, numberOfRates } =
     req.body;
-  console.log("REQBODY", req.body);
+
   const image = req.file.filename;
-  console.log("fail!", req.file);
-  console.log("IMAGE!", image);
+
   const response = await productService.createProduct(
     name,
     price,

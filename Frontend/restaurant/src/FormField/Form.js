@@ -5,10 +5,20 @@ import { Button } from "../StyledComponents/Button";
 import FormField from "./FormField";
 import { Container } from "./Form.styles";
 
-const Form = ({ handleAddProduct, formValues, handleInputChange }) => {
+const Form = ({
+  handleAddProduct,
+  formValues,
+  handleInputChange,
+  file,
+  handleFile,
+}) => {
   return (
     <>
-      <Container as="form" onSubmit={handleAddProduct}>
+      <Container
+        as="form"
+        onSubmit={handleAddProduct}
+        encType="multipart/form-data"
+      >
         <MainSubTitle>Add new Product</MainSubTitle>
         <FormField
           label="Name"
@@ -39,7 +49,14 @@ const Form = ({ handleAddProduct, formValues, handleInputChange }) => {
           value={formValues.description}
           onChange={handleInputChange}
         />
-
+        <FormField
+          type="file"
+          label="image"
+          id="image"
+          name="image"
+          // value={file}
+          onChange={handleFile}
+        />
         <Button type="submit">Add</Button>
       </Container>
     </>

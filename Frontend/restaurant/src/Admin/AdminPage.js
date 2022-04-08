@@ -31,15 +31,22 @@ const AdminPage = ({ userDetails }) => {
     });
   };
 
+  const [file, setFile] = useState(null);
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    setFile(file);
+  };
+
   const handleAddProduct = (e) => {
     e.preventDefault();
-    const newProduct = {
-      name: formValues.name,
-      price: formValues.price,
-      category: formValues.category,
-      description: formValues.description,
-    };
-    addProductToDB(newProduct);
+    const formData = new FormData();
+    formData.append("name", formValues.name);
+    formData.append("price", formValues.price);
+    formData.append("category", formValues.category);
+    formData.append("description", formValues.description);
+    formData.append("image", file);
+
+    addProductToDB(formData);
     setFormValues(initialFormState);
   };
 
@@ -47,8 +54,10 @@ const AdminPage = ({ userDetails }) => {
     <>
       <Form
         formValues={formValues}
+        file={file}
         handleAddProduct={handleAddProduct}
         handleInputChange={handleInputChange}
+        handleFile={handleFile}
       />
       <AdminAccount orders={orders} getOrders={getOrders} />
     </>
