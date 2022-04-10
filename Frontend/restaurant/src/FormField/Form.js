@@ -1,23 +1,56 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MainSubTitle } from "../Main/Main.styles";
 import { Button } from "../StyledComponents/Button";
 
 import FormField from "./FormField";
 import { Container } from "./Form.styles";
+import { productService } from "../services/services";
 
-const Form = ({
-  handleAddProduct,
-  formValues,
-  handleInputChange,
-  file,
-  handleFile,
-}) => {
+const initialFormState = {
+  name: "",
+  price: "",
+  category: "",
+  description: "",
+};
+
+const Form = ({}) => {
+  const createProduct = async (a) => {
+    await productService.addProduct(a);
+  };
+  const [formValues, setFormValues] = useState(initialFormState);
+
+  const handleInputChange = (e) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const [file, setFile] = useState(null);
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    setFile(file);
+  };
+
+  const handleAddProduct = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(myContainer.current);
+
+    createProduct(formData);
+    setFormValues(initialFormState);
+  };
+  const myContainer = useRef(null);
+
   return (
     <>
       <Container
         as="form"
+        id="myForm"
+        name="myForm"
         onSubmit={handleAddProduct}
         encType="multipart/form-data"
+        ref={myContainer}
       >
         <MainSubTitle>Add new Product</MainSubTitle>
         <FormField
