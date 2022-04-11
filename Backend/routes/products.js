@@ -5,23 +5,30 @@ import { ProductService } from "../services/ProductService.js";
 import { Repository } from "../repository/repository.js";
 
 import Product from "../models/productModel.js";
-
+import { fileStorageEngine, fileFilter } from "./upload.js";
+import multer from "multer";
 const router = express.Router();
+
+const upload = multer({ storage: fileStorageEngine, fileFilter: fileFilter });
+
 export const productService = new ProductService(new Repository(Product));
 router.get("/", async (req, res) => {
   const response = await productService.getProducts();
   res.send(response);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", upload.single("image"), async (req, res) => {
   const { name, price, category, description, rating, numberOfRates } =
     req.body;
+
+  const image = req.file.filename;
 
   const response = await productService.createProduct(
     name,
     price,
     category,
     description,
+    image,
     rating,
     numberOfRates
   );
@@ -53,7 +60,7 @@ router.patch("/rating/:id", async (req, res) => {
   const id = req.params.id;
   const body = req.body;
 
-  const response = await productService.updateProduct(id, body);
+  const response = await productService.updateRating(id, body);
   res.send(response);
 });
 

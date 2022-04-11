@@ -15,6 +15,7 @@ import { FaStar } from "react-icons/fa";
 import { ItemsContext } from "../App";
 import { MainSubTitle } from "../Main/Main.styles";
 import Opinion from "../Opinion/Opinion";
+import Image from "../Image/Image";
 
 const Product = ({ cat, userDetails }) => {
   const context = useContext(ItemsContext);
@@ -48,7 +49,8 @@ const Product = ({ cat, userDetails }) => {
       <ItemWrapper>
         {productCategory.map((m) => (
           <Item key={m._id}>
-            <ItemImg />
+            <Image image={m.image} />
+            {/*<ItemImg  />*/}
 
             <ItemDetails>
               <Details>

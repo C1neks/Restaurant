@@ -5,6 +5,7 @@ import productsRoutes from "./routes/products.js";
 import usersRoutes from "./routes/users.js";
 import categoriesRoutes from "./routes/categories.js";
 import ordersRoutes from "./routes/orders.js";
+import uploadRoutes from "./routes/upload.js";
 import mongoose from "mongoose";
 
 import cors from "cors";
@@ -18,6 +19,8 @@ app.use("/products", productsRoutes);
 app.use("/users", usersRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/orders", ordersRoutes);
+app.use("/upload", uploadRoutes);
+app.use("/static", express.static("public"));
 
 app.get("/", (req, res) => {
   res.send("HOMEPAGE");

@@ -12,6 +12,7 @@ export class ProductService {
     price,
     category,
     description,
+    image,
     rating,
     numberOfRates
   ) {
@@ -20,6 +21,7 @@ export class ProductService {
       price: price,
       category: category,
       description: description,
+      image: image,
       rating: rating,
       numberOfRates: numberOfRates,
     };
@@ -38,6 +40,7 @@ export class ProductService {
     price,
     category,
     description,
+    image,
     rating,
     numberOfRates
   ) {
@@ -54,6 +57,7 @@ export class ProductService {
         price,
         category,
         description,
+        image,
         rating,
         numberOfRates
       );
@@ -63,6 +67,7 @@ export class ProductService {
         price,
         category,
         description,
+        image,
         rating,
         numberOfRates
       );
@@ -96,11 +101,11 @@ export class ProductService {
   }
 
   async updateProduct(productId, body) {
-    if (body.rating > 0) {
-      const inc = { rating: body.rating, numberOfRates: body.numberOfRates };
-      return await this.repository.updateItem(productId, null, inc);
-    }
-
     return await this.repository.updateItem(productId, body, null);
+  }
+
+  async updateRating(productId, body) {
+    const inc = { rating: body.rating, numberOfRates: body.numberOfRates };
+    return await this.repository.updateItem(productId, null, inc);
   }
 }
