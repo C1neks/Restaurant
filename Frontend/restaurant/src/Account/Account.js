@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../StyledComponents/Button";
 import axios from "axios";
-import Form from "../FormField/Form";
+import AddProductForm from "../FormField/AddProductForm";
 import { MainSubTitle } from "../Main/Main.styles";
 import {
   AccountContainer,

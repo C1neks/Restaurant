@@ -3,7 +3,7 @@ import { MainSubTitle } from "../Main/Main.styles";
 import { Button } from "../StyledComponents/Button";
 
 import FormField from "./FormField";
-import { Container } from "./Form.styles";
+import { Container } from "./AddProductForm.styles";
 import { productService } from "../services/services";
 
 const initialFormState = {
@@ -13,7 +13,7 @@ const initialFormState = {
   description: "",
 };
 
-const Form = ({}) => {
+const AddProductForm = ({}) => {
   const createProduct = async (a) => {
     await productService.addProduct(a);
   };
@@ -32,12 +32,12 @@ const Form = ({}) => {
     setFile(file);
   };
 
-  const handleAddProduct = (e) => {
+  const handleAddProduct = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(myContainer.current);
 
-    createProduct(formData);
+    await createProduct(formData);
     setFormValues(initialFormState);
   };
   const myContainer = useRef(null);
@@ -96,4 +96,4 @@ const Form = ({}) => {
   );
 };
 
-export default Form;
+export default AddProductForm;

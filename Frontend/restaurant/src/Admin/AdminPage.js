@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Form from "../FormField/Form";
+import AddProductForm from "../FormField/AddProductForm";
 import AdminAccount from "../Account/AdminAccount";
 import { orderService, productService } from "../services/services";
 
@@ -15,7 +15,7 @@ const AdminPage = ({ userDetails }) => {
 
   return (
     <>
-      <Form />
+      <AddProductForm />
       <AdminAccount orders={orders} getOrders={getOrders} />
     </>
   );

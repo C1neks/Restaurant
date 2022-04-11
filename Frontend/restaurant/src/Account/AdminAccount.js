@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../StyledComponents/Button";
 import axios from "axios";
-import { Container } from "../FormField/Form.styles";
+import { Container } from "../FormField/AddProductForm.styles";
 import { orderService } from "../services/services";
 
 const AdminAccount = ({ orders, getOrders }) => {
