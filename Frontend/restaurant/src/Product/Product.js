@@ -6,12 +6,11 @@ import {
   Details,
   Item,
   ItemDetails,
-  ItemImg,
   ItemWrapper,
   PriceAndButtonContainer,
   Wrapper,
 } from "../Menu/Menu.styles";
-import { FaStar } from "react-icons/fa";
+
 import { ItemsContext } from "../App";
 import { MainSubTitle } from "../Main/Main.styles";
 import Opinion from "../Opinion/Opinion";
@@ -50,13 +49,16 @@ const Product = ({ cat, userDetails }) => {
         {productCategory.map((m) => (
           <Item key={m._id}>
             <Image image={m.image} />
-            {/*<ItemImg  />*/}
 
             <ItemDetails>
               <Details>
                 <h2>{m.name}</h2>
-                {/*<FaStar color="orange" size={15} />*/}
-                <Opinion productId={m._id} />
+
+                <Opinion
+                  productId={m._id}
+                  usersVoted={m.usersVoted}
+                  getCategories={getCategories}
+                />
                 <p>{m.description}</p>
               </Details>
               <PriceAndButtonContainer>

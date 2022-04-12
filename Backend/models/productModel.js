@@ -10,6 +10,7 @@ const productSchema = mongoose.Schema({
   },
   description: String,
   image: { type: String, default: "default" },
+  usersVoted: [],
   rating: { type: Number, default: 0 },
   numberOfRates: { type: Number, default: 0 },
 });

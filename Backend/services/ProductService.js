@@ -105,7 +105,29 @@ export class ProductService {
   }
 
   async updateRating(productId, body) {
+    const categoryOfProduct = await this.getProductById(productId);
+
+    const getCategory = await categoryService.getCategories();
+
+    const idOfCategoryOfProduct = getCategory.data.filter(
+      (product) => product.name === categoryOfProduct.data.category
+    )[0];
+
+    console.log("idOfCategoryOfProduct", idOfCategoryOfProduct);
+
     const inc = { rating: body.rating, numberOfRates: body.numberOfRates };
-    return await this.repository.updateItem(productId, null, inc);
+    const user = body.usersVoted;
+    console.log("BODYYY", body);
+    const updatedRating = await this.repository.updateItem(
+      productId,
+      null,
+      inc,
+      user
+    );
+    await categoryService.updateCategory(idOfCategoryOfProduct._id.toString(), {
+      name: categoryOfProduct.data.category,
+    });
+
+    return updatedRating;
   }
 }

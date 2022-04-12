@@ -18,8 +18,15 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", upload.single("image"), async (req, res) => {
-  const { name, price, category, description, rating, numberOfRates } =
-    req.body;
+  const {
+    name,
+    price,
+    category,
+    description,
+    usersVoted,
+    rating,
+    numberOfRates,
+  } = req.body;
 
   const image = req.file.filename;
 
@@ -29,6 +36,7 @@ router.post("/", upload.single("image"), async (req, res) => {
     category,
     description,
     image,
+    usersVoted,
     rating,
     numberOfRates
   );

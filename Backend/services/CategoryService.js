@@ -40,7 +40,6 @@ export class CategoryService {
   async updateCategory(id, body) {
     const exisitngProducts = await productService.getProducts();
 
-    console.log("EXISTING!", exisitngProducts);
     let products = [];
     products = exisitngProducts.data.filter(
       (product) => product.category === body.name
@@ -51,6 +50,6 @@ export class CategoryService {
       products,
     };
 
-    return await this.repository.updateItem(id, category, null);
+    return await this.repository.updateItem(id, category, null, null);
   }
 }

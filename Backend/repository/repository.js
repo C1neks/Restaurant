@@ -41,7 +41,7 @@ export class Repository {
     return this.execute(this.Document.findOneAndDelete({ _id: id }));
   }
 
-  async updateItem(id, set, inc) {
+  async updateItem(id, set, inc, data) {
     console.log("SET", set);
     console.log("INC", inc);
     return this.execute(
@@ -54,7 +54,10 @@ export class Repository {
               }
             : {}),
           ...(inc
-            ? { $inc: { rating: inc.rating, numberOfRates: inc.numberOfRates } }
+            ? {
+                $push: { usersVoted: data },
+                $inc: { rating: inc.rating, numberOfRates: inc.numberOfRates },
+              }
             : {}),
         },
         { new: true }
