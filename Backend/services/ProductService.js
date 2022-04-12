@@ -1,8 +1,9 @@
 import { categoryService } from "../routes/categories.js";
 
 export class ProductService {
-  constructor(repository) {
+  constructor(repository, productRatingService) {
     this.repository = repository;
+    this.productRatingService = productRatingService;
   }
   async getProducts() {
     return await this.repository.getItems();
@@ -113,17 +114,15 @@ export class ProductService {
       (product) => product.name === categoryOfProduct.data.category
     )[0];
 
-    console.log("idOfCategoryOfProduct", idOfCategoryOfProduct);
-
     const inc = { rating: body.rating, numberOfRates: body.numberOfRates };
     const user = body.usersVoted;
-    console.log("BODYYY", body);
-    const updatedRating = await this.repository.updateItem(
-      productId,
-      null,
-      inc,
-      user
-    );
+
+    const updatedRating =
+      await this.productRatingService.ratingUpdateAndSaveVotes(
+        productId,
+        inc,
+        user
+      );
     await categoryService.updateCategory(idOfCategoryOfProduct._id.toString(), {
       name: categoryOfProduct.data.category,
     });

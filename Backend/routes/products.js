@@ -7,11 +7,15 @@ import { Repository } from "../repository/repository.js";
 import Product from "../models/productModel.js";
 import { fileStorageEngine, fileFilter } from "./upload.js";
 import multer from "multer";
+import { ProductRatingService } from "../services/ProductRatingService.js";
 const router = express.Router();
 
 const upload = multer({ storage: fileStorageEngine, fileFilter: fileFilter });
 
-export const productService = new ProductService(new Repository(Product));
+export const productService = new ProductService(
+  new Repository(Product),
+  new ProductRatingService(new Repository(Product))
+);
 router.get("/", async (req, res) => {
   const response = await productService.getProducts();
   res.send(response);
