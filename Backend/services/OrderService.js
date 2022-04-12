@@ -9,7 +9,7 @@ export class OrderService {
     return this.repository.getItemsSorted(sortValue);
   }
 
-  async createOrder(items, user) {
+  async createOrder(items, user, discount) {
     let cartItems = [];
     let subTotal = 0;
     for (let item of items) {
@@ -33,14 +33,21 @@ export class OrderService {
         return error;
       }
     }
-
-    const order = {
-      items: cartItems,
-      subTotal,
-      user,
-    };
-
-    return await this.repository.createItem(order);
+    if (discount !== null) {
+      const order = {
+        items: cartItems,
+        subTotal: subTotal * 0.9,
+        user,
+      };
+      return await this.repository.createItem(order);
+    } else {
+      const order = {
+        items: cartItems,
+        subTotal,
+        user,
+      };
+      return await this.repository.createItem(order);
+    }
   }
   async getOrderById(id) {
     return await this.repository.getItemById(id);

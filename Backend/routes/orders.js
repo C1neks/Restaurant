@@ -15,10 +15,14 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { items, user } = req.body;
-
-  const response = await orderService.createOrder(items, user);
-  res.send(response);
+  const { items, user, discount } = req.body;
+  if (discount) {
+    const response = await orderService.createOrder(items, user, discount);
+    res.send(response);
+  } else {
+    const response = await orderService.createOrder(items, user, null);
+    res.send(response);
+  }
 });
 
 router.get("/:id", async (req, res) => {
