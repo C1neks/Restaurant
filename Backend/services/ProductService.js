@@ -26,7 +26,7 @@ export class ProductService {
       rating: rating,
       numberOfRates: numberOfRates,
     };
-    const updatedProduct = await this.repository.createItem(product);
+    const createdProduct = await this.repository.createItem(product);
 
     const allCategories = await categoryService.getCategories();
     const wantedCategory = allCategories.data.filter(
@@ -34,7 +34,7 @@ export class ProductService {
     )[0];
 
     await categoryService.updateCategory(wantedCategory._id, wantedCategory);
-    return updatedProduct;
+    return createdProduct;
   }
   async createProduct(
     name,
@@ -85,16 +85,13 @@ export class ProductService {
 
       const getCategory = await categoryService.getCategories();
 
-      const idOfCategoryOfProduct = getCategory.data.filter(
+      const categoryOfProduct = getCategory.data.find(
         (product) => product.name === categoryToUpdate
-      )[0];
-      const deletedProduct = await this.repository.deleteItem(productId);
-      await categoryService.updateCategory(
-        idOfCategoryOfProduct._id.toString(),
-        {
-          name: categoryToUpdate,
-        }
       );
+      const deletedProduct = await this.repository.deleteItem(productId);
+      await categoryService.updateCategory(categoryOfProduct._id.toString(), {
+        name: categoryToUpdate,
+      });
       return deletedProduct;
     } else {
       return await this.repository.deleteItem(productId);
@@ -106,13 +103,13 @@ export class ProductService {
   }
 
   async updateRating(productId, body) {
-    const categoryOfProduct = await this.getProductById(productId);
+    const product = await this.getProductById(productId);
 
-    const getCategory = await categoryService.getCategories();
+    const allCategories = await categoryService.getCategories();
 
-    const idOfCategoryOfProduct = getCategory.data.filter(
-      (product) => product.name === categoryOfProduct.data.category
-    )[0];
+    const categoryOfProduct = allCategories.data.find(
+      (category) => category.name === product.data.category
+    );
 
     const inc = { rating: body.rating, numberOfRates: body.numberOfRates };
     const user = body.usersVoted;
@@ -123,8 +120,8 @@ export class ProductService {
         inc,
         user
       );
-    await categoryService.updateCategory(idOfCategoryOfProduct._id.toString(), {
-      name: categoryOfProduct.data.category,
+    await categoryService.updateCategory(categoryOfProduct._id.toString(), {
+      name: product.data.category,
     });
 
     return updatedRating;
