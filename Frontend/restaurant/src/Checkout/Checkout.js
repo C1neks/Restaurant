@@ -41,9 +41,23 @@ const Checkout = ({ userDetails, getUserDetails }) => {
           <div>Price: {x.price * x.quantity}</div>
         </div>
       ))}
-      <div>
-        <h2>Total cost:{context.totalPrice}PLN</h2>
-      </div>
+      {user.orders.length > 5 ? (
+        <div>
+          <h2 style={{ textDecorationLine: "line-through" }}>
+            Total cost:{context.totalPrice}PLN
+          </h2>
+          <h3>Regular customer discount is Active!</h3>
+          <h2>
+            Total cost:
+            {context.totalPrice * (0.9).toFixed(1)}
+            PLN
+          </h2>
+        </div>
+      ) : (
+        <div>
+          <h2>Total cost:{context.totalPrice}PLN</h2>
+        </div>
+      )}
 
       <Button onClick={() => createOrder(context.cartItems)}>Order</Button>
     </CheckoutWrapper>
