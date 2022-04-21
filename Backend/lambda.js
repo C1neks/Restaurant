@@ -1,10 +1,10 @@
 const serverlessExpress = require("@vendia/serverless-express");
-const { createApp } = require("./createApp.js");
+const { createTestApp } = require("./createTestApp.js");
 
 let serverlessExpressInstance;
 
 async function setup(event, context) {
-  const app = await createApp();
+  const app = await createTestApp();
   console.log(app);
   serverlessExpressInstance = serverlessExpress({ app });
   return serverlessExpressInstance(event, context);

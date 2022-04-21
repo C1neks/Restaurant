@@ -1,20 +1,15 @@
 const { Stack, Duration } = require("aws-cdk-lib");
-// const sqs = require('aws-cdk-lib/aws-sqs');
+const sqs = require("aws-cdk-lib/aws-sqs");
 const lambda = require("aws-cdk-lib/aws-lambda-nodejs");
 const gateway = require("aws-cdk-lib/aws-apigateway");
 
 class InfraStack extends Stack {
-  /**
-   *
-   * @param {Construct} scope
-   * @param {string} id
-   * @param {StackProps=} props
-   */
   constructor(scope, id, props) {
     super(scope, id, props);
 
     const restaurantApiLambda = new lambda.NodejsFunction(this, "api", {
-      entry: `${__dirname}/../../Backend/lambda.js`,
+      depsLockFilePath: __dirname + "/../../Backend/package-lock.json",
+      entry: __dirname + "/../../Backend/lambda.js",
 
       environment: {
         ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
