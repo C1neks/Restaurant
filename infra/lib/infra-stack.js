@@ -1,4 +1,5 @@
 const { Stack, Duration } = require("aws-cdk-lib");
+const { Bucket } = require("aws-cdk-lib/aws-s3");
 const sqs = require("aws-cdk-lib/aws-sqs");
 const lambda = require("aws-cdk-lib/aws-lambda-nodejs");
 const gateway = require("aws-cdk-lib/aws-apigateway");
@@ -6,7 +7,9 @@ const gateway = require("aws-cdk-lib/aws-apigateway");
 class InfraStack extends Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
-
+    new Bucket(this, "myImageBucket", {
+      bucketName: "resturant.image.bucket",
+    });
     const restaurantApiLambda = new lambda.NodejsFunction(this, "api", {
       depsLockFilePath: __dirname + "/../../Backend/package-lock.json",
       entry: __dirname + "/../../Backend/lambda.js",
@@ -17,6 +20,7 @@ class InfraStack extends Stack {
       bundling: {
         minify: true,
       },
+
       memorySize: 512,
     });
 
