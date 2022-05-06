@@ -5,11 +5,28 @@ import { ProductService } from "../services/ProductService.js";
 import { Repository } from "../repository/repository.js";
 
 import Product from "../models/productModel.js";
-import { fileStorageEngine, fileFilter } from "./upload.js";
+
+import S3 from "aws-sdk/clients/s3.js";
 import multer from "multer";
+import multerS3 from "multer-s3";
+
 const router = express.Router();
 
-const upload = multer({ storage: fileStorageEngine, fileFilter: fileFilter });
+const s3 = new S3({
+  region: process.env.REGION,
+});
+
+const uploadS3 = multer({
+  storage: multerS3({
+    s3: s3,
+
+    bucket: "resturant.image.bucket",
+
+    key: function (req, file, cb) {
+      cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
+    },
+  }),
+});
 
 export const productService = new ProductService(new Repository(Product));
 router.get("/", async (req, res) => {
@@ -17,7 +34,7 @@ router.get("/", async (req, res) => {
   res.send(response);
 });
 
-router.post("/", upload.single("image"), async (req, res) => {
+router.post("/", uploadS3.single("image"), async (req, res) => {
   const { name, price, category, description, rating, numberOfRates } =
     req.body;
 
@@ -32,6 +49,7 @@ router.post("/", upload.single("image"), async (req, res) => {
     rating,
     numberOfRates
   );
+
   res.send(response);
 });
 
