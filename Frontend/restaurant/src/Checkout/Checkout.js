@@ -23,9 +23,7 @@ const Checkout = ({ userDetails, getUserDetails }) => {
         ])
     );
 
-    user.orders.length > 5
-      ? (order = { items, user: user._id, discount: true })
-      : (order = { items, user: user._id });
+    order = { items, user: user._id };
 
     const response = await orderService.createOrder(order);
 

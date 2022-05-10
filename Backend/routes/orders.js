@@ -2,6 +2,7 @@ import express from "express";
 import { OrderService } from "../services/OrderService.js";
 import { Repository } from "../repository/repository.js";
 import Order from "../models/orderModel.js";
+import { userService } from "./users.js";
 
 const router = express.Router();
 
@@ -15,8 +16,13 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { items, user, discount } = req.body;
-  if (discount) {
+  const { items, user } = req.body;
+  const userInfo = await userService.getUserById(user);
+
+  const amountOfOrders = userInfo.data.orders.length;
+
+  if (amountOfOrders > 5) {
+    const discount = true;
     const response = await orderService.createOrder(items, user, discount);
     res.send(response);
   } else {
