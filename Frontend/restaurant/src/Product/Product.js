@@ -1,5 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { categoryService, productService } from "../services/services";
+import {
+  categoryService,
+  opinionService,
+  productService,
+} from "../services/services";
 import {
   CartButton,
   CategoryImg,
@@ -19,7 +23,6 @@ import Image from "../Image/Image";
 const Product = ({ cat, userDetails }) => {
   const context = useContext(ItemsContext);
   const [productCategory, setProductCategory] = useState([]);
-
   const getCategories = async () => {
     const response = await categoryService.getAll();
 
@@ -53,7 +56,6 @@ const Product = ({ cat, userDetails }) => {
             <ItemDetails>
               <Details>
                 <h2>{m.name}</h2>
-
                 <Opinion
                   productId={m._id}
                   usersVoted={m.usersVoted}

@@ -4,7 +4,7 @@ Backend/public
 .env
 
 node_modules
-
+infra/
 # dependencies
 Frontend/restaurant/node_modules
 /.pnp

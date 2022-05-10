@@ -44,6 +44,14 @@ export class Repository {
   async updateItem(id, set, inc, data) {
     console.log("SET", set);
     console.log("INC", inc);
+    console.log("DATA", data);
+
+    const userVotedId = "usersWhoRated." + Object.keys(data || {})[0];
+    const userVotedValue = Object.keys(data || {})[0];
+    const b = Object.prototype.toString.call(data);
+    console.log("BI", b);
+    console.log(userVotedId);
+    console.log(userVotedValue);
     return this.execute(
       this.Document.findOneAndUpdate(
         { _id: id },
@@ -55,8 +63,17 @@ export class Repository {
             : {}),
           ...(inc
             ? {
-                $push: { usersVoted: data },
-                $inc: { rating: inc.rating, numberOfRates: inc.numberOfRates },
+                $inc: {
+                  rating: inc.rating,
+                  numberOfRatings: inc.numberOfRates,
+                },
+              }
+            : {}),
+          ...(data
+            ? {
+                $set: {
+                  [`${userVotedId}`]: true,
+                },
               }
             : {}),
         },
