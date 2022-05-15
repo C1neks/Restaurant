@@ -12,7 +12,7 @@ Frontend/restaurant/node_modules
 
 # testing
 /coverage
-
+Frontend/restaurant/build/
 # production
 /build
 
