@@ -9,10 +9,10 @@ node_modules
 Frontend/restaurant/node_modules
 /.pnp
 .pnp.js
-
+cdk.out
 # testing
 /coverage
-Frontend/restaurant/build/
+Frontend/restaurant/build
 # production
 /build
 

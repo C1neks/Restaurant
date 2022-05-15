@@ -5,10 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"cd../Frontend/restaurant && npm start\"",
-    "server": "nodemon index.js",
-    "test": "../node_modules/.bin/jest",
-    "prepare": "../node_modules/.bin/husky install"
+    "start": "nodemon index.js",
+    "test": "../node_modules/.bin/jest"
+
   },
   "keywords": [],
   "author": "",
@@ -33,14 +32,10 @@
     "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
     "babel-jest": "^27.4.5",
-    "husky": "^7.0.4",
     "jest": "^27.4.5",
-    "lint-staged": "^12.1.7",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "uuidv4": "^6.2.12"
-  },
-  "lint-staged": {
-    "*.{js,css,md}": "prettier --write"
   }
+
 }
