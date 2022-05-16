@@ -12,15 +12,21 @@ export class ProductRatingService {
     const productRating = {
       _id: id,
     };
-    await this.repository.createItem(productRating);
+    const isRatingExist = await this.repository.getItemById(id);
+    isRatingExist.data === null
+      ? await this.repository.createItem(productRating)
+      : null;
+
     return await this.repository.getItemById(id);
   }
   async ratingUpdateAndSaveVotes(productId, inc, user) {
+    const userVotedId = "usersWhoRated." + Object.keys(user || {})[0];
+    const userVoted = { [`${userVotedId}`]: true };
+
     const updatedRating = await this.repository.updateItem(
       productId,
-      null,
-      inc,
-      user
+      userVoted,
+      inc
     );
 
     return updatedRating;
@@ -38,8 +44,8 @@ export class ProductRatingService {
       (category) => category.name === product.data.category
     );
 
-    const inc = { rating: body.rating, numberOfRates: 1 };
-    const user = body.usersVoted;
+    const inc = { rating: body.rating, numberOfRatings: 1 };
+    const user = body.voter;
     const userObj = {
       [user]: true,
     };

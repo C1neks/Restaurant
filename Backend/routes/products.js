@@ -30,15 +30,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", upload.single("image"), async (req, res) => {
-  const {
-    name,
-    price,
-    category,
-    description,
-    usersVoted,
-    rating,
-    numberOfRates,
-  } = req.body;
+  const { name, price, category, description } = req.body;
 
   const image = req.file.filename;
 
@@ -47,16 +39,14 @@ router.post("/", upload.single("image"), async (req, res) => {
     price,
     category,
     description,
-    image,
-    usersVoted,
-    rating,
-    numberOfRates
+    image
   );
   res.send(response);
 });
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
+
   const product = await productService.getProductById(id);
   const ratings =
     await productService.productRatingService.getProductRatingById(id);

@@ -7,20 +7,25 @@ import { opinionService } from "../services/services";
 const Opinion = ({ productId, usersVoted, getCategories, votesMade }) => {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
-  const [votes, setVotes] = useState(null);
+  const [votes, setVotes] = useState({});
   const [totalRating, settotalRating] = useState(null);
-  console.log(votes);
+
   const userID = localStorage.getItem("userID");
   const getRating = async (id) => {
     const response = await opinionService.getRate(id);
-    setVotes(response.data.usersWhoRated);
+
     console.log(response);
     settotalRating(response.data.rating / response.data.numberOfRates);
   };
 
+  const getVotesMade = async (id) => {
+    const response = await opinionService.getRate(id);
+    setVotes(response.data.usersWhoRated);
+  };
+
   const addRating = async (id, rating) => {
     const body = {
-      usersVoted: userID,
+      voter: userID,
       rating: rating,
     };
 
@@ -35,9 +40,15 @@ const Opinion = ({ productId, usersVoted, getCategories, votesMade }) => {
     })();
   }, [rating]);
 
+  useEffect(() => {
+    (async () => {
+      await getVotesMade(productId);
+    })();
+  }, [rating]);
+
   return (
     <div>
-      {votes[userID] === true ? (
+      {votes[userID] !== true ? (
         <div>
           {[...Array(5)].map((star, i) => {
             const ratingValue = i + 1;
