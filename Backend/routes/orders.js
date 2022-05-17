@@ -21,14 +21,8 @@ router.post("/", async (req, res) => {
 
   const amountOfOrders = userInfo.data.orders.length;
 
-  if (amountOfOrders > 5) {
-    const discount = true;
-    const response = await orderService.createOrder(items, user, discount);
-    res.send(response);
-  } else {
-    const response = await orderService.createOrder(items, user, null);
-    res.send(response);
-  }
+  const response = await orderService.createOrder(items, user, amountOfOrders);
+  res.send(response);
 });
 
 router.get("/:id", async (req, res) => {

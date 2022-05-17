@@ -54,11 +54,11 @@ const Product = ({ cat, userDetails }) => {
               <Details>
                 <h2>{m.name}</h2>
 
-                <Opinion
-                  productId={m._id}
-                  usersVoted={m.usersVoted}
-                  getCategories={getCategories}
-                />
+                {/*<Opinion*/}
+                {/*  productId={m._id}*/}
+                {/*  usersVoted={m.usersVoted}*/}
+                {/*  getCategories={getCategories}*/}
+                {/*/>*/}
                 <p>{m.description}</p>
               </Details>
               <PriceAndButtonContainer>

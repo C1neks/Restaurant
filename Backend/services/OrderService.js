@@ -9,7 +9,7 @@ export class OrderService {
     return this.repository.getItemsSorted(sortValue);
   }
 
-  async createOrder(items, user, discount) {
+  async createOrder(items, user, amountOfOrders) {
     let cartItems = [];
     let subTotal = 0;
     for (let item of items) {
@@ -33,7 +33,7 @@ export class OrderService {
         return error;
       }
     }
-    if (discount !== null) {
+    if (amountOfOrders > 5) {
       const order = {
         items: cartItems,
         subTotal: subTotal * 0.9,

@@ -8,6 +8,7 @@ infra/
 
 # dependencies
 Frontend/restaurant/node_modules
+Frontend/restaurant/build/
 /.pnp
 .pnp.js
 
