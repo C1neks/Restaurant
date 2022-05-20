@@ -20,7 +20,7 @@ export class ProductRatingService {
     return await this.repository.getItemById(id);
   }
   async ratingUpdateAndSaveVotes(productId, inc, user) {
-    const userVotedId = "usersWhoRated." + Object.keys(user || {})[0];
+    const userVotedId = "usersWhoRated." + user;
     const userVoted = { [`${userVotedId}`]: true };
 
     const updatedRating = await this.repository.updateItem(
@@ -46,20 +46,11 @@ export class ProductRatingService {
 
     const inc = { rating: body.rating, numberOfRatings: 1 };
     const user = body.voter;
-    const userObj = {
-      [user]: true,
-    };
 
     const updatedRating = await this.ratingUpdateAndSaveVotes(
       productId,
       inc,
-      userObj
-    );
-    await this.categoryService.updateCategory(
-      categoryOfProduct._id.toString(),
-      {
-        name: product.data.category,
-      }
+      user
     );
 
     return updatedRating;

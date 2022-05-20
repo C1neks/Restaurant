@@ -11,18 +11,29 @@ import { ProductRatingService } from "../services/ProductRatingService.js";
 import { CategoryService } from "../services/CategoryService.js";
 import Category from "../models/categoryModel.js";
 import ProductRating from "../models/productRatingModel.js";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
 const upload = multer({ storage: fileStorageEngine, fileFilter: fileFilter });
 
+export function getParsedJwt(token) {
+  try {
+    return JSON.parse(atob(token.split(".")[1]));
+  } catch (error) {
+    return undefined;
+  }
+}
+
+const categoryService = new CategoryService(new Repository(Category));
+const productRatingService = new ProductRatingService(
+  new Repository(ProductRating),
+  categoryService
+);
 export const productService = new ProductService(
   new Repository(Product),
-  new ProductRatingService(
-    new Repository(ProductRating),
-    new CategoryService(new Repository(Category))
-  ),
-  new CategoryService(new Repository(Category))
+  productRatingService,
+  categoryService
 );
 router.get("/", async (req, res) => {
   const response = await productService.getProducts();
@@ -46,10 +57,14 @@ router.post("/", upload.single("image"), async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
+  const authHeader = req.headers["authorization"];
+
+  const userDetails = await getParsedJwt(authHeader);
+
+  const currentlyLoggedInUserId = userDetails._id;
 
   const product = await productService.getProductById(id);
-  const ratings =
-    await productService.productRatingService.getProductRatingById(id);
+  const ratings = await productRatingService.getProductRatingById(id);
 
   const response = {
     _id: product.data._id,
@@ -60,7 +75,7 @@ router.get("/:id", async (req, res) => {
     image: product.data.image,
     rating: ratings.data.rating,
     numberOfRates: ratings.data.numberOfRatings,
-    usersWhoRated: ratings.data.usersWhoRated,
+    ratedByCurrentUser: !!ratings.data.usersWhoRated[currentlyLoggedInUserId],
   };
 
   res.send(response);
