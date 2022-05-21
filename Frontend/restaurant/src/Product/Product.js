@@ -1,17 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { categoryService, productService } from "../services/services";
+import {
+  categoryService,
+  opinionService,
+  productService,
+} from "../services/services";
 import {
   CartButton,
   CategoryImg,
   Details,
   Item,
   ItemDetails,
-  ItemImg,
   ItemWrapper,
   PriceAndButtonContainer,
   Wrapper,
 } from "../Menu/Menu.styles";
-import { FaStar } from "react-icons/fa";
+
 import { ItemsContext } from "../App";
 import { MainSubTitle } from "../Main/Main.styles";
 import Opinion from "../Opinion/Opinion";
@@ -20,7 +23,6 @@ import Image from "../Image/Image";
 const Product = ({ cat, userDetails }) => {
   const context = useContext(ItemsContext);
   const [productCategory, setProductCategory] = useState([]);
-
   const getCategories = async () => {
     const response = await categoryService.getAll();
 
@@ -50,13 +52,15 @@ const Product = ({ cat, userDetails }) => {
         {productCategory.map((m) => (
           <Item key={m._id}>
             <Image image={m.image} />
-            {/*<ItemImg  />*/}
 
             <ItemDetails>
               <Details>
                 <h2>{m.name}</h2>
-                {/*<FaStar color="orange" size={15} />*/}
-                <Opinion productId={m._id} />
+                <Opinion
+                  productId={m._id}
+                  usersVoted={m.usersVoted}
+                  getCategories={getCategories}
+                />
                 <p>{m.description}</p>
               </Details>
               <PriceAndButtonContainer>
