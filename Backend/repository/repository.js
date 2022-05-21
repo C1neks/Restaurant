@@ -42,8 +42,6 @@ export class Repository {
   }
 
   async updateItem(id, set, inc) {
-    console.log("SET", set);
-    console.log("INC", inc);
     return this.execute(
       this.Document.findOneAndUpdate(
         { _id: id },
@@ -54,7 +52,9 @@ export class Repository {
               }
             : {}),
           ...(inc
-            ? { $inc: { rating: inc.rating, numberOfRates: inc.numberOfRates } }
+            ? {
+                $inc: inc,
+              }
             : {}),
         },
         { new: true }
