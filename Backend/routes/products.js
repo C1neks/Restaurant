@@ -16,6 +16,7 @@ import jwt from "jsonwebtoken";
 const router = express.Router();
 
 const upload = multer({ storage: fileStorageEngine, fileFilter: fileFilter });
+const productRepository = new Repository(Product);
 
 export function getParsedJwt(token) {
   try {
@@ -31,7 +32,7 @@ const productRatingService = new ProductRatingService(
   categoryService
 );
 export const productService = new ProductService(
-  new Repository(Product),
+  productRepository,
   productRatingService,
   categoryService
 );
@@ -91,7 +92,6 @@ router.delete("/:id", async (req, res) => {
 router.patch("/:id", async (req, res) => {
   const id = req.params.id;
   const body = req.body;
-
   const response = await productService.updateProduct(id, body);
   res.send(response);
 });
