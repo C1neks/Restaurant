@@ -50,6 +50,6 @@ export class CategoryService {
       products,
     };
 
-    return await this.repository.updateItem(id, category, null, null);
+    return await this.repository.updateItem(id, category);
   }
 }

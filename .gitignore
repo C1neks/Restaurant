@@ -5,7 +5,6 @@ Backend/public
 
 node_modules
 infra/
-
 # dependencies
 Frontend/restaurant/node_modules
 Frontend/restaurant/build/
