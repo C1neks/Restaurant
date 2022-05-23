@@ -1,8 +1,8 @@
-import { categoryService } from "../routes/categories.js";
-
 export class ProductService {
-  constructor(repository) {
+  constructor(repository, productRatingService, categoryService) {
     this.repository = repository;
+    this.productRatingService = productRatingService;
+    this.categoryService = categoryService;
   }
   async getProducts() {
     return await this.repository.getItems();
@@ -25,15 +25,18 @@ export class ProductService {
       rating: rating,
       numberOfRates: numberOfRates,
     };
-    const updatedProduct = await this.repository.createItem(product);
+    const createdProduct = await this.repository.createItem(product);
 
-    const allCategories = await categoryService.getCategories();
+    const allCategories = await this.categoryService.getCategories();
     const wantedCategory = allCategories.data.filter(
       (isExists) => isExists.name === category
     )[0];
 
-    await categoryService.updateCategory(wantedCategory._id, wantedCategory);
-    return updatedProduct;
+    await this.categoryService.updateCategory(
+      wantedCategory._id,
+      wantedCategory
+    );
+    return createdProduct;
   }
   async createProduct(
     name,
@@ -44,13 +47,13 @@ export class ProductService {
     rating,
     numberOfRates
   ) {
-    const isCategoryExists = await categoryService.getCategories();
+    const isCategoryExists = await this.categoryService.getCategories();
 
     if (
       isCategoryExists.data.some((isExists) => isExists.name === category) ===
       false
     ) {
-      const a = await categoryService.createCategory(category);
+      const a = await this.categoryService.createCategory(category);
 
       return await this.createProductHelper(
         name,
@@ -82,14 +85,14 @@ export class ProductService {
     if (productToDelete.data != null) {
       const categoryToUpdate = productToDelete.data.category;
 
-      const getCategory = await categoryService.getCategories();
+      const categories = await this.categoryService.getCategories();
 
-      const idOfCategoryOfProduct = getCategory.data.filter(
-        (product) => product.name === categoryToUpdate
-      )[0];
+      const categoryOfProduct = categories.data.find(
+        (category) => category.name === categoryToUpdate
+      );
       const deletedProduct = await this.repository.deleteItem(productId);
-      await categoryService.updateCategory(
-        idOfCategoryOfProduct._id.toString(),
+      await this.categoryService.updateCategory(
+        categoryOfProduct._id.toString(),
         {
           name: categoryToUpdate,
         }
@@ -102,10 +105,5 @@ export class ProductService {
 
   async updateProduct(productId, body) {
     return await this.repository.updateItem(productId, body, null);
-  }
-
-  async updateRating(productId, body) {
-    const inc = { rating: body.rating, numberOfRates: body.numberOfRates };
-    return await this.repository.updateItem(productId, null, inc);
   }
 }

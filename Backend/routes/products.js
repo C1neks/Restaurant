@@ -10,6 +10,12 @@ import S3 from "aws-sdk/clients/s3.js";
 import multer from "multer";
 import multerS3 from "multer-s3";
 
+import { ProductRatingService } from "../services/ProductRatingService.js";
+import { CategoryService } from "../services/CategoryService.js";
+import Category from "../models/categoryModel.js";
+import ProductRating from "../models/productRatingModel.js";
+import jwt from "jsonwebtoken";
+
 const router = express.Router();
 
 const s3 = new S3({
@@ -27,15 +33,33 @@ const uploadS3 = multer({
     },
   }),
 });
+const productRepository = new Repository(Product);
 
-export const productService = new ProductService(new Repository(Product));
+export function getParsedJwt(token) {
+  try {
+    return JSON.parse(atob(token.split(".")[1]));
+  } catch (error) {
+    return undefined;
+  }
+}
+
+const categoryService = new CategoryService(new Repository(Category));
+const productRatingService = new ProductRatingService(
+  new Repository(ProductRating),
+  categoryService
+);
+export const productService = new ProductService(
+  productRepository,
+  productRatingService,
+  categoryService
+);
 router.get("/", async (req, res) => {
   const response = await productService.getProducts();
   res.send(response);
 });
 
 router.post("/", uploadS3.single("image"), async (req, res) => {
-  const { name, price, category, description, rating, numberOfRates } =
+  const { name, price, category, description } =
     req.body;
 
   const image = req.file.filename;
@@ -45,9 +69,7 @@ router.post("/", uploadS3.single("image"), async (req, res) => {
     price,
     category,
     description,
-    image,
-    rating,
-    numberOfRates
+    image
   );
 
   res.send(response);
@@ -55,8 +77,27 @@ router.post("/", uploadS3.single("image"), async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
+  const authHeader = req.headers["authorization"];
 
-  const response = await productService.getProductById(id);
+  const userDetails = await getParsedJwt(authHeader);
+
+  const currentlyLoggedInUserId = userDetails._id;
+
+  const product = await productService.getProductById(id);
+  const ratings = await productRatingService.getProductRatingById(id);
+
+  const response = {
+    _id: product.data._id,
+    name: product.data.name,
+    price: product.data.price,
+    category: product.data.category,
+    description: product.data.description,
+    image: product.data.image,
+    rating: ratings.data.rating,
+    numberOfRates: ratings.data.numberOfRatings,
+    ratedByCurrentUser: !!ratings.data.usersWhoRated[currentlyLoggedInUserId],
+  };
+
   res.send(response);
 });
 
@@ -78,7 +119,10 @@ router.patch("/rating/:id", async (req, res) => {
   const id = req.params.id;
   const body = req.body;
 
-  const response = await productService.updateRating(id, body);
+  const response = await productService.productRatingService.updateRating(
+    id,
+    body
+  );
   res.send(response);
 });
 
