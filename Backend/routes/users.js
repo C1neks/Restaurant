@@ -2,7 +2,7 @@ import express from "express";
 import { UserService } from "../services/UserService.js";
 import { Repository } from "../repository/repository.js";
 import User from "../models/userModel.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 import jwt from "jsonwebtoken";
 

@@ -4,16 +4,16 @@ Backend/public
 .env
 
 node_modules
-infra/
+
 # dependencies
 Frontend/restaurant/node_modules
 Frontend/restaurant/build/
 /.pnp
 .pnp.js
-
+cdk.out
 # testing
 /coverage
-
+Frontend/restaurant/build
 # production
 /build
 

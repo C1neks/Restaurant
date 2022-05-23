@@ -1,6 +1,6 @@
 import { userService } from "../routes/users.js";
 import { orderService } from "../routes/orders.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export class UserService {
   constructor(repository) {

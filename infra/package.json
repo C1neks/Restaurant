@@ -1,0 +1,24 @@
+{
+  "name": "infra",
+  "version": "0.1.0",
+  "bin": {
+    "infra": "bin/infra.js"
+  },
+  "scripts": {
+    "build": "echo \"The build step is not required when using JavaScript!\" && exit 0",
+    "cdk": "cdk",
+    "test": "jest",
+    "build-cdk": "cdk synth",
+    "build-frontend": "cd ../Frontend/restaurant && npm run build",
+    "deploy": "npm run build-frontend && npm run build-cdk  && cdk deploy InfraStack"
+  },
+  "devDependencies": {
+    "aws-cdk": "2.20.0",
+    "jest": "^26.4.2"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "2.20.0",
+    "cdk-spa-deploy": "^2.0.0-alpha.1",
+    "constructs": "^10.0.0"
+  }
+}
