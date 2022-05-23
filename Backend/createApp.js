@@ -1,17 +1,17 @@
 import "dotenv/config";
 import express from "express";
 import bodyParser from "body-parser";
-import productsRoutes from "./routes/products.js";
+import cors from "cors";
+import mongoose from "mongoose";
 import usersRoutes from "./routes/users.js";
+import productsRoutes from "./routes/products.js";
 import categoriesRoutes from "./routes/categories.js";
 import ordersRoutes from "./routes/orders.js";
 import uploadRoutes from "./routes/upload.js";
-import mongoose from "mongoose";
-
-import cors from "cors";
 
 export const createApp = async () => {
   const app = express();
+
   app.use(cors());
 
   app.use(bodyParser.json());

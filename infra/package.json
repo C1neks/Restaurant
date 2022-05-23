@@ -10,7 +10,7 @@
     "test": "jest",
     "build-cdk": "cdk synth",
     "build-frontend": "cd ../Frontend/restaurant && npm run build",
-    "deploy": "npm run build-cdk && npm run build-frontend && cdk deploy InfraStack"
+    "deploy": "npm run build-frontend && npm run build-cdk  && cdk deploy InfraStack"
   },
   "devDependencies": {
     "aws-cdk": "2.20.0",
