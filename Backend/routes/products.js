@@ -5,8 +5,11 @@ import { ProductService } from "../services/ProductService.js";
 import { Repository } from "../repository/repository.js";
 
 import Product from "../models/productModel.js";
-import { fileStorageEngine, fileFilter } from "./upload.js";
+
+import S3 from "aws-sdk/clients/s3.js";
 import multer from "multer";
+import multerS3 from "multer-s3";
+
 import { ProductRatingService } from "../services/ProductRatingService.js";
 import { CategoryService } from "../services/CategoryService.js";
 import Category from "../models/categoryModel.js";
@@ -15,7 +18,21 @@ import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
-const upload = multer({ storage: fileStorageEngine, fileFilter: fileFilter });
+const s3 = new S3({
+  region: process.env.REGION,
+});
+
+const uploadS3 = multer({
+  storage: multerS3({
+    s3: s3,
+
+    bucket: "resturant.image.bucket",
+
+    key: function (req, file, cb) {
+      cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
+    },
+  }),
+});
 const productRepository = new Repository(Product);
 
 export function getParsedJwt(token) {
@@ -41,8 +58,9 @@ router.get("/", async (req, res) => {
   res.send(response);
 });
 
-router.post("/", upload.single("image"), async (req, res) => {
-  const { name, price, category, description } = req.body;
+router.post("/", uploadS3.single("image"), async (req, res) => {
+  const { name, price, category, description } =
+    req.body;
 
   const image = req.file.filename;
 
@@ -53,6 +71,7 @@ router.post("/", upload.single("image"), async (req, res) => {
     description,
     image
   );
+
   res.send(response);
 });
 
