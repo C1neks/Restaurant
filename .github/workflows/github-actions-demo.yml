@@ -10,11 +10,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "16.x"
-          path: infra/
       - name: Install depedencies
         run: npm ci
       - name: build-synth-and-deploy
         run: npm run deploy
+        working-directory: infra
   
           
 env:
