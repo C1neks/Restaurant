@@ -84,7 +84,7 @@ router.get("/:id", async (req, res) => {
   const userDetails = await parseJwt(authHeader);
 
   const currentlyLoggedInUserId = userDetails._id;
-  console.log("test");
+  console.log("test czy dziala autodeploy");
   const product = await productService.getProductById(id);
   const ratings = await productRatingService.getProductRatingById(id);
 
