@@ -12,6 +12,13 @@ jobs:
           node-version: "16.x"
       - name: Install depedencies
         run: npm ci
+        working-directory: infra
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: Backend
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: Frontend/restaurant
       - name: build-synth-and-deploy
         run: npm run deploy
         working-directory: infra
