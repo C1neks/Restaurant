@@ -19,6 +19,7 @@
   "dependencies": {
     "aws-cdk-lib": "2.20.0",
     "cdk-spa-deploy": "^2.0.0-alpha.1",
-    "constructs": "^10.0.0"
+    "constructs": "^10.0.0",
+    "dotenv": "^16.0.0"
   }
 }
