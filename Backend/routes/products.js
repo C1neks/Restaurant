@@ -14,7 +14,6 @@ import { ProductRatingService } from "../services/ProductRatingService.js";
 import { CategoryService } from "../services/CategoryService.js";
 import Category from "../models/categoryModel.js";
 import ProductRating from "../models/productRatingModel.js";
-import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -35,9 +34,13 @@ const uploadS3 = multer({
 });
 const productRepository = new Repository(Product);
 
-export function getParsedJwt(token) {
+export async function parseJwt(token) {
   try {
-    return JSON.parse(atob(token.split(".")[1]));
+    const base64Payload = token.split(".")[1];
+
+    const payload = Buffer.from(base64Payload, "base64");
+
+    return JSON.parse(payload.toString());
   } catch (error) {
     return undefined;
   }
@@ -59,8 +62,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", uploadS3.single("image"), async (req, res) => {
-  const { name, price, category, description } =
-    req.body;
+  const { name, price, category, description } = req.body;
 
   const image = req.file.filename;
 
@@ -78,8 +80,10 @@ router.post("/", uploadS3.single("image"), async (req, res) => {
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   const authHeader = req.headers["authorization"];
+  console.log("AUTHHEADER", authHeader);
 
-  const userDetails = await getParsedJwt(authHeader);
+  const userDetails = await parseJwt(authHeader);
+  console.log("USDETAILS!!!!!!", userDetails);
 
   const currentlyLoggedInUserId = userDetails._id;
 
