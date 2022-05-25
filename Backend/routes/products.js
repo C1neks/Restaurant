@@ -80,10 +80,8 @@ router.post("/", uploadS3.single("image"), async (req, res) => {
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   const authHeader = req.headers["authorization"];
-  console.log("AUTHHEADER", authHeader);
 
   const userDetails = await parseJwt(authHeader);
-  console.log("USDETAILS!!!!!!", userDetails);
 
   const currentlyLoggedInUserId = userDetails._id;
 
