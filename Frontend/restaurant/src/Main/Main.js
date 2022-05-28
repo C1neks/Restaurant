@@ -20,7 +20,7 @@ const Main = () => {
           <MainContentText>
             <MainTitle>
               <MainTitleText>Lorem</MainTitleText>
-              <MainTitleText>Lorem And Ipsum</MainTitleText>
+              <MainTitleText>Lorem And LORIM</MainTitleText>
             </MainTitle>
             <MainSubTitle>Nullam interdum quam</MainSubTitle>
             <MainText>
