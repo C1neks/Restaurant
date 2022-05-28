@@ -2,6 +2,7 @@ name: Auto-deploy-on-push
 on: [push]
 jobs: 
     cdk-deploy:
+      if: github.ref == 'refs/heads/master'
       runs-on: ubuntu-latest
       steps:
       - name: Check out our code
