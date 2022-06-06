@@ -14,11 +14,12 @@ import {
   PriceAndButtonContainer,
   Wrapper,
 } from "../Menu/Menu.styles";
-
+import { HiOutlineCurrencyDollar } from "react-icons/hi";
 import { ItemsContext } from "../App";
 import { MainSubTitle } from "../Main/Main.styles";
 import Opinion from "../Opinion/Opinion";
 import Image from "../Image/Image";
+import { PriceDollarSignContainer } from "./Product.styles";
 
 const Product = ({ cat, userDetails }) => {
   const context = useContext(ItemsContext);
@@ -46,8 +47,13 @@ const Product = ({ cat, userDetails }) => {
 
   return (
     <Wrapper>
-      <CategoryImg />
-      <MainSubTitle>{cat.toUpperCase()}</MainSubTitle>
+      <CategoryImg>
+        <div>
+          <p>{cat.toUpperCase()}</p>
+          <h6>{productCategory.length + " " + "items"}</h6>
+        </div>
+      </CategoryImg>
+      {/*<MainSubTitle>{cat.toUpperCase()}</MainSubTitle>*/}
       <ItemWrapper>
         {productCategory.map((m) => (
           <Item key={m._id}>
@@ -55,7 +61,7 @@ const Product = ({ cat, userDetails }) => {
 
             <ItemDetails>
               <Details>
-                <h2>{m.name}</h2>
+                <h3>{m.name}</h3>
                 <Opinion
                   productId={m._id}
                   usersVoted={m.usersVoted}
@@ -63,19 +69,39 @@ const Product = ({ cat, userDetails }) => {
                 />
                 <p>{m.description}</p>
               </Details>
-              <PriceAndButtonContainer>
-                <h3>{m.price + "$"}</h3>
+              {userDetails.isAdmin === false ? (
+                <PriceAndButtonContainer>
+                  <PriceDollarSignContainer>
+                    <h2>
+                      <HiOutlineCurrencyDollar />
+                    </h2>
+                    <h3>{m.price}</h3>
+                  </PriceDollarSignContainer>
 
-                <CartButton onClick={() => context.onAddToCart(m)}>
-                  Add to Cart
-                </CartButton>
-
-                {userDetails.isAdmin === false ? null : (
-                  <CartButton onClick={() => deleteProduct(m._id)}>
-                    Delete
+                  <CartButton onClick={() => context.onAddToCart(m)}>
+                    Add to Cart
                   </CartButton>
-                )}
-              </PriceAndButtonContainer>
+                </PriceAndButtonContainer>
+              ) : (
+                <PriceAndButtonContainer admin>
+                  <PriceDollarSignContainer>
+                    <h2>
+                      <HiOutlineCurrencyDollar />
+                    </h2>
+                    <h3>{m.price}</h3>
+                  </PriceDollarSignContainer>
+
+                  <CartButton admin onClick={() => context.onAddToCart(m)}>
+                    Cart
+                  </CartButton>
+
+                  {userDetails.isAdmin === false ? null : (
+                    <CartButton admin onClick={() => deleteProduct(m._id)}>
+                      Delete
+                    </CartButton>
+                  )}
+                </PriceAndButtonContainer>
+              )}
             </ItemDetails>
           </Item>
         ))}

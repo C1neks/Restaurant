@@ -72,7 +72,10 @@ const Opinion = ({ productId, usersVoted, getCategories, votesMade }) => {
           })}
           {rating != null ? <h3>Your rate is {rating}</h3> : null}
           {totalRating != null ? (
-            <h3>Total rating is :{totalRating.toFixed(1)}</h3>
+            <h3>
+              <FaStar color={"orange"} size={15} />
+              {totalRating.toFixed(1)}
+            </h3>
           ) : (
             <h3>Total rating is :</h3>
           )}
@@ -85,7 +88,10 @@ const Opinion = ({ productId, usersVoted, getCategories, votesMade }) => {
       ) : (
         <div>
           {totalRating != null ? (
-            <h3>Total rating is :{totalRating.toFixed(1)}</h3>
+            <h4>
+              <FaStar color={"orange"} size={15} />
+              {totalRating.toFixed(1)}
+            </h4>
           ) : (
             <h3>Total rating is :</h3>
           )}

@@ -24,6 +24,7 @@ export class OrderService {
           ...cartItems,
           {
             productId: item.productId,
+            productName: item.productName,
             total,
             price: dbItem.data.price,
             quantity: item.quantity,
@@ -39,6 +40,7 @@ export class OrderService {
         subTotal: subTotal * 0.9,
         user,
       };
+      console.log("NEW ORDER!", order);
       return await this.repository.createItem(order);
     } else {
       const order = {

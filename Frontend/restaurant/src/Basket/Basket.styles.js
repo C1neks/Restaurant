@@ -4,8 +4,8 @@ export const CartContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  background: #ebf2f3;
+  margin-top: 2em;
+  background: white;
 `;
 
 export const Cart = styled.div`

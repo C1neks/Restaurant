@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Button = styled.button`
   border-radius: ${({ bigRadius }) => (bigRadius ? "30px" : "20px")};
-  background-color: ${({ primary }) => (primary ? "#a60b0b" : "#a60b0b")};
-  background-color: ${({ checkout }) => (checkout ? "#2b2d42" : "#a60b0b")};
+  background-color: ${({ primary }) => (primary ? "#ff1c48" : "#ff1c48")};
+  background-color: ${({ checkout }) => (checkout ? "#2b2d42" : "#ff1c48")};
   color: ${({ primary }) => (primary ? "#fff" : "#fff")};
   font-weight: ${({ checkout }) => (checkout ? "600" : "normal")};
   padding: ${({ big }) => (big ? "18px 30px" : "10px 28px")};

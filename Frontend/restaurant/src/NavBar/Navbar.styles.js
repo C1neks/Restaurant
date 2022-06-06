@@ -5,12 +5,13 @@ import { Container } from "../StyledComponents/Container";
 
 export const Nav = styled.nav`
   font-size: 18px;
-  position: sticky;
+  position: absolute;
+  width: 100%;
   top: 0;
   z-index: 999;
   height: 80px;
-  background-color: #2b2d42;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+  color: black;
+  //box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
   display: flex;
   justify-content: center;
   align-items: center;

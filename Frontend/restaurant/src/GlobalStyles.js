@@ -26,7 +26,7 @@ body{
     font-weight: 400;
     line-height: 1.6;
     font-size: 1.6rem;
-    background: #ebf2f3;
+    background: white;
     color: #333;
   height: 100%;
 

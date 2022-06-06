@@ -28,7 +28,7 @@ const Navbar = ({ countCartItems, handleLogout, userDetails }) => {
         <NavbarContainer>
           <NavLogo to="/">
             <NavIcon />
-            Smakosz
+            <p>Smakosz</p>
           </NavLogo>
           <MenuIcon onClick={handleClick}>
             {click ? <BiX /> : <BiMenu />}

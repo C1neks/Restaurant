@@ -18,13 +18,14 @@ const Checkout = ({ userDetails, getUserDetails }) => {
           ...items,
           {
             productId: cartItems._id,
+            productName: cartItems.name,
             quantity: cartItems.quantity,
           },
         ])
     );
 
     order = { items, user: user._id };
-
+    console.log("ORDER NEW", order);
     const response = await orderService.createOrder(order);
 
     getUserDetails(user._id);

@@ -39,6 +39,7 @@ const AdminAccount = ({ orders, getOrders }) => {
               {order.items.map((product) => (
                 <div key={product.productId}>
                   <p>Product:{product.productId}</p>
+                  <p>ProductName:{product.productName}</p>
                 </div>
               ))}
               <p>Status: {order.status}</p>

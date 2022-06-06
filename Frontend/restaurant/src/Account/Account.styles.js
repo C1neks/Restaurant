@@ -5,7 +5,8 @@ export const AccountContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: #ebf2f3;
+  background: white;
+  margin-top: 5em;
 `;
 
 export const UserOrders = styled.div`
@@ -14,7 +15,7 @@ export const UserOrders = styled.div`
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
-  background: #ebf2f3;
+  background: white;
 
   width: 92%;
 
