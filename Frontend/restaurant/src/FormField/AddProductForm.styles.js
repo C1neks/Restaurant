@@ -8,5 +8,16 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 3em;
+  margin-top: 5em;
+`;
+export const ShadowContainer = styled.div`
+  box-shadow: 0px 0px 15px -3px rgb(41 22 22 / 34%);
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 1rem;
+  margin-top: 2rem;
+  min-height: 35rem;
 `;

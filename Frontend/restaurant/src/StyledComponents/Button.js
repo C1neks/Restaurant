@@ -8,6 +8,7 @@ export const Button = styled.button`
   font-weight: ${({ checkout }) => (checkout ? "600" : "normal")};
   padding: ${({ big }) => (big ? "18px 30px" : "10px 28px")};
   font-size: ${({ bigFont }) => (bigFont ? "20px" : "18px")};
+  margin-top: ${({ editAddButton }) => (editAddButton ? "2rem" : "")};
   outline: none;
   cursor: pointer;
   border: none;

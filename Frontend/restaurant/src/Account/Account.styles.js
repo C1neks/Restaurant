@@ -9,6 +9,24 @@ export const AccountContainer = styled.div`
   margin-top: 5em;
 `;
 
+export const AdminOrdersContainer = styled.div`
+  text-align: center;
+  width: 75%;
+  box-shadow: 0px 0px 15px -3px rgb(41 22 22 / 34%);
+  margin-bottom: 5rem;
+  border-radius: 1rem;
+  min-height: 40rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const EditOrderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 export const UserOrders = styled.div`
   display: flex;
   margin-top: 20px;

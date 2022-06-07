@@ -84,11 +84,13 @@ export const MainTitleText = styled.span`
 `;
 
 export const MainSubTitle = styled.h2`
-  font-size: clamp(2rem, 3vw, 4rem);
+  //font-size: clamp(2rem, 3vw, 4rem);
   font-weight: 300;
   letter-spacing: 1rem;
   padding-top: 1rem;
   text-align: center;
+  font-size: ${({ adminAccount }) =>
+    adminAccount ? "1.5em" : "clamp(2rem, 3vw, 4rem)"};
 `;
 
 export const MainText = styled.h3`

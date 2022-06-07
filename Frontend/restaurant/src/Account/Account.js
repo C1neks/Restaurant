@@ -18,20 +18,23 @@ const Account = ({ userDetails }) => {
         <AccountContainer key={userDetails._id}>
           <MainSubTitle>Account Details</MainSubTitle>
           <Spacer></Spacer>
-          <h2>Your name:{" " + userDetails.name}</h2>
-          <h3>Your Email:{" " + userDetails.email}</h3>
+          <h2>Name:{" " + userDetails.name}</h2>
+          <h3>Email:{" " + userDetails.email}</h3>
           <UserOrders>
             <MainSubTitle>Order History</MainSubTitle>
             {userDetails.orders.map((y) => (
               <UserOrder key={y._id}>
                 <Spacer></Spacer>
-                <p>Your Order:{" " + y._id}</p>
+                <h4>Order Number</h4>
+                <p>{y._id}</p>
+                <h4>Products</h4>
                 {y.items.map((z) => (
                   <div key={z.productId}>
-                    <p>Product:{z.productId}</p>
+                    <p>{z.productName}</p>
                   </div>
                 ))}
-                <p>Status: {y.status}</p>
+                <h4>Status</h4>
+                <p>{y.status}</p>
 
                 <p>Total Price: {y.subTotal + "$"}</p>
                 <Spacer></Spacer>
@@ -40,7 +43,6 @@ const Account = ({ userDetails }) => {
           </UserOrders>
         </AccountContainer>
       }
-      )}
     </>
   );
 };

@@ -26,13 +26,26 @@ const Navbar = ({ countCartItems, handleLogout, userDetails }) => {
     <div>
       <Nav>
         <NavbarContainer>
-          <NavLogo to="/">
-            <NavIcon />
-            <p>Smakosz</p>
-          </NavLogo>
-          <MenuIcon onClick={handleClick}>
-            {click ? <BiX /> : <BiMenu />}
-          </MenuIcon>
+          {window.location.pathname === "/" ? (
+            <NavLogo main to="/">
+              <NavIcon />
+              <p>Smakosz</p>
+            </NavLogo>
+          ) : (
+            <NavLogo to="/">
+              <NavIcon />
+              <p>Smakosz</p>
+            </NavLogo>
+          )}
+          {window.location.pathname === "/" ? (
+            <MenuIcon main onClick={handleClick}>
+              {click ? <BiX /> : <BiMenu />}
+            </MenuIcon>
+          ) : (
+            <MenuIcon onClick={handleClick}>
+              {click ? <BiX /> : <BiMenu />}
+            </MenuIcon>
+          )}
 
           <Menu onClick={handleClick} click={click}>
             <MenuItem>

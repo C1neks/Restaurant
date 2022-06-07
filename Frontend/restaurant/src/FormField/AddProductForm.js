@@ -3,7 +3,7 @@ import { MainSubTitle } from "../Main/Main.styles";
 import { Button } from "../StyledComponents/Button";
 
 import FormField from "./FormField";
-import { Container } from "./AddProductForm.styles";
+import { Container, ShadowContainer } from "./AddProductForm.styles";
 import { productService } from "../services/services";
 
 const initialFormState = {
@@ -52,45 +52,49 @@ const AddProductForm = ({}) => {
         encType="multipart/form-data"
         ref={myContainer}
       >
-        <MainSubTitle>Add new Product</MainSubTitle>
-        <FormField
-          label="Name"
-          id="name"
-          name="name"
-          value={formValues.name}
-          onChange={handleInputChange}
-        />
-        <FormField
-          type="number"
-          label="Price"
-          id="price"
-          name="price"
-          value={formValues.price}
-          onChange={handleInputChange}
-        />
-        <FormField
-          label="Category"
-          id="category"
-          name="category"
-          value={formValues.category}
-          onChange={handleInputChange}
-        />
-        <FormField
-          label="Description"
-          id="description"
-          name="description"
-          value={formValues.description}
-          onChange={handleInputChange}
-        />
-        <FormField
-          type="file"
-          label="image"
-          id="image"
-          name="image"
-          // value={file}
-          onChange={handleFile}
-        />
-        <Button type="submit">Add</Button>
+        <MainSubTitle adminAccount>Add new Product</MainSubTitle>
+        <ShadowContainer>
+          <FormField
+            label="Name"
+            id="name"
+            name="name"
+            value={formValues.name}
+            onChange={handleInputChange}
+          />
+          <FormField
+            type="number"
+            label="Price"
+            id="price"
+            name="price"
+            value={formValues.price}
+            onChange={handleInputChange}
+          />
+          <FormField
+            label="Category"
+            id="category"
+            name="category"
+            value={formValues.category}
+            onChange={handleInputChange}
+          />
+          <FormField
+            label="Description"
+            id="description"
+            name="description"
+            value={formValues.description}
+            onChange={handleInputChange}
+          />
+          <FormField
+            type="file"
+            label="Choose a file..."
+            id="image"
+            name="image"
+            // value={file}
+            onChange={handleFile}
+          />
+          <Button editAddButton type="submit">
+            Add
+          </Button>
+        </ShadowContainer>
       </Container>
     </>
   );

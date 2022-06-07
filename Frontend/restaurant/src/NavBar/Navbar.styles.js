@@ -26,7 +26,7 @@ export const NavbarContainer = styled(Container)`
 `;
 
 export const NavLogo = styled(Link)`
-  color: #fff;
+  color: ${({ main }) => (main ? "#fff" : "black")};
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -50,7 +50,7 @@ export const NavIcon = styled(BiRestaurant)`
 
 export const MenuIcon = styled.div`
   display: none;
-  color: white;
+  color: ${({ main }) => (main ? "#fff" : "black")};
   @media (max-width: 1000px) {
     display: block;
     position: absolute;
