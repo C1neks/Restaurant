@@ -151,10 +151,15 @@ function App() {
               />
             </Route>
             <Route path="/checkout">
-              <Checkout
-                userDetails={userDetails}
-                getUserDetails={getUserDetails}
-              />
+              {cartItems.length === 0 ? (
+                <Redirect to="/menu" />
+              ) : (
+                <Checkout
+                  userDetails={userDetails}
+                  getUserDetails={getUserDetails}
+                  setCartItems={setCartItems}
+                />
+              )}
             </Route>
             <Route path="/category">
               <Product cat={cat} userDetails={userDetails} />

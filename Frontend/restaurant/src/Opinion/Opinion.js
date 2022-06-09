@@ -63,7 +63,7 @@ const Opinion = ({ productId, usersVoted, getCategories, votesMade }) => {
                 />
                 <FaStar
                   color={ratingValue <= (hover || rating) ? "orange" : "gray"}
-                  size={25}
+                  size={20}
                   onMouseEnter={() => setHover(ratingValue)}
                   onMouseLeave={() => setHover(null)}
                 />

@@ -89,6 +89,9 @@ export const MainSubTitle = styled.h2`
   letter-spacing: 1rem;
   padding-top: 1rem;
   text-align: center;
+  margin-bottom: 2rem;
+
+  margin-top: ${({ Account }) => (Account ? "10rem" : "2rem")};
   font-size: ${({ adminAccount }) =>
     adminAccount ? "1.5em" : "clamp(2rem, 3vw, 4rem)"};
 `;

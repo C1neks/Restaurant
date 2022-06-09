@@ -18,6 +18,6 @@ export const ShadowContainer = styled.div`
   align-items: center;
   flex-direction: column;
   border-radius: 1rem;
-  margin-top: 2rem;
+
   min-height: 35rem;
 `;

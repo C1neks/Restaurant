@@ -25,7 +25,6 @@ export const MenuImage = styled.div`
   width: 100%;
   //border-bottom-left-radius: 2rem;
   //border-bottom-right-radius: 2rem;
-  margin-bottom: 3rem;
 `;
 
 export const MenuCategoryLink = styled(Link)``;

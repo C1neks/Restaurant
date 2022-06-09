@@ -105,7 +105,7 @@ export const MenuLink = styled(Link)`
   transition: all 0.2s ease;
 
   &:hover {
-    color: #e38b06;
+    color: #ff1c48;
     transform: traslateY(-3rem);
   }
   &:active {

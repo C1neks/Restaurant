@@ -3,7 +3,11 @@ import { Button } from "../StyledComponents/Button";
 import axios from "axios";
 import { Container } from "../FormField/AddProductForm.styles";
 import { orderService } from "../services/services";
-import { AdminOrdersContainer, EditOrderContainer } from "./Account.styles";
+import {
+  AdminOrdersContainer,
+  EditOrderContainer,
+  Status,
+} from "./Account.styles";
 import { MdDoneOutline } from "react-icons/md";
 import { GrInProgress } from "react-icons/gr";
 import { MainSubTitle } from "../Main/Main.styles";
@@ -48,14 +52,14 @@ const AdminAccount = ({ orders, getOrders }) => {
               ))}
               <EditOrderContainer>
                 <h3>Status</h3>
-                <p>
+                <Status>
                   {order.status}
                   {order.status === "done" ? (
                     <MdDoneOutline color={"green"} />
                   ) : (
                     <GrInProgress color={"red"} />
                   )}
-                </p>
+                </Status>
               </EditOrderContainer>
               <EditOrderContainer>
                 <p>Total Price</p>

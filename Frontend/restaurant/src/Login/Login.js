@@ -5,11 +5,12 @@ import FormField from "../FormField/FormField";
 import { Button } from "../StyledComponents/Button";
 import { LoginLink } from "../Register/Register.styles";
 import { Redirect } from "react-router-dom";
+import { LoginContainer } from "./Login.styles";
 
 const Login = ({ loginValues, handleLoginInputChange, handleLoginUser }) => {
   return (
-    <>
-      <Container as="form" onSubmit={handleLoginUser}>
+    <div>
+      <LoginContainer as="form" onSubmit={handleLoginUser}>
         <MainSubTitle>Login</MainSubTitle>
         <FormField
           label="Name"
@@ -29,8 +30,8 @@ const Login = ({ loginValues, handleLoginInputChange, handleLoginUser }) => {
         />
         <Button type="submit">Login</Button>
         <LoginLink to="/register">I don't have an account</LoginLink>
-      </Container>
-    </>
+      </LoginContainer>
+    </div>
   );
 };
 

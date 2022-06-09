@@ -6,9 +6,12 @@ import { MainSubTitle } from "../Main/Main.styles";
 import {
   AccountContainer,
   Spacer,
+  Status,
   UserOrder,
   UserOrders,
 } from "./Account.styles";
+import { MdDoneOutline } from "react-icons/md";
+import { GrInProgress } from "react-icons/gr";
 
 const Account = ({ userDetails }) => {
   console.log("DETAILS ACCOUNT!", userDetails);
@@ -16,7 +19,7 @@ const Account = ({ userDetails }) => {
     <>
       {
         <AccountContainer key={userDetails._id}>
-          <MainSubTitle>Account Details</MainSubTitle>
+          <MainSubTitle Account>Account Details</MainSubTitle>
           <Spacer></Spacer>
           <h2>Name:{" " + userDetails.name}</h2>
           <h3>Email:{" " + userDetails.email}</h3>
@@ -34,9 +37,17 @@ const Account = ({ userDetails }) => {
                   </div>
                 ))}
                 <h4>Status</h4>
-                <p>{y.status}</p>
+                <Status>
+                  {y.status}
+                  {y.status === "done" ? (
+                    <MdDoneOutline color={"green"} />
+                  ) : (
+                    <GrInProgress color={"red"} />
+                  )}
+                </Status>
 
-                <p>Total Price: {y.subTotal + "$"}</p>
+                <h4>Total Price</h4>
+                <p>{y.subTotal + "$"}</p>
                 <Spacer></Spacer>
               </UserOrder>
             ))}

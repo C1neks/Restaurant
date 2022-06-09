@@ -1,12 +1,16 @@
 import styled from "styled-components";
-
+import ImageBackgoundAccount from "../images/accountImage.jpg";
 export const AccountContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   background: white;
-  margin-top: 5em;
+
+  background-image: url(${ImageBackgoundAccount});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 export const AdminOrdersContainer = styled.div`
@@ -26,6 +30,7 @@ export const EditOrderContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 1rem;
 `;
 export const UserOrders = styled.div`
   display: flex;
@@ -33,13 +38,16 @@ export const UserOrders = styled.div`
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
-  background: white;
 
   width: 92%;
 
   margin-bottom: 1.5rem;
 `;
-
+export const Status = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 export const Spacer = styled.div`
   margin-bottom: 2rem;
 `;
@@ -51,12 +59,12 @@ export const UserOrder = styled.div`
   align-items: center;
   flex-direction: column;
   border-radius: 10px;
-  box-shadow: 0 5px 15px -10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 15px -3px rgb(41 22 22 / 34%);
   width: 90%;
   background: white;
 
   :hover {
-    background: #efd29c;
+    background: #f8e4db;
     transform: scale(1.12, 1.08) translateY(0px) translateZ(0px);
   }
 `;

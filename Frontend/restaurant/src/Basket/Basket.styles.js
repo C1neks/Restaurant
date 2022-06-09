@@ -7,20 +7,36 @@ export const CartContainer = styled.div`
   margin-top: 2em;
   background: white;
 `;
+export const CartItems = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+`;
 
+export const CartPiece = styled.div`
+  width: 33%;
+`;
 export const Cart = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  background-color: ${({ primary }) => (primary ? "#eeaf29" : "#ef233c")};
-  min-width: 10rem;
+  color: black;
+  background-color: ${({ primary }) => (primary ? "#f8e4db" : "#f8e4db")};
+  min-width: 40rem;
   min-height: 10rem;
   border-radius: 20px;
   margin: 1rem;
   box-shadow: 5px 11px 12px rgb(0 0 0 / 7%);
-  color: white;
+`;
+
+export const TotalPriceCartItem = styled.div`
+  display: flex;
+  width: 100%;
+  text-align: center;
 `;
 
 export const CartButton = styled.button`
@@ -41,4 +57,5 @@ export const CartItem = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  width: 100%;
 `;

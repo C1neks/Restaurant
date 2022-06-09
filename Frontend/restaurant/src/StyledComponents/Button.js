@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import checkout from "../Checkout/Checkout";
 
 export const Button = styled.button`
   border-radius: ${({ bigRadius }) => (bigRadius ? "30px" : "20px")};
   background-color: ${({ primary }) => (primary ? "#ff1c48" : "#ff1c48")};
-  background-color: ${({ checkout }) => (checkout ? "#2b2d42" : "#ff1c48")};
-  color: ${({ primary }) => (primary ? "#fff" : "#fff")};
+  background-color: ${({ checkout }) => (checkout ? "white" : "#ff1c48")};
+  color: ${({ primary, checkout }) => (
+    primary ? "black" : "#fff", checkout ? "black" : "white"
+  )};
   font-weight: ${({ checkout }) => (checkout ? "600" : "normal")};
   padding: ${({ big }) => (big ? "18px 30px" : "10px 28px")};
   font-size: ${({ bigFont }) => (bigFont ? "20px" : "18px")};

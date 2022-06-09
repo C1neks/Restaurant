@@ -58,7 +58,7 @@ router.post("/login", async (req, res) => {
   if (validUser.error) {
     res.status(403).send(validUser.error);
 
-    return;
+    return validUser.error;
   }
   const accessToken = jwt.sign(
     validUser.user.toJSON(),

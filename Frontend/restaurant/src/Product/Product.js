@@ -19,7 +19,7 @@ import { ItemsContext } from "../App";
 import { MainSubTitle } from "../Main/Main.styles";
 import Opinion from "../Opinion/Opinion";
 import Image from "../Image/Image";
-import { PriceDollarSignContainer } from "./Product.styles";
+import { PriceDollarSignContainer, ProductNameSign } from "./Product.styles";
 
 const Product = ({ cat, userDetails }) => {
   const context = useContext(ItemsContext);
@@ -61,7 +61,7 @@ const Product = ({ cat, userDetails }) => {
 
             <ItemDetails>
               <Details>
-                <h3>{m.name}</h3>
+                <ProductNameSign>{m.name}</ProductNameSign>
                 <Opinion
                   productId={m._id}
                   usersVoted={m.usersVoted}
