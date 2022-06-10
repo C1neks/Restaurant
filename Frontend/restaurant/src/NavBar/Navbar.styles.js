@@ -90,6 +90,12 @@ export const MenuItem = styled.li`
       border: none;
     }
   }
+  @media only screen and (min-width: 1000px) {
+    color: black;
+    &:hover {
+      border: none;
+    }
+  }
 `;
 
 export const MenuLink = styled(Link)`
@@ -103,6 +109,12 @@ export const MenuLink = styled(Link)`
   padding: 1rem 2rem;
   height: 100%;
   transition: all 0.2s ease;
+  @media only screen and (min-width: 1000px) {
+    color: black;
+    &:hover {
+      border: none;
+    }
+  }
 
   &:hover {
     color: #ff1c48;

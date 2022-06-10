@@ -15,9 +15,9 @@ export const MainContainer = styled.div`
   background-size: cover;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  height: 92vh;
-  @media only screen and (max-width: 1600px) {
-    height: 85vh;
+  height: 85vh;
+  @media only screen and (min-width: 768px) {
+    height: 100vh;
   }
 `;
 
