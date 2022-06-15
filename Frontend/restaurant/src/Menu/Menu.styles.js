@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import burger from "../images/burger.jpg";
 import pizza from "../images/pizzacat.jpg";
+import categoryimage from "../images/categoryyy.jpg";
 import menu from "../images/menu.jpg";
 import { Link } from "react-router-dom";
 export const Wrapper = styled.div`
@@ -83,6 +84,7 @@ export const PriceAndButtonContainer = styled.div`
   width: 100%;
   align-items: ${({ admin }) => (admin ? "center" : "")};
   justify-content: space-between;
+
   @media only screen and (min-width: 768px) {
     flex-direction: column;
   }
@@ -100,7 +102,7 @@ export const ItemDetails = styled.div`
 `;
 
 export const CategoryImg = styled.div`
-  background-image: url(${pizza});
+  background-image: url(${categoryimage});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -138,7 +140,8 @@ export const CartButton = styled.button`
   border: none;
   transition: all 0.5s ease;
 
-  // margin-left: ${({ admin }) => (admin ? "0px" : "35px")};
+  min-width: ${({ admin }) => (admin ? "75px" : "0px")};
+  max-width: ${({ admin }) => (admin ? "" : "100px")};
 
   &:hover {
     background-color: ${({ primary }) => (primary ? "#fff" : "#2b2d42")};
@@ -185,7 +188,7 @@ export const Item = styled.div`
   background: #fff;
 
   width: 92%;
-  height: 16rem;
+  min-height: 16rem;
   border-radius: 10px;
   //box-shadow: 0 5px 15px -10px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 15px -3px rgba(41, 22, 22, 0.34);

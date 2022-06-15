@@ -63,7 +63,7 @@ const Product = ({ cat, userDetails }) => {
           <h6>{productCategory.length + " " + "items"}</h6>
         </div>
       </CategoryImg>
-      {/*<MainSubTitle>{cat.toUpperCase()}</MainSubTitle>*/}
+
       <ItemWrapper>
         {productCategory.map((m) => (
           <Item key={m._id}>
@@ -73,6 +73,7 @@ const Product = ({ cat, userDetails }) => {
               <Details>
                 <ProductNameSign>{m.name}</ProductNameSign>
                 <Opinion
+                  userDetails={userDetails}
                   productId={m._id}
                   usersVoted={m.usersVoted}
                   getCategories={getCategories}
@@ -87,10 +88,11 @@ const Product = ({ cat, userDetails }) => {
                     </h2>
                     <h3>{m.price}</h3>
                   </PriceDollarSignContainer>
-
-                  <CartButton onClick={() => context.onAddToCart(m)}>
-                    Add to Cart
-                  </CartButton>
+                  <ContainerOfButtons>
+                    <CartButton onClick={() => context.onAddToCart(m)}>
+                      Add to Cart
+                    </CartButton>
+                  </ContainerOfButtons>
                 </PriceAndButtonContainer>
               ) : (
                 <PriceAndButtonContainer admin>
@@ -102,9 +104,11 @@ const Product = ({ cat, userDetails }) => {
                   </PriceDollarSignContainer>
 
                   {userDetails.isAdmin === false ? (
-                    <CartButton admin onClick={() => context.onAddToCart(m)}>
-                      Cart
-                    </CartButton>
+                    <ContainerOfButtons>
+                      <CartButton admin onClick={() => context.onAddToCart(m)}>
+                        Cart
+                      </CartButton>
+                    </ContainerOfButtons>
                   ) : (
                     <ContainerOfButtons>
                       <CartButton admin onClick={() => context.onAddToCart(m)}>

@@ -1,27 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import axios from "axios";
-
 import {
   StyledList,
   Wrapper,
-  Item,
   Category,
-  ItemWrapper,
-  CategoryName,
-  ItemDetails,
-  ItemImg,
-  Details,
-  CartButton,
-  PriceAndButtonContainer,
-  MenuText,
-  CategoryItemImg,
   MenuImage,
   MenuCategoryLink,
 } from "./Menu.styles";
-import { Button } from "../StyledComponents/Button";
+
 import { ItemsContext } from "../App";
-import { MainFooter, MainSubTitle, MainTitleText } from "../Main/Main.styles";
+import { MainFooter, MainSubTitle } from "../Main/Main.styles";
 import {
   FaFacebookSquare,
   FaInstagramSquare,
@@ -62,7 +50,7 @@ const Menu = ({ userDetails, setCat }) => {
       <StyledList>
         <MenuImage />
         {context.cartItems.length === 0 ? <div></div> : <Basket />}
-        {console.log("ITEMS", context.cartItems)}
+
         {category.map((repos) => (
           <Category key={repos._id}>
             <MainSubTitle>{repos.name.toUpperCase()}</MainSubTitle>
