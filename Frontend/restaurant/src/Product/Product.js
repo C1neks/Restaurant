@@ -16,10 +16,20 @@ import {
 } from "../Menu/Menu.styles";
 import { HiOutlineCurrencyDollar } from "react-icons/hi";
 import { ItemsContext } from "../App";
-import { MainSubTitle } from "../Main/Main.styles";
+import { MainFooter, MainSubTitle } from "../Main/Main.styles";
 import Opinion from "../Opinion/Opinion";
 import Image from "../Image/Image";
-import { PriceDollarSignContainer, ProductNameSign } from "./Product.styles";
+import {
+  ContainerOfButtons,
+  PriceDollarSignContainer,
+  ProductNameSign,
+} from "./Product.styles";
+import {
+  FaFacebookSquare,
+  FaInstagramSquare,
+  FaTripadvisor,
+} from "react-icons/fa";
+import { IconContext } from "react-icons";
 
 const Product = ({ cat, userDetails }) => {
   const context = useContext(ItemsContext);
@@ -91,14 +101,19 @@ const Product = ({ cat, userDetails }) => {
                     <h3>{m.price}</h3>
                   </PriceDollarSignContainer>
 
-                  <CartButton admin onClick={() => context.onAddToCart(m)}>
-                    Cart
-                  </CartButton>
-
-                  {userDetails.isAdmin === false ? null : (
-                    <CartButton admin onClick={() => deleteProduct(m._id)}>
-                      Delete
+                  {userDetails.isAdmin === false ? (
+                    <CartButton admin onClick={() => context.onAddToCart(m)}>
+                      Cart
                     </CartButton>
+                  ) : (
+                    <ContainerOfButtons>
+                      <CartButton admin onClick={() => context.onAddToCart(m)}>
+                        Cart
+                      </CartButton>
+                      <CartButton admin onClick={() => deleteProduct(m._id)}>
+                        Delete
+                      </CartButton>
+                    </ContainerOfButtons>
                   )}
                 </PriceAndButtonContainer>
               )}
@@ -106,6 +121,20 @@ const Product = ({ cat, userDetails }) => {
           </Item>
         ))}
       </ItemWrapper>
+      <IconContext.Provider value={{ color: "black", size: 35 }}>
+        <MainFooter>
+          <a href="https://www.facebook.com/">
+            <FaFacebookSquare style={{ margin: "1rem" }} />
+          </a>
+          <a href="https://www.instagram.com/">
+            <FaInstagramSquare style={{ margin: "1rem" }} />
+          </a>
+          <a href="https://www.tripadvisor.com/">
+            <FaTripadvisor style={{ margin: "1rem" }} />
+          </a>
+          <p>Copyright © 2021-2022 by Smakosz.</p>
+        </MainFooter>
+      </IconContext.Provider>
     </Wrapper>
   );
 };

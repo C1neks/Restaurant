@@ -86,14 +86,16 @@ export const MenuItem = styled.li`
 
   @media only screen and (max-width: 1000px) {
     width: 100%;
+    color: ${({ main }) => (main ? "white" : "black")};
     &:hover {
       border: none;
+      font-size: 1.5rem;
     }
   }
   @media only screen and (min-width: 1000px) {
-    color: black;
     &:hover {
       border: none;
+      font-size: 1.5rem;
     }
   }
 `;
@@ -110,14 +112,14 @@ export const MenuLink = styled(Link)`
   height: 100%;
   transition: all 0.2s ease;
   @media only screen and (min-width: 1000px) {
-    color: black;
+    color: ${({ main }) => (main ? "white" : "black")};
     &:hover {
       border: none;
+      font-size: 2.5rem;
     }
   }
 
   &:hover {
-    color: #ff1c48;
     transform: traslateY(-3rem);
   }
   &:active {

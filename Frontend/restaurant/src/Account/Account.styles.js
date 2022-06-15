@@ -23,6 +23,9 @@ export const AdminOrdersContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media only screen and (min-width: 768px) {
+    width: 45%;
+  }
 `;
 
 export const EditOrderContainer = styled.div`
@@ -42,6 +45,10 @@ export const UserOrders = styled.div`
   width: 92%;
 
   margin-bottom: 1.5rem;
+  @media only screen and (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 `;
 export const Status = styled.p`
   display: flex;
@@ -62,6 +69,9 @@ export const UserOrder = styled.div`
   box-shadow: 0px 0px 15px -3px rgb(41 22 22 / 34%);
   width: 90%;
   background: white;
+  @media only screen and (min-width: 768px) {
+    width: 45%;
+  }
 
   :hover {
     background: #f8e4db;

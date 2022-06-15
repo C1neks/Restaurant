@@ -32,9 +32,9 @@ export const MainAboutUsContainer = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 20px;
-  height: 67vh;
-  @media only screen and (min-width: 1600px) {
-    height: 92vh;
+  height: 80vh;
+  @media only screen and (min-width: 768px) {
+    height: 100vh;
   }
 `;
 
@@ -90,7 +90,7 @@ export const MainSubTitle = styled.h2`
   padding-top: 1rem;
   text-align: center;
   margin-bottom: 2rem;
-
+  width: 100%;
   margin-top: ${({ Account }) => (Account ? "10rem" : "2rem")};
   font-size: ${({ adminAccount }) =>
     adminAccount ? "1.5em" : "clamp(2rem, 3vw, 4rem)"};
@@ -110,6 +110,7 @@ export const MainFooter = styled.div`
   margin-top: 4rem;
   margin-bottom: 2rem;
   min-height: 120px;
+  width: 100%;
 `;
 export const AboutTextContainer = styled.div`
   text-align: center;

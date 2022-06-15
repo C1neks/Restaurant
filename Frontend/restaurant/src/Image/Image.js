@@ -7,7 +7,7 @@ const Image = ({ image }) => {
   return (
     <>
       {image !== "default" ? (
-        <ProductImage src={`${IMAGE_ENDPOINT}/${image}`} alt={"productimage"} />
+        <ProductImage src={`${image}`} alt={"productimage"} />
       ) : (
         <ProductImage src={`${burger}`} alt={"default"} />
       )}

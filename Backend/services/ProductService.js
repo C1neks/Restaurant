@@ -25,6 +25,7 @@ export class ProductService {
       rating: rating,
       numberOfRates: numberOfRates,
     };
+    console.log("PRODUCT TO CREATE", product);
     const createdProduct = await this.repository.createItem(product);
 
     const allCategories = await this.categoryService.getCategories();

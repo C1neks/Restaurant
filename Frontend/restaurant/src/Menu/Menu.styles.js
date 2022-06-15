@@ -22,7 +22,13 @@ export const MenuImage = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   height: 27vh;
+
   width: 100%;
+  @media only screen and (min-width: 768px) {
+    background-position: center;
+    height: 40vh;
+  }
+
   //border-bottom-left-radius: 2rem;
   //border-bottom-right-radius: 2rem;
 `;
@@ -34,6 +40,12 @@ export const Category = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
+  @media only screen and (min-width: 768px) and (max-width: 1000px) {
+    width: 50%;
+  }
+  @media only screen and (min-width: 1000px) {
+    width: 33%;
+  }
 `;
 
 export const MenuText = styled.div`
@@ -53,6 +65,11 @@ export const ItemWrapper = styled.div`
   width: 100%;
 
   background: white;
+  @media only screen and (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
 `;
 export const CategoryName = styled.h2`
   font-size: clamp(1rem, 10vw, 5rem);
@@ -66,6 +83,9 @@ export const PriceAndButtonContainer = styled.div`
   width: 100%;
   align-items: ${({ admin }) => (admin ? "center" : "")};
   justify-content: space-between;
+  @media only screen and (min-width: 768px) {
+    flex-direction: column;
+  }
 `;
 export const ItemDetails = styled.div`
   display: flex;
@@ -73,6 +93,10 @@ export const ItemDetails = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 50%;
+
+  @media only screen and (min-width: 768px) {
+    text-align: center;
+  }
 `;
 
 export const CategoryImg = styled.div`
@@ -166,6 +190,18 @@ export const Item = styled.div`
   //box-shadow: 0 5px 15px -10px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 15px -3px rgba(41, 22, 22, 0.34);
   margin-bottom: 20px;
+
+  @media only screen and (min-width: 768px) and (max-width: 1000px) {
+    width: 35%;
+    flex-direction: column;
+    height: auto;
+  }
+  @media only screen and (min-width: 1000px) {
+    flex-direction: column;
+    height: auto;
+    width: 25%;
+    margin: 2rem;
+  }
 
   :hover {
     background: white;

@@ -8,10 +8,7 @@ const CategoryImage = ({ image }) => {
   return (
     <>
       {image !== "default" ? (
-        <CategoryMainImage
-          src={`${IMAGE_ENDPOINT}/${image}`}
-          alt={"categoryimage"}
-        />
+        <CategoryMainImage src={`${image}`} alt={"categoryimage"} />
       ) : (
         <CategoryMainImage src={`${burger}`} alt={"default"} />
       )}

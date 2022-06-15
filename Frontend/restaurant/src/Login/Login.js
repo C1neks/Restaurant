@@ -28,7 +28,9 @@ const Login = ({ loginValues, handleLoginInputChange, handleLoginUser }) => {
           value={loginValues.password}
           onChange={handleLoginInputChange}
         />
-        <Button type="submit">Login</Button>
+        <Button editAddButton type="submit">
+          Login
+        </Button>
         <LoginLink to="/register">I don't have an account</LoginLink>
       </LoginContainer>
     </div>

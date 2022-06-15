@@ -6,6 +6,9 @@ export const CartContainer = styled.div`
   align-items: center;
   margin-top: 2em;
   background: white;
+  @media only screen and (min-width: 768px) {
+    width: 100%;
+  }
 `;
 export const CartItems = styled.div`
   display: flex;

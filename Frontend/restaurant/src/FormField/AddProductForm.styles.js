@@ -9,6 +9,13 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
   margin-top: 5em;
+  @media only screen and (min-width: 768px) {
+    display: flex;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
 `;
 export const ShadowContainer = styled.div`
   box-shadow: 0px 0px 15px -3px rgb(41 22 22 / 34%);

@@ -10,7 +10,13 @@ import {
 } from "./Account.styles";
 import { MdDoneOutline } from "react-icons/md";
 import { GrInProgress } from "react-icons/gr";
-import { MainSubTitle } from "../Main/Main.styles";
+import { MainFooter, MainSubTitle } from "../Main/Main.styles";
+import {
+  FaFacebookSquare,
+  FaInstagramSquare,
+  FaTripadvisor,
+} from "react-icons/fa";
+import { IconContext } from "react-icons";
 const AdminAccount = ({ orders, getOrders }) => {
   const [status, setStatus] = useState("done");
 
@@ -82,6 +88,20 @@ const AdminAccount = ({ orders, getOrders }) => {
           </h3>
         </AdminOrdersContainer>
       ))}
+      <IconContext.Provider value={{ color: "black", size: 35 }}>
+        <MainFooter>
+          <a href="https://www.facebook.com/">
+            <FaFacebookSquare style={{ margin: "1rem" }} />
+          </a>
+          <a href="https://www.instagram.com/">
+            <FaInstagramSquare style={{ margin: "1rem" }} />
+          </a>
+          <a href="https://www.tripadvisor.com/">
+            <FaTripadvisor style={{ margin: "1rem" }} />
+          </a>
+          <p>Copyright © 2021-2022 by Smakosz.</p>
+        </MainFooter>
+      </IconContext.Provider>
     </Container>
   );
 };
