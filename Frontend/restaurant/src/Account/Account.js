@@ -21,8 +21,11 @@ const Account = ({ userDetails }) => {
         <AccountContainer key={userDetails._id}>
           <MainSubTitle Account>Account Details</MainSubTitle>
           <Spacer></Spacer>
-          <h2>Name:{" " + userDetails.name}</h2>
-          <h3>Email:{" " + userDetails.email}</h3>
+          <UserOrder account>
+            <h2>Name:{" " + userDetails.name}</h2>
+            <h3>Email:{" " + userDetails.email}</h3>
+          </UserOrder>
+
           <UserOrders>
             <MainSubTitle>Order History</MainSubTitle>
             {userDetails.orders.map((y) => (

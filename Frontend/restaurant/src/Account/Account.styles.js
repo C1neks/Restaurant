@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ImageBackgoundAccount from "../images/accountImage.jpg";
+import imageaccount from "../images/imageaccount.jpg";
 export const AccountContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -7,7 +8,7 @@ export const AccountContainer = styled.div`
   flex-direction: column;
   background: white;
 
-  background-image: url(${ImageBackgoundAccount});
+  background-image: url(${imageaccount});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -67,8 +68,10 @@ export const UserOrder = styled.div`
   flex-direction: column;
   border-radius: 10px;
   box-shadow: 0px 0px 15px -3px rgb(41 22 22 / 34%);
-  width: 90%;
+
   background: white;
+  min-height: ${({ account }) => (account ? "30rem" : "")};
+  width: ${({ account }) => (account ? "30%" : "90%")};
   @media only screen and (min-width: 768px) {
     width: 45%;
   }
