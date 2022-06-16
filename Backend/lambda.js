@@ -6,7 +6,14 @@ let serverlessExpressInstance;
 async function setup(event, context) {
   const app = await createApp();
   console.log(app);
-  serverlessExpressInstance = serverlessExpress({ app });
+  serverlessExpressInstance = serverlessExpress({
+    app,
+    binaryMimeTypes: [
+      "multipart/form-data",
+      "application/octet-stream",
+      "image/jpg",
+    ],
+  });
   return serverlessExpressInstance(event, context);
 }
 
