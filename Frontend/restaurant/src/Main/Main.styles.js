@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ImgBg from "../images/mainimage2.jpg";
+import ImgAboutUs from "../images/aboutus.jpg";
 
 export const MainContainer = styled.div`
   background-image: linear-gradient(
@@ -12,9 +13,28 @@ export const MainContainer = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 92vh;
-  @media only screen and (max-width: 1600px) {
-    height: 85vh;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  height: 85vh;
+  @media only screen and (min-width: 768px) {
+    height: 100vh;
+  }
+`;
+
+export const MainAboutUsContainer = styled.div`
+  background-image: linear-gradient(
+      to top right,
+      rgba(11, 10, 10, 0.38),
+      rgba(11, 10, 10, 0.19)
+    ),
+    url(${ImgAboutUs});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+  height: 80vh;
+  @media only screen and (min-width: 768px) {
+    height: 100vh;
   }
 `;
 
@@ -36,7 +56,9 @@ export const MainContent = styled.section`
 
 export const MainContentText = styled.div`
   width: 50%;
-  padding-top: 5rem;
+  padding-top: ${({ primary }) => (primary ? "0rem" : "5rem")};
+  //padding-top: 5rem;
+  margin: ${({ about }) => (about ? "4rem 0rem 4rem 0rem" : "0rem")};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -62,11 +84,16 @@ export const MainTitleText = styled.span`
 `;
 
 export const MainSubTitle = styled.h2`
-  font-size: clamp(2rem, 3vw, 4rem);
+  //font-size: clamp(2rem, 3vw, 4rem);
   font-weight: 300;
   letter-spacing: 1rem;
   padding-top: 1rem;
   text-align: center;
+  margin-bottom: 2rem;
+  width: 100%;
+  margin-top: ${({ Account }) => (Account ? "10rem" : "2rem")};
+  font-size: ${({ adminAccount }) =>
+    adminAccount ? "1.5em" : "clamp(2rem, 3vw, 4rem)"};
 `;
 
 export const MainText = styled.h3`
@@ -78,6 +105,17 @@ export const MainText = styled.h3`
   }
 `;
 
+export const MainFooter = styled.div`
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  min-height: 120px;
+  width: 100%;
+`;
+export const AboutTextContainer = styled.div`
+  text-align: center;
+`;
+export const AboutText = styled.h1``;
 export const MainBtn = styled(Link)`
   text-decoration: none;
   outline: none;

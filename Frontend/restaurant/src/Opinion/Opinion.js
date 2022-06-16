@@ -4,11 +4,18 @@ import { Input, Label } from "./Opinion.styles";
 import { Button } from "../StyledComponents/Button";
 import axios from "axios";
 import { opinionService } from "../services/services";
-const Opinion = ({ productId, usersVoted, getCategories, votesMade }) => {
+const Opinion = ({
+  userDetails,
+  productId,
+  usersVoted,
+  getCategories,
+  votesMade,
+}) => {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [votes, setVotes] = useState(false);
   const [totalRating, settotalRating] = useState(null);
+  const isUserOrdered = userDetails.orders.length;
 
   const userID = localStorage.getItem("userID");
   const getRating = async (id) => {
@@ -49,7 +56,7 @@ const Opinion = ({ productId, usersVoted, getCategories, votesMade }) => {
 
   return (
     <div>
-      {votes !== true ? (
+      {votes !== true && isUserOrdered > 0 ? (
         <div>
           {[...Array(5)].map((star, i) => {
             const ratingValue = i + 1;
@@ -63,18 +70,21 @@ const Opinion = ({ productId, usersVoted, getCategories, votesMade }) => {
                 />
                 <FaStar
                   color={ratingValue <= (hover || rating) ? "orange" : "gray"}
-                  size={25}
+                  size={20}
                   onMouseEnter={() => setHover(ratingValue)}
                   onMouseLeave={() => setHover(null)}
                 />
               </Label>
             );
           })}
-          {rating != null ? <h3>Your rate is {rating}</h3> : null}
-          {totalRating != null ? (
-            <h3>Total rating is :{totalRating.toFixed(1)}</h3>
+          {rating !== null ? <h3>Your rate is {rating}</h3> : null}
+          {totalRating !== null ? (
+            <h3>
+              <FaStar color={"orange"} size={15} />
+              {totalRating.toFixed(1)}
+            </h3>
           ) : (
-            <h3>Total rating is :</h3>
+            <h3>0 votes made</h3>
           )}
           {rating === null ? null : (
             <Button onClick={() => addRating(productId, rating)}>
@@ -85,7 +95,10 @@ const Opinion = ({ productId, usersVoted, getCategories, votesMade }) => {
       ) : (
         <div>
           {totalRating != null ? (
-            <h3>Total rating is :{totalRating.toFixed(1)}</h3>
+            <h4>
+              <FaStar color={"orange"} size={15} />
+              {totalRating.toFixed(1)}
+            </h4>
           ) : (
             <h3>Total rating is :</h3>
           )}

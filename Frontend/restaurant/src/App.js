@@ -125,14 +125,7 @@ function App() {
             </Route>
             <Route path="/menu">
               {logged ? (
-                cartItems.length !== 0 ? (
-                  <>
-                    <Basket />
-                    <Menu userDetails={userDetails} setCat={setCat} />
-                  </>
-                ) : (
-                  <Menu userDetails={userDetails} setCat={setCat} />
-                )
+                <Menu userDetails={userDetails} setCat={setCat} />
               ) : (
                 <Redirect to="/login" />
               )}
@@ -158,10 +151,15 @@ function App() {
               />
             </Route>
             <Route path="/checkout">
-              <Checkout
-                userDetails={userDetails}
-                getUserDetails={getUserDetails}
-              />
+              {cartItems.length === 0 ? (
+                <Redirect to="/menu" />
+              ) : (
+                <Checkout
+                  userDetails={userDetails}
+                  getUserDetails={getUserDetails}
+                  setCartItems={setCartItems}
+                />
+              )}
             </Route>
             <Route path="/category">
               <Product cat={cat} userDetails={userDetails} />

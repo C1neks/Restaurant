@@ -27,14 +27,16 @@ const LoginPage = ({ userDetails, handleLogout }) => {
   };
 
   const loginUser = async (credentials) => {
-    const response = await userService.loginUser(credentials);
-
-    const info = response.data.accessToken;
-    localStorage.setItem("userInfo", info);
-
-    localStorage.setItem("userID", response.data.isValid.user._id);
-
-    window.location.reload();
+    try {
+      const response = await userService.loginUser(credentials);
+      const info = response.data.accessToken;
+      localStorage.setItem("userInfo", info);
+      localStorage.setItem("userID", response.data.isValid.user._id);
+      alert("Login Successful");
+      window.location.reload();
+    } catch (e) {
+      alert("Wrong username or password");
+    }
   };
 
   const handleLoginUser = (e) => {

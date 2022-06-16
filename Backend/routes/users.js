@@ -52,13 +52,13 @@ router.post("/", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { name, password } = req.body;
-  console.log("LOG", req.body);
+
   const validUser = await userService.checkUser(name, password);
   console.log("ISVALID", validUser.user);
   if (validUser.error) {
     res.status(403).send(validUser.error);
 
-    return;
+    return validUser.error;
   }
   const accessToken = jwt.sign(
     validUser.user.toJSON(),

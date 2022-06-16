@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import burger from "../images/burger.jpg";
 import pizza from "../images/pizzacat.jpg";
+import categoryimage from "../images/categoryyy.jpg";
+import menu from "../images/menu.jpg";
+import { Link } from "react-router-dom";
 export const Wrapper = styled.div`
-  background-color: #edf2f4;
+  background-color: white;
 `;
 export const StyledList = styled.div`
   min-height: 100%;
@@ -14,12 +17,36 @@ export const StyledList = styled.div`
   align-items: center;
 `;
 
+export const MenuImage = styled.div`
+  background-image: url(${menu});
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 27vh;
+
+  width: 100%;
+  @media only screen and (min-width: 768px) {
+    background-position: center;
+    height: 40vh;
+  }
+
+  //border-bottom-left-radius: 2rem;
+  //border-bottom-right-radius: 2rem;
+`;
+
+export const MenuCategoryLink = styled(Link)``;
 export const Category = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 100%;
+  @media only screen and (min-width: 768px) and (max-width: 1000px) {
+    width: 50%;
+  }
+  @media only screen and (min-width: 1000px) {
+    width: 33%;
+  }
 `;
 
 export const MenuText = styled.div`
@@ -38,7 +65,12 @@ export const ItemWrapper = styled.div`
   align-items: center;
   width: 100%;
 
-  background: #edf2f4;
+  background: white;
+  @media only screen and (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
 `;
 export const CategoryName = styled.h2`
   font-size: clamp(1rem, 10vw, 5rem);
@@ -50,6 +82,12 @@ export const CategoryName = styled.h2`
 export const PriceAndButtonContainer = styled.div`
   display: flex;
   width: 100%;
+  align-items: ${({ admin }) => (admin ? "center" : "")};
+  justify-content: space-between;
+
+  @media only screen and (min-width: 768px) {
+    flex-direction: column;
+  }
 `;
 export const ItemDetails = styled.div`
   display: flex;
@@ -57,19 +95,42 @@ export const ItemDetails = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 50%;
+
+  @media only screen and (min-width: 768px) {
+    text-align: center;
+  }
 `;
 
 export const CategoryImg = styled.div`
-  background-image: url(${pizza});
+  background-image: url(${categoryimage});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 
   width: 100%;
   height: 40vh;
+  display: flex;
+  justify-content: right;
+  align-items: flex-end;
+  //border-bottom-left-radius: 2rem;
+  //border-bottom-right-radius: 2rem;
+  margin-bottom: 2em;
+  p {
+    margin-right: 2em;
+    font-family: sans-serif;
+    color: white;
+    font-size: 1.5em;
+    letter-spacing: 0.2em;
+  }
+  h6 {
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+    font-size: 0.8em;
+  }
 `;
 export const CartButton = styled.button`
-  border-radius: ${({ bigRadius }) => (bigRadius ? "30px" : "10px")};
+  border-radius: ${({ bigRadius }) => (bigRadius ? "30px" : "5px")};
   background-color: ${({ primary }) => (primary ? "#a60b0b" : "#a60b0b")};
   color: ${({ primary }) => (primary ? "#000" : "#fff")};
   padding: ${({ big }) => (big ? "18px 30px" : "9px 12px")};
@@ -78,7 +139,9 @@ export const CartButton = styled.button`
   cursor: pointer;
   border: none;
   transition: all 0.5s ease;
-  margin-left: 35px;
+
+  min-width: ${({ admin }) => (admin ? "75px" : "0px")};
+  max-width: ${({ admin }) => (admin ? "" : "100px")};
 
   &:hover {
     background-color: ${({ primary }) => (primary ? "#fff" : "#2b2d42")};
@@ -125,10 +188,23 @@ export const Item = styled.div`
   background: #fff;
 
   width: 92%;
-  height: 16rem;
+  min-height: 16rem;
   border-radius: 10px;
-  box-shadow: 0 5px 15px -10px rgba(0, 0, 0, 0.3);
+  //box-shadow: 0 5px 15px -10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 15px -3px rgba(41, 22, 22, 0.34);
   margin-bottom: 20px;
+
+  @media only screen and (min-width: 768px) and (max-width: 1000px) {
+    width: 35%;
+    flex-direction: column;
+    height: auto;
+  }
+  @media only screen and (min-width: 1000px) {
+    flex-direction: column;
+    height: auto;
+    width: 25%;
+    margin: 2rem;
+  }
 
   :hover {
     background: white;

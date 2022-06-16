@@ -5,12 +5,13 @@ import { Container } from "../StyledComponents/Container";
 
 export const Nav = styled.nav`
   font-size: 18px;
-  position: sticky;
+  position: absolute;
+  width: 100%;
   top: 0;
   z-index: 999;
   height: 80px;
-  background-color: #2b2d42;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+  color: black;
+  //box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +26,7 @@ export const NavbarContainer = styled(Container)`
 `;
 
 export const NavLogo = styled(Link)`
-  color: #fff;
+  color: ${({ main }) => (main ? "#fff" : "black")};
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -49,7 +50,7 @@ export const NavIcon = styled(BiRestaurant)`
 
 export const MenuIcon = styled.div`
   display: none;
-  color: white;
+  color: ${({ main }) => (main ? "#fff" : "black")};
   @media (max-width: 1000px) {
     display: block;
     position: absolute;
@@ -85,8 +86,16 @@ export const MenuItem = styled.li`
 
   @media only screen and (max-width: 1000px) {
     width: 100%;
+    color: ${({ main }) => (main ? "white" : "black")};
     &:hover {
       border: none;
+      font-size: 1.5rem;
+    }
+  }
+  @media only screen and (min-width: 1000px) {
+    &:hover {
+      border: none;
+      font-size: 1.5rem;
     }
   }
 `;
@@ -102,9 +111,15 @@ export const MenuLink = styled(Link)`
   padding: 1rem 2rem;
   height: 100%;
   transition: all 0.2s ease;
+  @media only screen and (min-width: 1000px) {
+    color: ${({ main }) => (main ? "white" : "black")};
+    &:hover {
+      border: none;
+      font-size: 2.5rem;
+    }
+  }
 
   &:hover {
-    color: #e38b06;
     transform: traslateY(-3rem);
   }
   &:active {

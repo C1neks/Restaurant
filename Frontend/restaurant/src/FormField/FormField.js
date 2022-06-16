@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Label } from "./Label";
-import { Input } from "./Input";
+import { Label, LabelImage } from "./Label";
+import { Input, InputImage } from "./Input";
 
 const Wrapper = styled.div`
   display: flex;
@@ -12,14 +12,29 @@ const Wrapper = styled.div`
 const FormField = ({ onChange, value, label, name, id, type = "text" }) => {
   return (
     <Wrapper>
-      <Label htmlFor={id}>{label}</Label>
-      <Input
-        name={name}
-        id={id}
-        type={type}
-        value={value}
-        onChange={onChange}
-      />
+      {name === "image" ? (
+        <>
+          <LabelImage htmlFor={id}>{label}</LabelImage>
+          <InputImage
+            name={name}
+            id={id}
+            type={type}
+            value={value}
+            onChange={onChange}
+          />
+        </>
+      ) : (
+        <>
+          <Label htmlFor={id}>{label}</Label>
+          <Input
+            name={name}
+            id={id}
+            type={type}
+            value={value}
+            onChange={onChange}
+          />
+        </>
+      )}
     </Wrapper>
   );
 };

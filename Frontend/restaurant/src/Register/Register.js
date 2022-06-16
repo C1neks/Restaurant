@@ -78,7 +78,9 @@ const Register = () => {
               value={formUserValues.password}
               onChange={handleUserInputChange}
             />
-            <Button type="submit">Add</Button>
+            <Button editAddButton type="submit">
+              Add
+            </Button>
             <LoginLink to="/login">I have an account</LoginLink>
           </Container>
         </>

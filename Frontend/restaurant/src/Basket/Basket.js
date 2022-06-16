@@ -1,5 +1,13 @@
 import React, { useContext } from "react";
-import { Cart, CartButton, CartContainer, CartItem } from "./Basket.styles";
+import {
+  Cart,
+  CartButton,
+  CartContainer,
+  CartItem,
+  CartItems,
+  CartPiece,
+  TotalPriceCartItem,
+} from "./Basket.styles";
 import { Button } from "../StyledComponents/Button";
 import { MenuItem, MenuLink } from "../NavBar/Navbar.styles";
 import CartCount from "./CartCount";
@@ -12,30 +20,33 @@ const Basket = (props) => {
   return (
     <CartContainer>
       <Cart>
-        <MainSubTitle>Cart</MainSubTitle>
+        <MainSubTitle>CART</MainSubTitle>
         {context.cartItems.length === 0 && <div>Cart is Empty</div>}
-        {context.cartItems.map((item) => (
-          <CartItem key={item._id}>
-            <div>{item.name}</div>
-            <div>
-              <CartButton onClick={() => context.onAddToCart(item)}>
-                +
-              </CartButton>
-              <CartButton onClick={() => context.onRemoveFromCart(item)}>
-                -
-              </CartButton>
-            </div>
-            <div>
-              {item.quantity} x {item.price}PLN
-            </div>
-          </CartItem>
-        ))}
+        <CartItems>
+          {context.cartItems.map((item) => (
+            <CartItem key={item._id}>
+              <CartPiece>{item.name}</CartPiece>
+              <CartPiece>
+                <CartButton onClick={() => context.onAddToCart(item)}>
+                  +
+                </CartButton>
+                <CartButton onClick={() => context.onRemoveFromCart(item)}>
+                  -
+                </CartButton>
+              </CartPiece>
+              <CartPiece>
+                {item.quantity} x {item.price}PLN
+              </CartPiece>
+            </CartItem>
+          ))}
+        </CartItems>
         {context.cartItems.length !== 0 && (
           <>
-            <div>
-              <p>Total Price</p>
-              <p>{context.totalPrice}</p>
-            </div>
+            <TotalPriceCartItem>
+              <CartPiece>Total Price </CartPiece>
+              <CartPiece></CartPiece>
+              <CartPiece>{context.totalPrice + "PLN"}</CartPiece>
+            </TotalPriceCartItem>
           </>
         )}
         {context.cartItems.length !== 0 ? (
