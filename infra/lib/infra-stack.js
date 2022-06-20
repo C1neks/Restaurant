@@ -26,7 +26,11 @@ class InfraStack extends Stack {
 
     const api = new gateway.LambdaRestApi(this, `${id}__restaurantGateway`, {
       handler: restaurantApiLambda,
-      binaryMediaTypes: ["image/jpg"],
+      binaryMediaTypes: [
+        "image/jpg",
+        "multipart/form-data",
+        "application/octet-stream",
+      ],
     });
     console.log(api.restApiName);
     new SPADeploy(this, "my-restaurant-app").createSiteWithCloudfront({
