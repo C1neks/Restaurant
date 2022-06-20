@@ -1,17 +1,11 @@
 import styled from "styled-components";
-import ImageBackgoundAccount from "../images/accountImage.jpg";
-import imageaccount from "../images/imageaccount.jpg";
+
 export const AccountContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   background: white;
-
-  background-image: url(${imageaccount});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 `;
 
 export const AdminOrdersContainer = styled.div`

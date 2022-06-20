@@ -18,9 +18,9 @@ export const Button = styled.button`
   transition: all 0.5s ease;
 
   &:hover {
-    background-color: ${({ primary }) => (primary ? "#fff" : "#fff")};
+    background-color: ${({ primary }) => (primary ? "#000000c9" : "#fff")};
     transform: translateY(-0.5rem) scale(1.02);
-    color: black;
+    color: white;
   }
   &:active {
     transform: translateY(0.5rem);

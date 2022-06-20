@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import burger from "../images/burger.jpg";
-import pizza from "../images/pizzacat.jpg";
+
 import categoryimage from "../images/categoryyy.jpg";
 import menu from "../images/menu.jpg";
 import { Link } from "react-router-dom";
