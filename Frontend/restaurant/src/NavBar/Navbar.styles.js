@@ -50,7 +50,7 @@ export const NavIcon = styled(BiRestaurant)`
 
 export const MenuIcon = styled.div`
   display: none;
-  color: ${({ main }) => (main ? "#fff" : "black")};
+  color: ${({ main }) => (main ? "black" : "black")};
   @media (max-width: 1000px) {
     display: block;
     position: absolute;

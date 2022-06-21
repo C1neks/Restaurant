@@ -22,22 +22,11 @@ const Navbar = ({ countCartItems, handleLogout, userDetails }) => {
   const [click, setClick] = useState(false);
   const context = useContext(LoggedContext);
   const handleClick = () => setClick(!click);
-  const [main, setMain] = useState(true);
-  const handlePage = () => {
-    if (
-      window.location.pathname === "/" ||
-      window.location.pathname === "/menu"
-    ) {
-      setMain(true);
-    } else {
-      setMain(false);
-    }
-  };
 
   return (
     <div>
       <Nav>
-        <NavbarContainer onClick={handleClick} onClick={handlePage}>
+        <NavbarContainer onClick={handleClick}>
           <>
             <NavLogo main to="/">
               <NavIcon />
