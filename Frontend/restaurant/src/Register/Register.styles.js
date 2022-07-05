@@ -25,7 +25,7 @@ export const RegisterTitle = styled.h2`
   font-size: ${({ adminAccount }) => (adminAccount ? "1.5em" : "1.5em")};
   @media (min-width: 768px) and (max-width: 1024px) {
     font-size: 1.5em;
-    width: 70%;
+
     padding-top: 18rem;
   }
   @media only screen and (max-width: 767px) {
