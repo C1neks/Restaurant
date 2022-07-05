@@ -5,7 +5,12 @@ import { LoggedContext } from "../App";
 
 const AccountPage = ({ userDetails, getUserDetails }) => {
   const context = useContext(LoggedContext);
-  useEffect(() => getUserDetails(userDetails._id), []);
+
+  useEffect(() => {
+    (async () => {
+      await getUserDetails(userDetails._id);
+    })();
+  }, []);
 
   return (
     <>

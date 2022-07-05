@@ -17,7 +17,7 @@ export const ProductNameSign = styled.h3`
 export const ContainerOfButtons = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: left;
   margin-bottom: 2rem;
 
   @media only screen and (min-width: 768px) {
@@ -26,7 +26,7 @@ export const ContainerOfButtons = styled.div`
     align-items: center;
 
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: left;
     flex-direction: row;
     margin-bottom: 2rem;
   }

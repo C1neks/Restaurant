@@ -34,11 +34,6 @@ export const StyledList = styled.div`
   @media only screen and (max-width: 1024px) {
     margin-top: 10rem;
   }
-  @media only screen and (max-width: 767px) {
-    div:first-child {
-      margin-top: 8rem;
-    }
-  }
 `;
 
 export const MenuImage = styled.div`
@@ -143,7 +138,7 @@ export const ItemDetails = styled.div`
   margin-left: 3rem;
 
   @media only screen and (min-width: 768px) {
-    text-align: center;
+    text-align: left;
   }
 `;
 

@@ -84,7 +84,7 @@ const Product = ({ cat, userDetails }) => {
                     </PriceDollarSignContainer>
                     <ContainerOfButtons>
                       <CartButton onClick={() => context.onAddToCart(m)}>
-                        Add to Cart
+                        Cart
                       </CartButton>
                     </ContainerOfButtons>
                   </PriceAndButtonContainer>

@@ -3,7 +3,7 @@ import { Container } from "../FormField/AddProductForm.styles";
 import { MainSubTitle } from "../Main/Main.styles";
 import FormField from "../FormField/FormField";
 import { Button } from "../StyledComponents/Button";
-import { LoginLink } from "../Register/Register.styles";
+import { LoginLink, RegisterTitle } from "../Register/Register.styles";
 import { Redirect } from "react-router-dom";
 import { LoginContainer } from "./Login.styles";
 
@@ -11,7 +11,7 @@ const Login = ({ loginValues, handleLoginInputChange, handleLoginUser }) => {
   return (
     <div>
       <LoginContainer as="form" onSubmit={handleLoginUser}>
-        <MainSubTitle>Login</MainSubTitle>
+        <RegisterTitle>Login</RegisterTitle>
         <FormField
           label="Name"
           id="name"

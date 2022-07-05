@@ -66,12 +66,16 @@ function App() {
 
   const [userDetails, setUserDetails] = useState([]);
 
-  const getUserDetails = (userID) => {
-    userService.getDetails(userID).then((r) => {
-      setUserDetails(r.data.data);
-    });
+  const getUserDetails = async (userID) => {
+    const r = await userService.getDetails(userID);
+    setUserDetails(r.data.data);
   };
-  useEffect(() => getUserDetails(userID), [userID]);
+
+  useEffect(() => {
+    (async () => {
+      await getUserDetails(userID);
+    })();
+  }, [userID]);
 
   const [cartItems, setCartItems] = useState([]);
   const onAddToCart = (product) => {

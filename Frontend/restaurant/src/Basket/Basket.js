@@ -13,6 +13,7 @@ import { MenuItem, MenuLink } from "../NavBar/Navbar.styles";
 import CartCount from "./CartCount";
 import { ItemsContext } from "../App";
 import { MainSubTitle, MainText } from "../Main/Main.styles";
+import { RegisterTitle } from "../Register/Register.styles";
 
 const Basket = (props) => {
   const { onAddToCart, onRemoveFromCart } = props;
@@ -20,7 +21,7 @@ const Basket = (props) => {
   return (
     <CartContainer>
       <Cart>
-        <MainSubTitle>CART</MainSubTitle>
+        <RegisterTitle>CART</RegisterTitle>
         {context.cartItems.length === 0 && <div>Cart is Empty</div>}
         <CartItems>
           {context.cartItems.map((item) => (

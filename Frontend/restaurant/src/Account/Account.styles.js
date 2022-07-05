@@ -65,7 +65,7 @@ export const UserOrder = styled.div`
 
   background: white;
   min-height: ${({ account }) => (account ? "30rem" : "")};
-  width: ${({ account }) => (account ? "30%" : "90%")};
+  width: ${({ account }) => (account ? "75%" : "90%")};
   @media only screen and (min-width: 768px) {
     width: 45%;
   }

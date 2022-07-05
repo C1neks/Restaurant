@@ -12,14 +12,14 @@ import {
 } from "./Account.styles";
 import { MdDoneOutline } from "react-icons/md";
 import { GrInProgress } from "react-icons/gr";
+import { RegisterTitle } from "../Register/Register.styles";
 
 const Account = ({ userDetails }) => {
-  console.log("DETAILS ACCOUNT!", userDetails);
   return (
     <>
       {
         <AccountContainer key={userDetails._id}>
-          <MainSubTitle Account>Account Details</MainSubTitle>
+          <RegisterTitle Account>Account Details</RegisterTitle>
           <Spacer></Spacer>
           <UserOrder account>
             <h2>Name:{" " + userDetails.name}</h2>
@@ -27,7 +27,7 @@ const Account = ({ userDetails }) => {
           </UserOrder>
 
           <UserOrders>
-            <MainSubTitle>Order History</MainSubTitle>
+            <RegisterTitle>Order History</RegisterTitle>
             {userDetails.orders.map((y) => (
               <UserOrder key={y._id}>
                 <Spacer></Spacer>

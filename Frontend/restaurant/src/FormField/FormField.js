@@ -21,6 +21,7 @@ const FormField = ({ onChange, value, label, name, id, type = "text" }) => {
             type={type}
             value={value}
             onChange={onChange}
+            required
           />
         </>
       ) : (
@@ -32,6 +33,7 @@ const FormField = ({ onChange, value, label, name, id, type = "text" }) => {
             type={type}
             value={value}
             onChange={onChange}
+            required
           />
         </>
       )}

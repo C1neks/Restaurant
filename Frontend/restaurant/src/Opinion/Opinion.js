@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
-import { Input, Label } from "./Opinion.styles";
+import { Input, Label, RatingDiv } from "./Opinion.styles";
 import { Button } from "../StyledComponents/Button";
 import axios from "axios";
 import { opinionService } from "../services/services";
@@ -15,7 +15,19 @@ const Opinion = ({
   const [hover, setHover] = useState(null);
   const [votes, setVotes] = useState(false);
   const [totalRating, settotalRating] = useState(null);
-  const isUserOrdered = userDetails.orders.length;
+  const [isOrdered, setIsOrdered] = useState(0);
+  // const isUserOrdered =  await userDetails.orders.length;
+
+  const IsUserOrdered = async (userDetails) => {
+    const isUserOrdered = userDetails.orders.length;
+    setIsOrdered(isUserOrdered);
+  };
+
+  useEffect(() => {
+    (async () => {
+      await IsUserOrdered(userDetails);
+    })();
+  }, []);
 
   const userID = localStorage.getItem("userID");
   const getRating = async (id) => {
@@ -56,7 +68,7 @@ const Opinion = ({
 
   return (
     <div>
-      {votes !== true && isUserOrdered > 0 ? (
+      {votes !== true && isOrdered > 0 ? (
         <div>
           {[...Array(5)].map((star, i) => {
             const ratingValue = i + 1;
@@ -70,7 +82,7 @@ const Opinion = ({
                 />
                 <FaStar
                   color={ratingValue <= (hover || rating) ? "orange" : "gray"}
-                  size={20}
+                  size={30}
                   onMouseEnter={() => setHover(ratingValue)}
                   onMouseLeave={() => setHover(null)}
                 />
@@ -80,7 +92,7 @@ const Opinion = ({
           {rating !== null ? <h3>Your rate is {rating}</h3> : null}
           {totalRating !== null ? (
             <h3>
-              <FaStar color={"orange"} size={15} />
+              <FaStar color={"orange"} size={30} />
               {totalRating.toFixed(1)}
             </h3>
           ) : (
@@ -95,10 +107,12 @@ const Opinion = ({
       ) : (
         <div>
           {totalRating != null ? (
-            <h4>
-              <FaStar color={"orange"} size={15} />
-              {totalRating.toFixed(1)}
-            </h4>
+            <RatingDiv>
+              <FaStar color={"orange"} size={30} />
+              <p style={{ color: "white", "font-size": "2rem" }}>
+                {totalRating.toFixed(1)}
+              </p>
+            </RatingDiv>
           ) : (
             <h3>Total rating is :</h3>
           )}
