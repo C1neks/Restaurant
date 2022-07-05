@@ -18,7 +18,7 @@ import { HiOutlineCurrencyDollar } from "react-icons/hi";
 import { ItemsContext } from "../App";
 import { MainFooter, MainSubTitle } from "../Main/Main.styles";
 import Opinion from "../Opinion/Opinion";
-import Image from "../Image/Image";
+
 import {
   ContainerOfButtons,
   DescriptionP,
@@ -31,7 +31,7 @@ import {
   FaTripadvisor,
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
-import { TestImg } from "../Image/Image.styles";
+import { PrdctImg } from "../Image/Image.styles";
 
 const Product = ({ cat, userDetails }) => {
   const context = useContext(ItemsContext);
@@ -62,7 +62,7 @@ const Product = ({ cat, userDetails }) => {
       <ItemWrapper>
         {productCategory.map((m) => (
           <Item key={m._id}>
-            <TestImg image={m.image}>
+            <PrdctImg image={m.image}>
               <ItemDetails>
                 <Details>
                   <ProductNameSign>{m.name}</ProductNameSign>
@@ -122,7 +122,7 @@ const Product = ({ cat, userDetails }) => {
                   </PriceAndButtonContainer>
                 )}
               </ItemDetails>
-            </TestImg>
+            </PrdctImg>
           </Item>
         ))}
       </ItemWrapper>

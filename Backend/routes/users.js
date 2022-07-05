@@ -35,8 +35,6 @@ router.post("/", async (req, res) => {
   try {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
-    console.log(salt);
-    console.log(hashedPassword);
 
     const userToCreate = await userService.createUser(
       name,

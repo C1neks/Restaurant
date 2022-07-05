@@ -26,10 +26,9 @@ import {
 import { Spacer } from "../Account/Account.styles";
 import { categoryService, productService } from "../services/services";
 import { MenuLink } from "../NavBar/Navbar.styles";
-import CategoryImage from "../CategoryImage.js/CategoryImage";
+
 import Basket from "../Basket/Basket";
 import { IconContext } from "react-icons";
-import Image from "../Image/Image";
 
 const Menu = ({ userDetails, setCat }) => {
   const context = useContext(ItemsContext);

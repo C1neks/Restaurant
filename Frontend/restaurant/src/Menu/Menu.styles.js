@@ -236,11 +236,17 @@ export const Item = styled.div`
   margin-bottom: 20px;
 
   @media only screen and (min-width: 768px) and (max-width: 1000px) {
-    width: 35%;
+    width: 45%;
     flex-direction: column;
-    height: auto;
+    height: 40vh;
   }
   @media only screen and (min-width: 1000px) {
+    flex-direction: column;
+    height: 50vh;
+    width: 45%;
+    margin: 2rem;
+  }
+  @media only screen and (min-width: 1400px) {
     flex-direction: column;
     height: auto;
     width: 35%;

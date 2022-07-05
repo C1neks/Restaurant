@@ -5,7 +5,7 @@ let serverlessExpressInstance;
 
 async function setup(event, context) {
   const app = await createApp();
-  console.log(app);
+
   serverlessExpressInstance = serverlessExpress({
     app,
     binaryMimeTypes: [

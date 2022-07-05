@@ -33,13 +33,12 @@ const Opinion = ({
   const getRating = async (id) => {
     const response = await opinionService.getRate(id);
 
-    console.log(response);
     settotalRating(response.data.rating / response.data.numberOfRates);
   };
 
   const getVotesMade = async (id) => {
     const response = await opinionService.getRate(id);
-    console.log("RESPOO", response);
+
     setVotes(response.data.ratedByCurrentUser);
   };
 

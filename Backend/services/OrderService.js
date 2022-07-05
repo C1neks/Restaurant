@@ -40,7 +40,7 @@ export class OrderService {
         subTotal: subTotal * 0.9,
         user,
       };
-      console.log("NEW ORDER!", order);
+
       return await this.repository.createItem(order);
     } else {
       const order = {

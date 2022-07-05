@@ -77,7 +77,7 @@ export const Menu = styled.ul`
     position: absolute;
     top: 80px;
     left: ${({ click }) => (click ? "0" : "-100%")};
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: white;
     transition: all 0.5s ease;
   }
 `;
@@ -109,8 +109,11 @@ export const MenuItemCartButton = styled.li`
   position: absolute;
   right: 0;
 
-  @media only screen and (max-width: 1100px) {
+  @media only screen and (max-width: 1000px) {
     color: ${({ main }) => (main ? "white" : "black")};
+    position: relative;
+    display: flex;
+    align-items: center;
     &:hover {
       border: none;
       font-size: 1.5rem;

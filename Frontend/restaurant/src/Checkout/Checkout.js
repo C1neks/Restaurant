@@ -11,7 +11,7 @@ const Checkout = ({ userDetails, getUserDetails, setCartItems }) => {
   let items = [];
   const context = useContext(ItemsContext);
   const user = userDetails;
-  console.log("JUSER", user);
+
   const createOrder = async (cartItems) => {
     let order = cartItems.map(
       (cartItems) =>
@@ -26,7 +26,7 @@ const Checkout = ({ userDetails, getUserDetails, setCartItems }) => {
     );
 
     order = { items, user: user._id };
-    console.log("ORDER NEW", order);
+
     const response = await orderService.createOrder(order);
 
     getUserDetails(user._id);

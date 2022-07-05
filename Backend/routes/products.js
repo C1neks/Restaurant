@@ -64,9 +64,8 @@ router.get("/", async (req, res) => {
 router.post("/", uploadS3.single("image"), async (req, res) => {
   const { name, price, category, description } = req.body;
 
-  console.log("fajl", req.file);
   const image = req.file.location;
-  console.log("IMIG", image);
+
   const response = await productService.createProduct(
     name,
     price,
