@@ -19,6 +19,16 @@ import {
   MainFooter,
   MainAboutUsContainer,
   AboutTextContainer,
+  MainContentWithImage,
+  BannerContainer,
+  DeliveryDiv,
+  WaitressDiv,
+  OrderDiv,
+  serveSpan,
+  Serve,
+  DeliveryPartner,
+  IconsContainer,
+  UnderIconsText,
 } from "./Main.styles";
 import { Spacer } from "../Account/Account.styles";
 
@@ -29,13 +39,15 @@ const Main = () => {
         <MainContent>
           <MainContentText>
             <MainTitle>
-              <MainTitleText>Food is our passion</MainTitleText>
+              <MainTitleText>
+                Be The Fastest In Delivering Your Food
+              </MainTitleText>
             </MainTitle>
-            <MainSubTitle>Nullam interdum quam</MainSubTitle>
-            <MainText>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nunc
-              feugiat finibus
-            </MainText>
+            <MainSubTitle>
+              Our job is to filling your tummy with delicious food and with fast
+              and free delivery
+            </MainSubTitle>
+
             <MainBtn to="/menu">
               <Button primary big bigFont bigRadius>
                 Pick your meals
@@ -43,23 +55,35 @@ const Main = () => {
             </MainBtn>
           </MainContentText>
         </MainContent>
+        <MainContentWithImage />
       </MainContainer>
-      <Spacer></Spacer>
-      <AboutTextContainer>
-        <h1>About Us</h1>
-      </AboutTextContainer>
-      <Spacer></Spacer>
-      <MainAboutUsContainer>
-        <MainContent>
-          <MainContentText primary about>
-            <MainTitle>
-              <MainTitleText>
-                We prepare food from the fresh local products
-              </MainTitleText>
-            </MainTitle>
-          </MainContentText>
-        </MainContent>
-      </MainAboutUsContainer>
+      <Spacer />
+      <BannerContainer>
+        <Serve>WHAT WE SERVE</Serve>
+        <DeliveryPartner>Your Favourite Food</DeliveryPartner>
+        <DeliveryPartner>Delivery Partner</DeliveryPartner>
+        <IconsContainer>
+          <OrderDiv />
+          <UnderIconsText primary>Easy To Order</UnderIconsText>
+          <UnderIconsText>
+            You only need a few steps in ordering food.
+          </UnderIconsText>
+        </IconsContainer>
+        <IconsContainer>
+          <DeliveryDiv />
+          <UnderIconsText primary>Fastest Delivery</UnderIconsText>
+          <UnderIconsText>
+            Delivery that is always ontime even faster.
+          </UnderIconsText>
+        </IconsContainer>
+        <IconsContainer>
+          <WaitressDiv />
+          <UnderIconsText primary>Best Quality</UnderIconsText>
+          <UnderIconsText>
+            Not only fast for us quality is also number one.
+          </UnderIconsText>
+        </IconsContainer>
+      </BannerContainer>
       <IconContext.Provider value={{ color: "black", size: 35 }}>
         <MainFooter>
           <a href="https://www.facebook.com/">

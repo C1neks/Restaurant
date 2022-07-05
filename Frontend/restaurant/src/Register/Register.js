@@ -4,7 +4,7 @@ import { MainSubTitle } from "../Main/Main.styles";
 import FormField from "../FormField/FormField";
 import { Button } from "../StyledComponents/Button";
 import { MenuLink } from "../NavBar/Navbar.styles";
-import { LoginLink } from "./Register.styles";
+import { LoginLink, RegisterContainer, RegisterTitle } from "./Register.styles";
 import axios from "axios";
 import { userService } from "../services/services";
 import {
@@ -52,8 +52,8 @@ const Register = () => {
         <Redirect to="/" />
       ) : (
         <>
-          <Container as="form" onSubmit={handleAddUser}>
-            <MainSubTitle>Register</MainSubTitle>
+          <RegisterContainer as="form" onSubmit={handleAddUser}>
+            <RegisterTitle>Register</RegisterTitle>
             <FormField
               label="Name"
               id="name"
@@ -82,7 +82,7 @@ const Register = () => {
               Add
             </Button>
             <LoginLink to="/login">I have an account</LoginLink>
-          </Container>
+          </RegisterContainer>
         </>
       )}
     </>

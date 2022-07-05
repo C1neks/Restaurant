@@ -21,6 +21,7 @@ import Opinion from "../Opinion/Opinion";
 import Image from "../Image/Image";
 import {
   ContainerOfButtons,
+  DescriptionP,
   PriceDollarSignContainer,
   ProductNameSign,
 } from "./Product.styles";
@@ -30,6 +31,7 @@ import {
   FaTripadvisor,
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import { TestImg } from "../Image/Image.styles";
 
 const Product = ({ cat, userDetails }) => {
   const context = useContext(ItemsContext);
@@ -57,71 +59,70 @@ const Product = ({ cat, userDetails }) => {
 
   return (
     <Wrapper>
-      <CategoryImg>
-        <div>
-          <p>{cat.toUpperCase()}</p>
-          <h6>{productCategory.length + " " + "items"}</h6>
-        </div>
-      </CategoryImg>
-
       <ItemWrapper>
         {productCategory.map((m) => (
           <Item key={m._id}>
-            <Image image={m.image} />
-
-            <ItemDetails>
-              <Details>
-                <ProductNameSign>{m.name}</ProductNameSign>
-                <Opinion
-                  userDetails={userDetails}
-                  productId={m._id}
-                  usersVoted={m.usersVoted}
-                  getCategories={getCategories}
-                />
-                <p>{m.description}</p>
-              </Details>
-              {userDetails.isAdmin === false ? (
-                <PriceAndButtonContainer>
-                  <PriceDollarSignContainer>
-                    <h2>
-                      <HiOutlineCurrencyDollar />
-                    </h2>
-                    <h3>{m.price}</h3>
-                  </PriceDollarSignContainer>
-                  <ContainerOfButtons>
-                    <CartButton onClick={() => context.onAddToCart(m)}>
-                      Add to Cart
-                    </CartButton>
-                  </ContainerOfButtons>
-                </PriceAndButtonContainer>
-              ) : (
-                <PriceAndButtonContainer admin>
-                  <PriceDollarSignContainer>
-                    <h2>
-                      <HiOutlineCurrencyDollar />
-                    </h2>
-                    <h3>{m.price}</h3>
-                  </PriceDollarSignContainer>
-
-                  {userDetails.isAdmin === false ? (
+            <TestImg image={m.image}>
+              <ItemDetails>
+                <Details>
+                  <ProductNameSign>{m.name}</ProductNameSign>
+                  <Opinion
+                    userDetails={userDetails}
+                    productId={m._id}
+                    usersVoted={m.usersVoted}
+                    getCategories={getCategories}
+                  />
+                  <DescriptionP>{m.description}</DescriptionP>
+                </Details>
+                {userDetails.isAdmin === false ? (
+                  <PriceAndButtonContainer>
+                    <PriceDollarSignContainer>
+                      <h2>
+                        <HiOutlineCurrencyDollar />
+                      </h2>
+                      <h3>{m.price}</h3>
+                    </PriceDollarSignContainer>
                     <ContainerOfButtons>
-                      <CartButton admin onClick={() => context.onAddToCart(m)}>
+                      <CartButton onClick={() => context.onAddToCart(m)}>
                         Cart
                       </CartButton>
                     </ContainerOfButtons>
-                  ) : (
-                    <ContainerOfButtons>
-                      <CartButton admin onClick={() => context.onAddToCart(m)}>
-                        Cart
-                      </CartButton>
-                      <CartButton admin onClick={() => deleteProduct(m._id)}>
-                        Delete
-                      </CartButton>
-                    </ContainerOfButtons>
-                  )}
-                </PriceAndButtonContainer>
-              )}
-            </ItemDetails>
+                  </PriceAndButtonContainer>
+                ) : (
+                  <PriceAndButtonContainer admin>
+                    <PriceDollarSignContainer>
+                      <h2>
+                        <HiOutlineCurrencyDollar />
+                      </h2>
+                      <h3>{m.price}</h3>
+                    </PriceDollarSignContainer>
+
+                    {userDetails.isAdmin === false ? (
+                      <ContainerOfButtons>
+                        <CartButton
+                          admin
+                          onClick={() => context.onAddToCart(m)}
+                        >
+                          Cart
+                        </CartButton>
+                      </ContainerOfButtons>
+                    ) : (
+                      <ContainerOfButtons>
+                        <CartButton
+                          admin
+                          onClick={() => context.onAddToCart(m)}
+                        >
+                          Cart
+                        </CartButton>
+                        <CartButton admin onClick={() => deleteProduct(m._id)}>
+                          Delete
+                        </CartButton>
+                      </ContainerOfButtons>
+                    )}
+                  </PriceAndButtonContainer>
+                )}
+              </ItemDetails>
+            </TestImg>
           </Item>
         ))}
       </ItemWrapper>

@@ -18,16 +18,15 @@ export const Button = styled.button`
   transition: all 0.5s ease;
 
   &:hover {
-    background-color: ${({ primary }) => (primary ? "#fff" : "#fff")};
+    background-color: ${({ primary }) => (primary ? "#000000c9" : "#000000c9")};
     transform: translateY(-0.5rem) scale(1.02);
-    color: black;
+    color: white;
   }
   &:active {
     transform: translateY(0.5rem);
   }
 
   @media only screen and (max-width: 1000px) {
-    /* width: 100%; */
     padding: ${({ big }) => (big ? "18px 30px" : "10px 20px")};
   }
   @media only screen and (max-width: 375px) {

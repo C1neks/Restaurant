@@ -13,6 +13,7 @@ import {
   MenuLink,
   MenuItemBtn,
   MenuLinkBtn,
+  MenuItemCartButton,
 } from "./Navbar.styles";
 import CartCount from "../Basket/CartCount";
 import { LoggedContext } from "../App";
@@ -21,167 +22,67 @@ const Navbar = ({ countCartItems, handleLogout, userDetails }) => {
   const [click, setClick] = useState(false);
   const context = useContext(LoggedContext);
   const handleClick = () => setClick(!click);
-  const [main, setMain] = useState(true);
-  const handlePage = () => {
-    if (
-      window.location.pathname === "/" ||
-      window.location.pathname === "/menu"
-    ) {
-      setMain(true);
-    } else {
-      setMain(false);
-    }
-  };
 
   return (
     <div>
       <Nav>
-        <NavbarContainer onClick={handleClick} onClick={handlePage}>
-          {main === true ? (
-            <>
-              <NavLogo main to="/">
-                <NavIcon />
-                <p>Smakosz</p>
-              </NavLogo>
-              <MenuIcon main onClick={handleClick}>
-                {click ? <BiX /> : <BiMenu />}
-              </MenuIcon>
-              <Menu onClick={handleClick} click={click}>
-                <MenuItem>
-                  <MenuLink main to="/">
-                    Home
+        <NavbarContainer onClick={handleClick}>
+          <>
+            <NavLogo main to="/">
+              <NavIcon />
+              <p>Smakosz</p>
+            </NavLogo>
+            <MenuIcon main onClick={handleClick}>
+              {click ? <BiX /> : <BiMenu />}
+            </MenuIcon>
+            <Menu onClick={handleClick} click={click}>
+              <MenuItem>
+                <MenuLink main to="/">
+                  Home
+                </MenuLink>
+              </MenuItem>
+              <MenuItem>
+                {userDetails.isAdmin === true ? (
+                  <MenuLink main key={userDetails._id} to="/admin">
+                    Admin Panel
                   </MenuLink>
-                </MenuItem>
-                <MenuItem>
-                  {userDetails.isAdmin === true ? (
-                    <MenuLink main key={userDetails._id} to="/admin">
-                      Admin Panel
-                    </MenuLink>
-                  ) : null}
-                </MenuItem>
-                <MenuItem>
-                  <MenuLink main to="/menu">
-                    <CartCount countCartItems={countCartItems} />
-                  </MenuLink>
-                </MenuItem>
-                <MenuItem>
-                  {context.logged ? (
-                    <MenuLink main to="/" onClick={() => handleLogout()}>
-                      Logout
-                    </MenuLink>
-                  ) : (
-                    <MenuLink main to="/register">
-                      Login
-                    </MenuLink>
-                  )}
-                </MenuItem>
-                <MenuItem>
-                  <MenuLink main to="/account">
-                    My Account
-                  </MenuLink>
-                </MenuItem>
-                <MenuItemBtn>
-                  <MenuLinkBtn to="/menu">
-                    <Button primary bigFont>
-                      Order Now
-                    </Button>
-                  </MenuLinkBtn>
-                </MenuItemBtn>
-              </Menu>
-            </>
-          ) : (
-            <>
-              <NavLogo to="/">
-                <NavIcon />
-                <p>Smakosz</p>
-              </NavLogo>
-              <MenuIcon onClick={handleClick}>
-                {click ? <BiX /> : <BiMenu />}
-              </MenuIcon>
-              <Menu onClick={handleClick} click={click}>
-                <MenuItem>
-                  <MenuLink to="/">Home</MenuLink>
-                </MenuItem>
-                <MenuItem>
-                  {userDetails.isAdmin === true ? (
-                    <MenuLink key={userDetails._id} to="/admin">
-                      Admin Panel
-                    </MenuLink>
-                  ) : null}
-                </MenuItem>
-                <MenuItem>
-                  <MenuLink to="/menu">
-                    <CartCount countCartItems={countCartItems} />
-                  </MenuLink>
-                </MenuItem>
-                <MenuItem>
-                  {context.logged ? (
-                    <MenuLink to="/" onClick={() => handleLogout()}>
-                      Logout
-                    </MenuLink>
-                  ) : (
-                    <MenuLink to="/register">Login</MenuLink>
-                  )}
-                </MenuItem>
-                <MenuItem>
-                  <MenuLink to="/account">My Account</MenuLink>
-                </MenuItem>
-                <MenuItemBtn>
-                  <MenuLinkBtn to="/menu">
-                    <Button primary bigFont>
-                      Order Now
-                    </Button>
-                  </MenuLinkBtn>
-                </MenuItemBtn>
-              </Menu>
-            </>
-          )}
-          {/*{main === true ? (*/}
-          {/*  <MenuIcon main onClick={handleClick}>*/}
-          {/*    {click ? <BiX /> : <BiMenu />}*/}
-          {/*  </MenuIcon>*/}
-          {/*) : (*/}
-          {/*  <MenuIcon onClick={handleClick}>*/}
-          {/*    {click ? <BiX /> : <BiMenu />}*/}
-          {/*  </MenuIcon>*/}
-          {/*)}*/}
+                ) : null}
+              </MenuItem>
 
-          {/*<Menu onClick={handleClick} click={click}>*/}
-          {/*  <MenuItem>*/}
-          {/*    <MenuLink to="/">Home</MenuLink>*/}
-          {/*  </MenuItem>*/}
-          {/*  <MenuItem>*/}
-          {/*    {userDetails.isAdmin === true ? (*/}
-          {/*      <MenuLink key={userDetails._id} to="/admin">*/}
-          {/*        Admin Panel*/}
-          {/*      </MenuLink>*/}
-          {/*    ) : null}*/}
-          {/*  </MenuItem>*/}
-          {/*  <MenuItem>*/}
-          {/*    <MenuLink to="/menu">*/}
-          {/*      <CartCount countCartItems={countCartItems} />*/}
-          {/*    </MenuLink>*/}
-          {/*  </MenuItem>*/}
-          {/*  <MenuItem>*/}
-          {/*    {context.logged ? (*/}
-          {/*      <MenuLink to="/" onClick={() => handleLogout()}>*/}
-          {/*        Logout*/}
-          {/*      </MenuLink>*/}
-          {/*    ) : (*/}
-          {/*      <MenuLink to="/register">Login</MenuLink>*/}
-          {/*    )}*/}
-          {/*  </MenuItem>*/}
-          {/*  <MenuItem>*/}
-          {/*    <MenuLink to="/account">My Account</MenuLink>*/}
-          {/*  </MenuItem>*/}
-          {/*  <MenuItemBtn>*/}
-          {/*    <MenuLinkBtn to="/menu">*/}
-          {/*      <Button primary bigFont>*/}
-          {/*        Order Now*/}
-          {/*      </Button>*/}
-          {/*    </MenuLinkBtn>*/}
-          {/*  </MenuItemBtn>*/}
-          {/*</Menu>*/}
+              <MenuItem>
+                {context.logged ? (
+                  <MenuLink main to="/" onClick={() => handleLogout()}>
+                    Logout
+                  </MenuLink>
+                ) : (
+                  <MenuLink main to="/register">
+                    Login
+                  </MenuLink>
+                )}
+              </MenuItem>
+              <MenuItem>
+                <MenuLink main to="/account">
+                  My Account
+                </MenuLink>
+              </MenuItem>
+
+              <MenuItemCartButton>
+                <MenuItem>
+                  <MenuLink cart main to="/menu">
+                    <CartCount countCartItems={countCartItems} />
+                  </MenuLink>
+                </MenuItem>
+
+                <MenuItemBtn>
+                  <MenuLinkBtn cart to="/menu">
+                    <Button primary bigFont>
+                      Order Now
+                    </Button>
+                  </MenuLinkBtn>
+                </MenuItemBtn>
+              </MenuItemCartButton>
+            </Menu>
+          </>
         </NavbarContainer>
       </Nav>
     </div>

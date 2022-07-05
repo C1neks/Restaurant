@@ -26,7 +26,7 @@ export const NavbarContainer = styled(Container)`
 `;
 
 export const NavLogo = styled(Link)`
-  color: ${({ main }) => (main ? "#fff" : "black")};
+  color: #2e2e2e;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -50,7 +50,7 @@ export const NavIcon = styled(BiRestaurant)`
 
 export const MenuIcon = styled.div`
   display: none;
-  color: ${({ main }) => (main ? "#fff" : "black")};
+  color: ${({ main }) => (main ? "black" : "black")};
   @media (max-width: 1000px) {
     display: block;
     position: absolute;
@@ -66,6 +66,8 @@ export const Menu = styled.ul`
   display: flex;
   align-items: center;
   text-align: center;
+  width: 100%;
+  justify-content: center;
 
   @media only screen and (max-width: 1000px) {
     display: flex;
@@ -100,19 +102,51 @@ export const MenuItem = styled.li`
   }
 `;
 
+export const MenuItemCartButton = styled.li`
+  list-style: none;
+  height: 80px;
+  display: flex;
+  position: absolute;
+  right: 0;
+
+  @media only screen and (max-width: 1100px) {
+    color: ${({ main }) => (main ? "white" : "black")};
+    &:hover {
+      border: none;
+      font-size: 1.5rem;
+    }
+  }
+  @media only screen and (min-width: 1100px) {
+    margin-right: 5rem;
+    &:hover {
+      border: none;
+      font-size: 1.5rem;
+    }
+  }
+`;
+
 export const MenuLink = styled(Link)`
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 2rem;
-  color: #fff;
+  color: #2e2e2e;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: ${({ cart }) => (cart ? "0 16px 0 0" : "1rem 2rem")};
   height: 100%;
+  -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
   @media only screen and (min-width: 1000px) {
-    color: ${({ main }) => (main ? "white" : "black")};
     &:hover {
       border: none;
       font-size: 2.5rem;
@@ -137,12 +171,14 @@ export const MenuLink = styled(Link)`
 
 export const MenuItemBtn = styled.li`
   list-style: none;
+
   @media screen and (max-width: 1000px) {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 50%;
     height: 120px;
+    position: relative;
   }
 `;
 
@@ -151,9 +187,10 @@ export const MenuLinkBtn = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px 16px;
+
   height: 100%;
   width: 100%;
   border: none;
   outline: none;
+  padding: ${({ cart }) => (cart ? "0 0 0 0" : "8px 16px")};
 `;

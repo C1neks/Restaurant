@@ -1,11 +1,26 @@
 import styled from "styled-components";
 import burger from "../images/burger.jpg";
-import pizza from "../images/pizzacat.jpg";
+
 import categoryimage from "../images/categoryyy.jpg";
 import menu from "../images/menu.jpg";
 import { Link } from "react-router-dom";
 export const Wrapper = styled.div`
-  background-color: white;
+  background: rgba(254, 243, 243, 1);
+  background: -webkit-linear-gradient(
+    top,
+    rgba(254, 243, 243, 1),
+    rgba(255, 255, 255, 1)
+  );
+  background: -moz-linear-gradient(
+    top,
+    rgba(254, 243, 243, 1),
+    rgba(255, 255, 255, 1)
+  );
+  background: linear-gradient(
+    to bottom,
+    rgba(254, 243, 243, 1),
+    rgba(255, 255, 255, 1)
+  );
 `;
 export const StyledList = styled.div`
   min-height: 100%;
@@ -15,6 +30,10 @@ export const StyledList = styled.div`
 
   justify-content: center;
   align-items: center;
+  margin-top: 10rem;
+  @media only screen and (max-width: 1024px) {
+    margin-top: 10rem;
+  }
 `;
 
 export const MenuImage = styled.div`
@@ -34,12 +53,29 @@ export const MenuImage = styled.div`
   //border-bottom-right-radius: 2rem;
 `;
 
-export const MenuCategoryLink = styled(Link)``;
+export const MenuCategoryLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  text-decoration: none;
+
+  :hover {
+    border-radius: 4rem;
+    background: #ff1c48;
+  }
+  h2:hover {
+    color: white;
+  }
+  @media only screen and (min-width: 768px) {
+    flex-direction: column;
+  }
+`;
 export const Category = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
   @media only screen and (min-width: 768px) and (max-width: 1000px) {
     width: 50%;
@@ -66,6 +102,10 @@ export const ItemWrapper = styled.div`
   width: 100%;
 
   background: white;
+
+  :first-child {
+    margin-top: 10rem;
+  }
   @media only screen and (min-width: 768px) {
     flex-direction: row;
     flex-wrap: wrap;
@@ -84,6 +124,7 @@ export const PriceAndButtonContainer = styled.div`
   width: 100%;
   align-items: ${({ admin }) => (admin ? "center" : "")};
   justify-content: space-between;
+  flex-direction: column;
 
   @media only screen and (min-width: 768px) {
     flex-direction: column;
@@ -94,10 +135,10 @@ export const ItemDetails = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 50%;
+  margin-left: 3rem;
 
   @media only screen and (min-width: 768px) {
-    text-align: center;
+    text-align: left;
   }
 `;
 
@@ -131,20 +172,21 @@ export const CategoryImg = styled.div`
 `;
 export const CartButton = styled.button`
   border-radius: ${({ bigRadius }) => (bigRadius ? "30px" : "5px")};
-  background-color: ${({ primary }) => (primary ? "#a60b0b" : "#a60b0b")};
-  color: ${({ primary }) => (primary ? "#000" : "#fff")};
+  background-color: ${({ primary }) =>
+    primary ? "transparent" : "transparent"};
+  color: ${({ primary }) => (primary ? "#fff" : "#fff")};
   padding: ${({ big }) => (big ? "18px 30px" : "9px 12px")};
-  font-size: ${({ bigFont }) => (bigFont ? "20px" : "14px")};
+  font-size: ${({ bigFont }) => (bigFont ? "20px" : "2.5rem")};
   outline: none;
   cursor: pointer;
   border: none;
   transition: all 0.5s ease;
-
+  font-weight: 500;
+  font-family: "Be Vietnam Pro";
   min-width: ${({ admin }) => (admin ? "75px" : "0px")};
   max-width: ${({ admin }) => (admin ? "" : "100px")};
 
   &:hover {
-    background-color: ${({ primary }) => (primary ? "#fff" : "#2b2d42")};
     transform: translateY(-0.5rem) scale(1.02);
     color: #fff;
   }
@@ -185,13 +227,12 @@ export const Item = styled.div`
   justify-content: space-evenly;
   align-items: center;
   flex-direction: row;
-  background: #fff;
 
   width: 92%;
   min-height: 16rem;
   border-radius: 10px;
   //box-shadow: 0 5px 15px -10px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 0px 15px -3px rgba(41, 22, 22, 0.34);
+  //box-shadow: 0px 0px 15px -3px rgba(41, 22, 22, 0.34);
   margin-bottom: 20px;
 
   @media only screen and (min-width: 768px) and (max-width: 1000px) {
@@ -202,12 +243,56 @@ export const Item = styled.div`
   @media only screen and (min-width: 1000px) {
     flex-direction: column;
     height: auto;
-    width: 25%;
+    width: 35%;
     margin: 2rem;
   }
 
   :hover {
     background: white;
     transform: scale(1.12, 1.08) translateY(0px) translateZ(0px);
+  }
+`;
+
+export const MenuProductName = styled.h2`
+  color: #000000ad;
+  font-weight: 500;
+
+  padding-top: 1rem;
+  text-align: left;
+  margin-bottom: 2rem;
+  width: 100%;
+
+  margin-top: ${({ Account }) => (Account ? "10rem" : "2rem")};
+  font-size: ${({ adminAccount }) => (adminAccount ? "1.5em" : "1.5em")};
+  @media only screen and (min-width: 1024px) {
+    text-align: center;
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    font-size: 1.5em;
+    width: 70%;
+    padding-top: 4rem;
+    text-align: center;
+  }
+  @media only screen and (max-width: 767px) {
+    font-size: 1.2em;
+    margin-top: 2rem;
+    width: 70%;
+    margin-left: 2rem;
+    font-weight: 500;
+  }
+  @media only screen and (max-width: 360px) {
+    margin-top: 5rem;
+    font-size: 1em;
+  }
+`;
+
+export const CategoryIconImage = styled.img`
+  border-radius: 3rem;
+  background: white;
+  margin-left: 2rem;
+  padding: 5px;
+  @media only screen and (min-width: 768px) {
+    margin-left: 0;
+    margin-top: 2rem;
   }
 `;

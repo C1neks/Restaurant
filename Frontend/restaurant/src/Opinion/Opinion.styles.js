@@ -8,3 +8,8 @@ export const Input = styled.input`
 export const Label = styled.label`
   cursor: pointer;
 `;
+export const RatingDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: left;
+`;

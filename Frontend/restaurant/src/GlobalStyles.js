@@ -22,7 +22,7 @@ html {
     }
 }
 body{
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Be Vietnam Pro', sans-serif;
     font-weight: 400;
     line-height: 1.6;
     font-size: 1.6rem;

@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
-
+import wołowe from "../images/burger.png";
+import pizza from "../images/pizza.png";
+import drobiowe from "../images/drobiowe.png";
+import makarony from "../images/makarony.png";
+import sałatki from "../images/sałatki.png";
+import vege from "../images/vege.png";
 import {
   StyledList,
   Wrapper,
   Category,
   MenuImage,
   MenuCategoryLink,
+  MenuProductName,
+  CategoryIconImage,
 } from "./Menu.styles";
 
 import { ItemsContext } from "../App";
@@ -22,6 +29,7 @@ import { MenuLink } from "../NavBar/Navbar.styles";
 import CategoryImage from "../CategoryImage.js/CategoryImage";
 import Basket from "../Basket/Basket";
 import { IconContext } from "react-icons";
+import Image from "../Image/Image";
 
 const Menu = ({ userDetails, setCat }) => {
   const context = useContext(ItemsContext);
@@ -48,12 +56,11 @@ const Menu = ({ userDetails, setCat }) => {
   return (
     <Wrapper>
       <StyledList>
-        <MenuImage />
-        {context.cartItems.length === 0 ? <div></div> : <Basket />}
+        {/*<MenuImage />*/}
+        {context.cartItems.length === 0 ? null : <Basket />}
 
         {category.map((repos) => (
           <Category key={repos._id}>
-            <MainSubTitle>{repos.name.toUpperCase()}</MainSubTitle>
             <Spacer></Spacer>
 
             <MenuCategoryLink
@@ -61,11 +68,22 @@ const Menu = ({ userDetails, setCat }) => {
               name={repos.name}
               onClick={() => setCat(repos.name)}
             >
-              <div>
-                {repos.products[0].image ? (
-                  <CategoryImage image={repos.products[0].image} />
-                ) : null}
-              </div>
+              {repos.name === "pizza" ? (
+                <CategoryIconImage src={`${pizza}`} />
+              ) : repos.name === "wołowe" ? (
+                <CategoryIconImage src={`${wołowe}`} />
+              ) : repos.name === "sałatki" ? (
+                <CategoryIconImage src={`${sałatki}`} />
+              ) : repos.name === "vege" ? (
+                <CategoryIconImage src={`${vege}`} />
+              ) : repos.name === "drobiowe" ? (
+                <CategoryIconImage src={`${drobiowe}`} />
+              ) : repos.name === "makarony" ? (
+                <CategoryIconImage src={`${makarony}`} />
+              ) : (
+                <CategoryIconImage src={`${pizza}`} />
+              )}
+              <MenuProductName>{repos.name.toUpperCase()}</MenuProductName>
             </MenuCategoryLink>
           </Category>
         ))}

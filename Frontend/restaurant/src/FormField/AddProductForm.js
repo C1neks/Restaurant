@@ -5,6 +5,7 @@ import { Button } from "../StyledComponents/Button";
 import FormField from "./FormField";
 import { Container, ShadowContainer } from "./AddProductForm.styles";
 import { productService } from "../services/services";
+import { RegisterTitle } from "../Register/Register.styles";
 
 const initialFormState = {
   name: "",
@@ -52,7 +53,7 @@ const AddProductForm = ({}) => {
         encType="multipart/form-data"
         ref={myContainer}
       >
-        <MainSubTitle adminAccount>Add new Product</MainSubTitle>
+        <RegisterTitle adminAccount>Add new Product</RegisterTitle>
         <ShadowContainer>
           <FormField
             label="Name"

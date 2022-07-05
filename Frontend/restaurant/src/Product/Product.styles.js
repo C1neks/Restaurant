@@ -2,18 +2,23 @@ import styled from "styled-components";
 
 export const PriceDollarSignContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  color: white;
+  font-size: 4rem;
+  width: 100%;
 `;
 
 export const ProductNameSign = styled.h3`
-  letter-spacing: 0.1rem;
-  color: black;
+  color: white;
+  font-size: 5rem;
+  font-weight: 400;
 `;
 
 export const ContainerOfButtons = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: left;
+  margin-bottom: 2rem;
 
   @media only screen and (min-width: 768px) {
     display: flex;
@@ -21,8 +26,13 @@ export const ContainerOfButtons = styled.div`
     align-items: center;
 
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: left;
     flex-direction: row;
     margin-bottom: 2rem;
   }
+`;
+
+export const DescriptionP = styled.p`
+  font-size: 2rem;
+  color: white;
 `;

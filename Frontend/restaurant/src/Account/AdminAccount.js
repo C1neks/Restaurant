@@ -17,6 +17,7 @@ import {
   FaTripadvisor,
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import { RegisterTitle } from "../Register/Register.styles";
 const AdminAccount = ({ orders, getOrders }) => {
   const [status, setStatus] = useState("done");
 
@@ -38,7 +39,7 @@ const AdminAccount = ({ orders, getOrders }) => {
 
   return (
     <Container>
-      <MainSubTitle adminAccount>Orders</MainSubTitle>
+      <RegisterTitle adminAccount>Orders</RegisterTitle>
       {orders.length === 0 ? (
         <Button onClick={() => getOrders()}>Show Orders</Button>
       ) : null}

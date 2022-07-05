@@ -62,3 +62,17 @@ export const CartItem = styled.div`
   align-items: center;
   width: 100%;
 `;
+
+export const CartCounter = styled.div`
+  position: relative;
+`;
+
+export const ItemCounter = styled.span`
+  position: absolute;
+  top: -4px;
+  right: -5px;
+  background: red;
+  border-radius: 20px;
+  padding: 1px 8px;
+  font-size: 10px;
+`;
