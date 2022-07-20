@@ -16,6 +16,7 @@ class InfraStack extends Stack {
 
       environment: {
         ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
+        MONGODB_URL: process.env.MONGODB_URL,
       },
       bundling: {
         minify: true,

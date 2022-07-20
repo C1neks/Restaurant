@@ -27,11 +27,9 @@ export const createApp = async () => {
     res.send("HOMEPAGE");
   });
 
-  const Mongo = process.env.MONGODB_PASS
-  console.log("MONGOOOO",Mongo)
+
   await mongoose
-    .connect(`mongodb+srv://marcin:${process.env.MONGODB_PASS}@clusterrestaurant.fsark.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
-    )
+    .connect(process.env.MONGODB_URL)
 
     .catch((error) => console.log(error.message));
 
