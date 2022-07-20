@@ -27,8 +27,10 @@ export const createApp = async () => {
     res.send("HOMEPAGE");
   });
 
+  const Mongo = process.env.MONGODB_URL
+  console.log("MONGOOOO",Mongo)
   await mongoose
-    .connect(`${process.env.MONGODB_URL}`
+    .connect(`${Mongo}`
     )
 
     .catch((error) => console.log(error.message));
