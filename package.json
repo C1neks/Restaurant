@@ -2,7 +2,7 @@
   "name": "Restaurant",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrently \" cd Backend && npm run start\" \"cd Frontend/restaurant && npm start\""
+    "start": "concurrently \" cd backend && npm run start\" \"cd frontend && npm start\""
   },
   "dependencies": {
     "aws-cdk-lib": "^2.20.0",

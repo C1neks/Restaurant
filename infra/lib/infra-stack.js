@@ -11,8 +11,8 @@ class InfraStack extends Stack {
     super(scope, id, props);
 
     const restaurantApiLambda = new lambda.NodejsFunction(this, "api", {
-      depsLockFilePath: __dirname + "/../../Backend/package-lock.json",
-      entry: __dirname + "/../../Backend/lambda.js",
+      depsLockFilePath: __dirname + "/../../backend/package-lock.json",
+      entry: __dirname + "/../../backend/lambda.js",
 
       environment: {
         ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
@@ -35,7 +35,7 @@ class InfraStack extends Stack {
     console.log(api.restApiName);
     new SPADeploy(this, "my-restaurant-app").createSiteWithCloudfront({
       indexDoc: "index.html",
-      websiteFolder: "../../Restaurant/Frontend/restaurant/build",
+      websiteFolder: "../../Restaurant/frontend/build",
     });
   }
 }

@@ -16,10 +16,10 @@ jobs:
         
       - name: Install backend dependencies
         run: npm ci
-        working-directory: Backend
+        working-directory: backend
       - name: Install frontend dependencies
         run: npm ci
-        working-directory: Frontend/restaurant
+        working-directory: frontend/
       - name: build-synth-and-deploy
         run: npm ci && npm run deploy
         working-directory: infra

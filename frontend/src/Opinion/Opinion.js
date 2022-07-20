@@ -90,10 +90,10 @@ const Opinion = ({
           })}
           {rating !== null ? <h3>Your rate is {rating}</h3> : null}
           {totalRating !== null ? (
-            <h3>
+            <RatingDiv>
               <FaStar color={"orange"} size={30} />
-              {totalRating.toFixed(1)}
-            </h3>
+              <p style={{ color: "white", "font-size": "2rem" }}>0 votes</p>
+            </RatingDiv>
           ) : (
             <h3>0 votes made</h3>
           )}
@@ -113,7 +113,10 @@ const Opinion = ({
               </p>
             </RatingDiv>
           ) : (
-            <h3>Total rating is :</h3>
+            <>
+              <h3>Total rating is :</h3>
+              <p>costam</p>
+            </>
           )}
         </div>
       )}
