@@ -29,3 +29,4 @@ env:
   AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
   ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
   BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+  MONGODB_URL: ${{ secrets.MONGODB_URL }}

@@ -29,7 +29,7 @@ export const createApp = async () => {
 
   await mongoose
     .connect(
-      "mongodb+srv://marcin:marcin12@clusterrestaurant.fsark.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+      process.env.MONGODB_URL
     )
 
     .catch((error) => console.log(error.message));
