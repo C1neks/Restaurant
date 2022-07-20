@@ -28,8 +28,7 @@ export const createApp = async () => {
   });
 
   await mongoose
-    .connect(
-      process.env.MONGODB_URL
+    .connect(`${process.env.MONGODB_URL}`
     )
 
     .catch((error) => console.log(error.message));
