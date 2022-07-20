@@ -9,7 +9,7 @@
     "cdk": "cdk",
     "test": "jest",
     "build-cdk": "cdk synth",
-    "build-frontend": "cd ../Frontend/restaurant && npm run build",
+    "build-frontend": "cd ../frontend && npm run build",
     "deploy": "npm run build-frontend && npm run build-cdk  && cdk deploy InfraStack"
   },
   "devDependencies": {

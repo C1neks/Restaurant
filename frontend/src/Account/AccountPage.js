@@ -8,7 +8,7 @@ const AccountPage = ({ userDetails, getUserDetails }) => {
 
   useEffect(() => {
     (async () => {
-      await getUserDetails(userDetails._id);
+      await getUserDetails(localStorage.getItem("userID"));
     })();
   }, []);
 

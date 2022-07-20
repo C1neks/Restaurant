@@ -1,19 +1,19 @@
-Backend/node_modules
-Backend/public
+backend/node_modules
+backend/public
 .idea
 .env
 
 node_modules
 
 # dependencies
-Frontend/restaurant/node_modules
-Frontend/restaurant/build/
+frontend/node_modules
+frontend/build/
 /.pnp
 .pnp.js
 cdk.out
 # testing
 /coverage
-Frontend/restaurant/build
+frontend/build
 # production
 /build
 
