@@ -3,21 +3,18 @@
 
 Installation:
 
-Backend dependencies:
-
-```shell
-npm install .\backend\
-```
-Frontend dependencies:
-```shell
-npm install .\frontend\
-```
-
 Main dependencies:
 
 ```shell
 npm install
 ```
+
+Backend and Frontend dependencies:
+
+```shell
+npm run bootstrap
+```
+
 Local MongoDB:
 
 ```shell
