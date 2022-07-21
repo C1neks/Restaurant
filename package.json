@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "scripts": {
     "start": "concurrently \" cd backend && npm run start\" \"cd frontend && npm start\"",
-    "local-mongodb": "docker run --name mongodb -d -p 27017:27017 mongo"
+    "bootstrap": "concurrently \"cd backend && npm install\" \"cd frontend && npm install\"",
+    "mongodb": "cross-env MONGODB=mongodb+srv://marcin:ep19qHhOclfLWdLw@clusterrestaurant.fsark.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "local-mongodb": " docker run --name mongodb -d -p 27017:27017 mongo"
   },
   "dependencies": {
-    "and": "^0.0.3",
     "concurrently": "^7.0.0",
-    "install": "^0.13.0",
-    "npm": "^8.15.0",
-    "restaurant": "file:backend"
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0"
   },
   "devDependencies": {
     "husky": "^7.0.4",
