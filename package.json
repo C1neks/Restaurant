@@ -4,7 +4,6 @@
   "scripts": {
     "start": "concurrently \" cd backend && npm run start\" \"cd frontend && npm start\"",
     "bootstrap": "concurrently \"cd backend && npm install\" \"cd frontend && npm install\"",
-    "mongodb": "cross-env MONGODB=mongodb+srv://marcin:ep19qHhOclfLWdLw@clusterrestaurant.fsark.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     "local-mongodb": " docker run --name mongodb -d -p 27017:27017 mongo"
   },
   "dependencies": {
