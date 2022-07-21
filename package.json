@@ -2,12 +2,15 @@
   "name": "Restaurant",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrently \" cd backend && npm run start\" \"cd frontend && npm start\""
+    "start": "concurrently \" cd backend && npm run start\" \"cd frontend && npm start\"",
+    "local-mongodb": "docker run --name mongodb -d -p 27017:27017 mongo"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.20.0",
+    "and": "^0.0.3",
     "concurrently": "^7.0.0",
-    "dotenv": "^16.0.0"
+    "install": "^0.13.0",
+    "npm": "^8.15.0",
+    "restaurant": "file:backend"
   },
   "devDependencies": {
     "husky": "^7.0.4",
