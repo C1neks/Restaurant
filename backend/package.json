@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": " cross-env MONGODB_URL=mongodb://localhost:27017 nodemon index.js",
     "test": "../node_modules/.bin/jest"
 
   },
