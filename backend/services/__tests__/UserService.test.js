@@ -15,4 +15,13 @@ describe("UserService", () => {
     await createTestUser();
     expect((await userService.getUsers()).data).toHaveLength(1);
   });
+  it("should return undefined when user with a given id not found", async () => {
+    expect((await userService.getUserById("567")).data).toBeNull();
+  });
+  it("should create user and return user by id", async () => {
+    const {
+      data: { _id },
+    } = await createTestUser();
+    expect((await userService.getUserById(_id)).data).toBeTruthy();
+  });
 });

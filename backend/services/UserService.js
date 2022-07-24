@@ -1,9 +1,8 @@
 import bcrypt from "bcryptjs";
 
 export class UserService {
-  constructor(repository, orderService) {
+  constructor(repository) {
     this.repository = repository;
-    this.orderService = orderService;
   }
 
   async getUsers() {
@@ -38,13 +37,6 @@ export class UserService {
     return await this.repository.createItem(user);
   }
   async getUserById(id) {
-    const allOrders = await this.orderService.getOrders();
-
-    const userOrders = allOrders.data.filter(
-      (order) => order.user.toString() === id
-    );
-
-    await this.updateUser(id, {}, userOrders);
     return await this.repository.getItemById(id);
   }
   async deleteUser(userId) {
