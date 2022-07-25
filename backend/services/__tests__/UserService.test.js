@@ -24,4 +24,25 @@ describe("UserService", () => {
     } = await createTestUser();
     expect((await userService.getUserById(_id)).data).toBeTruthy();
   });
+  it("should delete user with given id and decrease number of users by 1  ", async () => {
+    const {
+      data: { _id },
+    } = await createTestUser();
+    expect((await userService.getUsers()).data).toHaveLength(1);
+
+    await userService.deleteUser(_id);
+    expect((await userService.getUsers()).data).toHaveLength(0);
+  });
+
+  it("should update user with given id ", async () => {
+    const {
+      data: { _id },
+    } = await createTestUser();
+    const body = {
+      email: "martin@gmail.com",
+    };
+    expect((await userService.updateUser(_id, body)).data.email).toEqual(
+      "martin@gmail.com"
+    );
+  });
 });

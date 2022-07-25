@@ -42,8 +42,7 @@ export class UserService {
   async deleteUser(userId) {
     return await this.repository.deleteItem(userId);
   }
-  async updateUser(userId, body, orders) {
-    body.orders = orders;
+  async updateUser(userId, body) {
     return await this.repository.updateItem(userId, body);
   }
 }
