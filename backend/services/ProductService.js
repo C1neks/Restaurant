@@ -7,23 +7,13 @@ export class ProductService {
   async getProducts() {
     return await this.repository.getItems();
   }
-  async createProductHelper(
-    name,
-    price,
-    category,
-    description,
-    image,
-    rating,
-    numberOfRates
-  ) {
+  async createProductHelper(name, price, category, description, image) {
     const product = {
       name: name,
       price: price,
       category: category,
       description: description,
       image: image,
-      rating: rating,
-      numberOfRates: numberOfRates,
     };
 
     const createdProduct = await this.repository.createItem(product);
@@ -39,15 +29,7 @@ export class ProductService {
     );
     return createdProduct;
   }
-  async createProduct(
-    name,
-    price,
-    category,
-    description,
-    image,
-    rating,
-    numberOfRates
-  ) {
+  async createProduct(name, price, category, description, image) {
     const isCategoryExists = await this.categoryService.getCategories();
 
     if (
@@ -61,9 +43,7 @@ export class ProductService {
         price,
         category,
         description,
-        image,
-        rating,
-        numberOfRates
+        image
       );
     } else {
       return await this.createProductHelper(
@@ -71,9 +51,7 @@ export class ProductService {
         price,
         category,
         description,
-        image,
-        rating,
-        numberOfRates
+        image
       );
     }
   }
