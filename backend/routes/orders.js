@@ -3,10 +3,14 @@ import { OrderService } from "../services/OrderService.js";
 import { Repository } from "../repository/repository.js";
 import Order from "../models/orderModel.js";
 import { userService } from "./users.js";
+import { productService } from "./products.js";
 
 const router = express.Router();
 
-export const orderService = new OrderService(new Repository(Order));
+export const orderService = new OrderService(
+  new Repository(Order),
+  productService
+);
 
 router.get("/", async (req, res) => {
   const isDescOrAsc = "asc" in req.query ? "asc" : "desc";

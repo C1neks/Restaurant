@@ -1,8 +1,7 @@
-import { productService } from "../routes/products.js";
-
 export class OrderService {
-  constructor(repository) {
+  constructor(repository, productService) {
     this.repository = repository;
+    this.productService = productService;
   }
 
   async getOrders(sortValue) {
@@ -13,8 +12,12 @@ export class OrderService {
     let cartItems = [];
     let subTotal = 0;
     for (let item of items) {
-      const dbItem = await productService.repository.getItemById(
+      const dbItem = await this.productService.repository.getItemById(
         item.productId
+      );
+
+      console.log(
+        await this.productService.repository.getItemById(item.productId)
       );
 
       try {
