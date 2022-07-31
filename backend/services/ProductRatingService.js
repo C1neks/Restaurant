@@ -1,10 +1,10 @@
-import { productService } from "../routes/products.js";
-
 export class ProductRatingService {
-  constructor(repository, categoryService) {
+  constructor(repository, categoryService, productService) {
     this.repository = repository;
     this.categoryService = categoryService;
+    this.productService = productService;
   }
+
   async getProductsRatings() {
     return await this.repository.getItems();
   }
@@ -36,7 +36,7 @@ export class ProductRatingService {
       _id: productId,
     };
     await this.repository.createItem(productRating);
-    const product = await productService.getProductById(productId);
+    const product = await this.productService.getProductById(productId);
 
     const allCategories = await this.categoryService.getCategories();
 

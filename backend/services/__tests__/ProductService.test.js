@@ -1,10 +1,20 @@
 import { ProductService } from "../ProductService.js";
 import { Repository } from "../../repository/repository.js";
 import Product from "../../models/productModel.js";
-import { productRatingService } from "../../routes/products.js";
-import { categoryService } from "../../routes/categories.js";
+import { ProductRatingService } from "../ProductRatingService.js";
+import ProductRating from "../../models/productRatingModel.js";
+import { CategoryService } from "../CategoryService.js";
+import Category from "../../models/categoryModel.js";
 
 describe("ProductService", () => {
+  const productRatingService = new ProductRatingService(
+    new Repository(ProductRating),
+    new CategoryService(new Repository(Category))
+  );
+  const categoryService = new CategoryService(
+    new Repository(Category),
+    new ProductService(new Repository(Product))
+  );
   const productService = new ProductService(
     new Repository(Product),
     productRatingService,
