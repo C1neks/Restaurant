@@ -3,10 +3,11 @@ import { OrderService } from "../services/OrderService.js";
 import { Repository } from "../repository/repository.js";
 import Order from "../models/orderModel.js";
 import { userService } from "./users.js";
-import { productService } from "./products.js";
+import { ProductService } from "../services/ProductService.js";
+import Product from "../models/productModel.js";
 
 const router = express.Router();
-
+const productService = new ProductService(new Repository(Product));
 export const orderService = new OrderService(
   new Repository(Order),
   productService

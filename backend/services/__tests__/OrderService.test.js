@@ -1,12 +1,22 @@
 import { OrderService } from "../OrderService.js";
 import { Repository } from "../../repository/repository.js";
 import Order from "../../models/orderModel.js";
-import { productRatingService } from "../../routes/products.js";
+
 import { ProductService } from "../ProductService.js";
 import Product from "../../models/productModel.js";
-import { categoryService } from "../../routes/categories.js";
+import { ProductRatingService } from "../ProductRatingService.js";
+import ProductRating from "../../models/productRatingModel.js";
+import { CategoryService } from "../CategoryService.js";
+import Category from "../../models/categoryModel.js";
 
 describe("OrderService", () => {
+  const productRatingService = new ProductRatingService(
+    new Repository(ProductRating)
+  );
+  const categoryService = new CategoryService(
+    new Repository(Category),
+    new ProductService(new Repository(Product))
+  );
   const productService = new ProductService(
     new Repository(Product),
     productRatingService,
