@@ -1,9 +1,12 @@
 import { CategoryService } from "../CategoryService.js";
 import { Repository } from "../../repository/repository.js";
 import Category from "../../models/categoryModel.js";
-import { productService } from "../../routes/products.js";
+import { ProductService } from "../ProductService.js";
+import Product from "../../models/productModel.js";
 
 describe("CategoryService", () => {
+  const productService = new ProductService(new Repository(Product));
+
   const categoryService = new CategoryService(
     new Repository(Category),
     productService
