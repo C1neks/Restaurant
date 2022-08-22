@@ -46,7 +46,10 @@ export async function parseJwt(token) {
   }
 }
 
-const categoryService = new CategoryService(new Repository(Category));
+const categoryService = new CategoryService(
+  new Repository(Category),
+  new ProductService(new Repository(Product))
+);
 const productRatingService = new ProductRatingService(
   new Repository(ProductRating),
   categoryService

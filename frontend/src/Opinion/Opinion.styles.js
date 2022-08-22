@@ -13,3 +13,8 @@ export const RatingDiv = styled.div`
   align-items: center;
   justify-content: left;
 `;
+
+export const RatingSign = styled.p`
+  color: white;
+  font-size: 2rem;
+`;

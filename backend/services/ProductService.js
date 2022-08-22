@@ -32,7 +32,7 @@ export class ProductService {
     const wantedCategory = allCategories.data.filter(
       (isExists) => isExists.name === category
     )[0];
-
+    console.log("tu", this.categoryService);
     await this.categoryService.updateCategory(
       wantedCategory._id,
       wantedCategory
@@ -92,6 +92,7 @@ export class ProductService {
         (category) => category.name === categoryToUpdate
       );
       const deletedProduct = await this.repository.deleteItem(productId);
+
       await this.categoryService.updateCategory(
         categoryOfProduct._id.toString(),
         {

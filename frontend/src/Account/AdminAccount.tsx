@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "../StyledComponents/Button";
-import axios from "axios";
+
 import { Container } from "../FormField/AddProductForm.styles";
 import { orderService } from "../services/services";
 import {
@@ -10,7 +10,7 @@ import {
 } from "./Account.styles";
 import { MdDoneOutline } from "react-icons/md";
 import { GrInProgress } from "react-icons/gr";
-import { MainFooter, MainSubTitle } from "../Main/Main.styles";
+import { MainFooter } from "../Main/Main.styles";
 import {
   FaFacebookSquare,
   FaInstagramSquare,
@@ -18,21 +18,29 @@ import {
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { RegisterTitle } from "../Register/Register.styles";
-const AdminAccount = ({ orders, getOrders }) => {
-  const [status, setStatus] = useState("done");
+import { Order } from "../models/models";
 
-  const handleChange = (event) => {
+interface Props {
+  orders: Array<Order>;
+  getOrders: () => void;
+}
+const AdminAccount: React.FC<Props> = ({ orders, getOrders }) => {
+  const [status, setStatus] = useState<string>("done");
+
+  const handleChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setStatus(event.target.value);
   };
 
-  const handleEditStatus = (id) => {
+  const handleEditStatus = (id: number) => {
     const body = {
       status: status,
     };
     editOrderStatus(id, body);
   };
 
-  const editOrderStatus = async (id, body) => {
+  const editOrderStatus = async (id: number, body: { status: string }) => {
     await orderService.updateOrder(id, body);
     getOrders();
   };
@@ -52,7 +60,7 @@ const AdminAccount = ({ orders, getOrders }) => {
             </h3>
             <h3>Ordered Items</h3>
             <div>
-              {order.items.map((product) => (
+              {order.items.map((product: any) => (
                 <div key={product.productId}>
                   <p>{product.productName}</p>
                 </div>
@@ -89,7 +97,7 @@ const AdminAccount = ({ orders, getOrders }) => {
           </h3>
         </AdminOrdersContainer>
       ))}
-      <IconContext.Provider value={{ color: "black", size: 35 }}>
+      <IconContext.Provider value={{ color: "black", size: "35" }}>
         <MainFooter>
           <a href="https://www.facebook.com/">
             <FaFacebookSquare style={{ margin: "1rem" }} />

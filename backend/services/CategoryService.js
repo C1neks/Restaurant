@@ -37,6 +37,7 @@ export class CategoryService {
   }
 
   async updateCategory(id, body) {
+    console.log(this.productService);
     const exisitngProducts = await this.productService.getProducts();
 
     let products = [];

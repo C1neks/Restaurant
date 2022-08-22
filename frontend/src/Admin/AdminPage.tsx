@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+
 import AddProductForm from "../FormField/AddProductForm";
 import AdminAccount from "../Account/AdminAccount";
-import { orderService, productService } from "../services/services";
+import { orderService } from "../services/services";
+import { Order } from "../models/models";
 
-const AdminPage = ({ userDetails }) => {
-  const [orders, setOrders] = useState([]);
+const AdminPage: React.FC = () => {
+  const [orders, setOrders] = useState<Array<Order>>([]);
 
   const getOrders = async () => {
     const result = await orderService.getOrders();

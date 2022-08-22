@@ -9,14 +9,14 @@ import {
   TotalPriceCartItem,
 } from "./Basket.styles";
 import { Button } from "../StyledComponents/Button";
-import { MenuItem, MenuLink } from "../NavBar/Navbar.styles";
-import CartCount from "./CartCount";
-import { ItemsContext } from "../App";
-import { MainSubTitle, MainText } from "../Main/Main.styles";
-import { RegisterTitle } from "../Register/Register.styles";
+import { MenuLink } from "../NavBar/Navbar.styles";
 
-const Basket = (props) => {
-  const { onAddToCart, onRemoveFromCart } = props;
+import { ItemsContext } from "../App";
+
+import { RegisterTitle } from "../Register/Register.styles";
+import { ItemFromCart, ProductType } from "../models/models";
+
+const Basket: React.FC = () => {
   const context = useContext(ItemsContext);
   return (
     <CartContainer>
@@ -24,7 +24,7 @@ const Basket = (props) => {
         <RegisterTitle>CART</RegisterTitle>
         {context.cartItems.length === 0 && <div>Cart is Empty</div>}
         <CartItems>
-          {context.cartItems.map((item) => (
+          {context.cartItems.map((item: ProductType) => (
             <CartItem key={item._id}>
               <CartPiece>{item.name}</CartPiece>
               <CartPiece>

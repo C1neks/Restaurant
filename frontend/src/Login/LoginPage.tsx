@@ -1,13 +1,6 @@
 import React, { useContext, useState } from "react";
-import axios from "axios";
 import Login from "./Login";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { userService } from "../services/services";
 import { LoggedContext } from "../App";
 
@@ -16,17 +9,26 @@ const initialLoginFormState = {
   password: "",
 };
 
-const LoginPage = ({ userDetails, handleLogout }) => {
+type loginCredentials = {
+  name: string;
+  password: string;
+};
+
+const LoginPage: React.FC = () => {
   const context = useContext(LoggedContext);
-  const [loginValues, setLoginValues] = useState(initialLoginFormState);
-  const handleLoginInputChange = (e) => {
+  const [loginValues, setLoginValues] = useState<loginCredentials>(
+    initialLoginFormState
+  );
+  const handleLoginInputChange = (e: {
+    target: { name: string; value: any };
+  }) => {
     setLoginValues({
       ...loginValues,
       [e.target.name]: e.target.value,
     });
   };
 
-  const loginUser = async (credentials) => {
+  const loginUser = async (credentials: loginCredentials) => {
     try {
       const response = await userService.loginUser(credentials);
       const info = response.data.accessToken;
@@ -39,7 +41,7 @@ const LoginPage = ({ userDetails, handleLogout }) => {
     }
   };
 
-  const handleLoginUser = (e) => {
+  const handleLoginUser = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const userToLogin = {
       name: loginValues.name,
@@ -58,8 +60,6 @@ const LoginPage = ({ userDetails, handleLogout }) => {
           loginValues={loginValues}
           handleLoginInputChange={handleLoginInputChange}
           handleLoginUser={handleLoginUser}
-          userDetails={userDetails}
-          handleLogout={handleLogout}
         />
       )}
     </>

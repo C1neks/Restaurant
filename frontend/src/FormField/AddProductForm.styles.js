@@ -17,6 +17,12 @@ export const Container = styled.div`
     justify-content: space-evenly;
   }
 `;
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
 export const ShadowContainer = styled.div`
   box-shadow: 0px 0px 15px -3px rgb(41 22 22 / 34%);
   width: 75%;

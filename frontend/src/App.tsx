@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+
 import GlobalStyles from "./GlobalStyles";
 
 import Menu from "./Menu/Menu";
@@ -8,13 +8,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect,
 } from "react-router-dom";
 import Navbar from "./NavBar/Navbar";
 import Main from "./Main/Main";
-import axios from "axios";
-import Basket from "./Basket/Basket";
+import axios, { AxiosRequestConfig } from "axios";
+
 import Checkout from "./Checkout/Checkout";
 import Register from "./Register/Register";
 import AdminPage from "./Admin/AdminPage";
@@ -22,30 +21,43 @@ import LoginPage from "./Login/LoginPage";
 import AccountPage from "./Account/AccountPage";
 import { userService } from "./services/services";
 import Product from "./Product/Product";
+import {
+  ItemFromCart,
+  ItemsContextType,
+  LoggedContextType,
+  ProductType,
+  UserDetails,
+} from "./models/models";
 
-export const ItemsContext = React.createContext({
+export const ItemsContext = React.createContext<ItemsContextType>({
   cartItems: [],
   totalPrice: 0,
-  onAddToCart: () => {},
-  onRemoveFromCart: () => {},
+  onAddToCart: (item: ProductType) => {},
+  onRemoveFromCart: (item: ProductType) => {},
 });
 
-export const LoggedContext = React.createContext({
+export const LoggedContext = React.createContext<LoggedContextType>({
   logged: null,
 });
 
+interface MyAxiosRequestConfig extends Omit<AxiosRequestConfig, "headers"> {
+  headers?: any; // this was "any" at v0.21.1 but now broken between 0.21.4 >= 0.27.2
+  // Lets make it any again to make it work again.
+}
+
 axios.interceptors.request.use(
-  (config) => {
+  (config: MyAxiosRequestConfig) => {
     const token = localStorage.getItem("userInfo");
     const auth = token ? `Bearer ${token}` : "";
+
     config.headers.common["Authorization"] = auth;
     return config;
   },
   (error) => Promise.reject(error)
 );
 
-function App() {
-  const [logged, setLogged] = useState(null);
+const App: React.FC = () => {
+  const [logged, setLogged] = useState<string | null>(null);
 
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
@@ -53,7 +65,7 @@ function App() {
     window.location.reload();
   };
 
-  const [userID, setUserID] = useState("");
+  const [userID, setUserID] = useState<string | null>("");
   const isLogged = () => {
     const ID = localStorage.getItem("userID");
     const info = localStorage.getItem("userInfo");
@@ -64,9 +76,16 @@ function App() {
   };
   useEffect(() => isLogged(), [userID]);
 
-  const [userDetails, setUserDetails] = useState([]);
+  const [userDetails, setUserDetails] = useState<UserDetails>({
+    _id: 0,
+    name: "",
+    email: "",
+    isAdmin: false,
+    password: "",
+    orders: [],
+  });
 
-  const getUserDetails = async (userID) => {
+  const getUserDetails = async (userID: string | null) => {
     const r = await userService.getDetails(userID);
     setUserDetails(r.data.data);
   };
@@ -77,9 +96,9 @@ function App() {
     })();
   }, [userID]);
 
-  const [cartItems, setCartItems] = useState([]);
-  const onAddToCart = (product) => {
-    const exist = cartItems.find((x) => x._id === product._id);
+  const [cartItems, setCartItems] = useState<Array<ProductType>>([]);
+  const onAddToCart = (product: ProductType) => {
+    const exist = cartItems.find((x: ProductType) => x._id === product._id);
     if (exist) {
       setCartItems((cartItems) =>
         cartItems.map((x) =>
@@ -90,19 +109,22 @@ function App() {
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
   };
-  const onRemoveFromCart = (product) => {
+  const onRemoveFromCart = (product: ProductType) => {
     const exist = cartItems.find((x) => x === product);
-    if (exist.quantity === 1) {
+    if (exist?.quantity === 1) {
       setCartItems(cartItems.filter((x) => x !== product));
     } else {
+      // @ts-ignore
       setCartItems((cartItems) =>
         cartItems.map((x) =>
-          x === product ? { ...exist, quantity: exist.quantity - 1 } : x
+          x === product
+            ? { ...exist, quantity: exist?.quantity ? -1 : null }
+            : x
         )
       );
     }
   };
-  const [totalPrice, setTotalPrice] = useState([]);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(
     () =>
@@ -128,25 +150,18 @@ function App() {
               <Main />
             </Route>
             <Route path="/menu">
-              {logged ? (
-                <Menu userDetails={userDetails} setCat={setCat} />
-              ) : (
-                <Redirect to="/login" />
-              )}
+              {logged ? <Menu setCat={setCat} /> : <Redirect to="/login" />}
             </Route>
             {userDetails.isAdmin && (
               <Route path="/admin">
-                <AdminPage userDetails={userDetails} />
+                <AdminPage />
               </Route>
             )}
             <Route path="/register">
               <Register />
             </Route>
             <Route path="/login">
-              <LoginPage
-                userDetails={userDetails}
-                handleLogout={handleLogout}
-              />
+              <LoginPage />
             </Route>
             <Route path="/account">
               <AccountPage
@@ -173,6 +188,6 @@ function App() {
       </ItemsContext.Provider>
     </Router>
   );
-}
+};
 
 export default App;
