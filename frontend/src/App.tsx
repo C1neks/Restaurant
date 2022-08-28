@@ -22,7 +22,6 @@ import AccountPage from "./Account/AccountPage";
 import { userService } from "./services/services";
 import Product from "./Product/Product";
 import {
-  ItemFromCart,
   ItemsContextType,
   LoggedContextType,
   ProductType,
@@ -102,7 +101,7 @@ const App: React.FC = () => {
     if (exist) {
       setCartItems((cartItems) =>
         cartItems.map((x) =>
-          x === product ? { ...exist, quantity: exist.quantity + 1 } : x
+          x._id === product._id ? { ...x, quantity: x.quantity + 1 } : x
         )
       );
     } else {
@@ -110,16 +109,13 @@ const App: React.FC = () => {
     }
   };
   const onRemoveFromCart = (product: ProductType) => {
-    const exist = cartItems.find((x) => x === product);
+    const exist = cartItems.find((x) => x._id === product._id);
     if (exist?.quantity === 1) {
-      setCartItems(cartItems.filter((x) => x !== product));
+      setCartItems(cartItems.filter((x) => x._id !== product._id));
     } else {
-      // @ts-ignore
       setCartItems((cartItems) =>
         cartItems.map((x) =>
-          x === product
-            ? { ...exist, quantity: exist?.quantity ? -1 : null }
-            : x
+          x._id === product._id ? { ...x, quantity: x.quantity - 1 } : x
         )
       );
     }

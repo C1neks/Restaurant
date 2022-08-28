@@ -14,8 +14,8 @@ interface Props {
 }
 
 type CheckoutItem = {
-  _id: string;
-  name: string;
+  productId: number;
+  productName: string;
   quantity: number;
 };
 
@@ -24,12 +24,12 @@ const Checkout: React.FC<Props> = ({
   getUserDetails,
   setCartItems,
 }) => {
-  let items: any[] = [];
+  let items: CheckoutItem[] = [];
   const context = useContext(ItemsContext);
   const user = userDetails;
 
   const createOrder = async (cartItems: ProductType[]) => {
-    let order: { items: any[]; user: string | number };
+    let order: { items: CheckoutItem[]; user: string | number };
     cartItems.map(
       (cartItems) =>
         (items = [

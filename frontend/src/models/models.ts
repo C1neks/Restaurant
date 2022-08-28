@@ -9,14 +9,29 @@ export interface UserDetails {
 
 export interface Order {
   _id: number;
-  items: any;
+  items: [];
   subTotal: number;
   status: string;
   user: number;
 }
 
+export interface OrderDetails {
+  productId: number;
+  productName: string;
+}
+
+export interface CategoryType {
+  name: string;
+  products: ProductType[];
+}
+
+export interface CategoryDetails {
+  _id: number;
+  name: string;
+}
+
 export interface ProductType {
-  productId: any;
+  productId: string;
   quantity: number;
   _id: number;
   name: string;
@@ -41,13 +56,6 @@ export interface ItemsContextType {
   onAddToCart: (item: ProductType) => void;
   onRemoveFromCart: (item: ProductType) => void;
 }
-
-// export interface ItemsContextType {
-//   cartItems: ItemFromCart[];
-//   totalPrice: number;
-//   onAddToCart: (item: ItemFromCart) => void;
-//   onRemoveFromCart: (item: ItemFromCart) => void;
-// }
 
 export interface LoggedContextType {
   logged: string | null;

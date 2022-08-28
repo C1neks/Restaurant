@@ -14,7 +14,6 @@ import { MenuLink } from "../NavBar/Navbar.styles";
 import { ItemsContext } from "../App";
 
 import { RegisterTitle } from "../Register/Register.styles";
-import { ItemFromCart, ProductType } from "../models/models";
 
 const Basket: React.FC = () => {
   const context = useContext(ItemsContext);
@@ -24,7 +23,7 @@ const Basket: React.FC = () => {
         <RegisterTitle>CART</RegisterTitle>
         {context.cartItems.length === 0 && <div>Cart is Empty</div>}
         <CartItems>
-          {context.cartItems.map((item: ProductType) => (
+          {context.cartItems.map((item) => (
             <CartItem key={item._id}>
               <CartPiece>{item.name}</CartPiece>
               <CartPiece>

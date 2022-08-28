@@ -26,23 +26,19 @@ const AddProductForm: React.FC = ({}) => {
       ...formValues,
       [e.target.name]: e.target.value,
     });
-
-    console.log("FORMVALUES", formValues);
   };
 
   const [file, setFile] = useState(null);
   const handleFile = (e: { target: { files: any[] } }) => {
     const file = e.target.files[0];
     setFile(file);
-    console.log("FAJL", file);
   };
 
   const handleAddProduct = async (e: React.FormEvent) => {
-    console.log("TUTAJ");
     e.preventDefault();
 
     const formData = new FormData(myContainer.current);
-    console.log("FORMDATA!", formData);
+
     await createProduct(formData);
     setFormValues(initialFormState);
   };

@@ -13,7 +13,7 @@ import { HiOutlineCurrencyDollar } from "react-icons/hi";
 import { ItemsContext } from "../App";
 import { MainFooter } from "../Main/Main.styles";
 import Opinion from "../Opinion/Opinion";
-import { ProductType } from "../models/models";
+import { CategoryType, ProductType } from "../models/models";
 import {
   ContainerOfButtons,
   DescriptionP,
@@ -40,7 +40,9 @@ const Product: React.FC<Props> = ({ cat, userDetails }) => {
     const response = await categoryService.getAll();
 
     const myCategory = response.data.data;
-    const category = myCategory.find((category: any) => category.name === cat);
+    const category = myCategory.find(
+      (category: CategoryType) => category.name === cat
+    );
 
     setProductCategory(category.products);
   };

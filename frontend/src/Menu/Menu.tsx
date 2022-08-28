@@ -25,6 +25,7 @@ import { Spacer } from "../Account/Account.styles";
 import { categoryService, productService } from "../services/services";
 import Basket from "../Basket/Basket";
 import { IconContext } from "react-icons";
+import { CategoryDetails } from "../models/models";
 
 interface Props {
   setCat: React.Dispatch<React.SetStateAction<string>>;
@@ -37,6 +38,7 @@ const Menu: React.FC<Props> = ({ setCat }) => {
     const response = await categoryService.getAll();
 
     const myCategory = response.data.data;
+
     setCategory(myCategory);
   };
 
@@ -56,7 +58,7 @@ const Menu: React.FC<Props> = ({ setCat }) => {
       <StyledList>
         {context.cartItems.length === 0 ? null : <Basket />}
 
-        {category.map((repos: any) => (
+        {category.map((repos: CategoryDetails) => (
           <Category key={repos._id}>
             <Spacer />
 

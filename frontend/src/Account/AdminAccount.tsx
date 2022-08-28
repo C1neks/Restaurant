@@ -18,7 +18,7 @@ import {
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { RegisterTitle } from "../Register/Register.styles";
-import { Order } from "../models/models";
+import { Order, OrderDetails } from "../models/models";
 
 interface Props {
   orders: Array<Order>;
@@ -60,7 +60,7 @@ const AdminAccount: React.FC<Props> = ({ orders, getOrders }) => {
             </h3>
             <h3>Ordered Items</h3>
             <div>
-              {order.items.map((product: any) => (
+              {order.items.map((product: OrderDetails) => (
                 <div key={product.productId}>
                   <p>{product.productName}</p>
                 </div>

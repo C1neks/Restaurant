@@ -10,7 +10,7 @@ import {
 import { MdDoneOutline } from "react-icons/md";
 import { GrInProgress } from "react-icons/gr";
 import { RegisterTitle } from "../Register/Register.styles";
-import { UserDetails } from "../models/models";
+import { Order, OrderDetails, UserDetails } from "../models/models";
 
 interface Props {
   userDetails: UserDetails;
@@ -30,13 +30,13 @@ const Account: React.FC<Props> = ({ userDetails }) => {
 
           <UserOrders>
             <RegisterTitle>Order History</RegisterTitle>
-            {userDetails.orders.map((y: any) => (
+            {userDetails.orders.map((y: Order) => (
               <UserOrder key={y._id}>
                 <Spacer></Spacer>
                 <h4>Order Number</h4>
                 <p>{y._id}</p>
                 <h4>Products</h4>
-                {y.items.map((z: any) => (
+                {y.items.map((z: OrderDetails) => (
                   <div key={z.productId}>
                     <p>{z.productName}</p>
                   </div>
