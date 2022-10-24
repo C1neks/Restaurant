@@ -1,19 +1,36 @@
-import React, { useEffect, useState, useContext } from "react";
-import axios from "axios";
+import React, { useContext } from "react";
+
 import { Button } from "../StyledComponents/Button";
 import { CheckoutContainer, CheckoutWrapper } from "./Checkout.styles";
 import { ItemsContext } from "../App";
-import { Item } from "../Menu/Menu.styles";
-import { orderService } from "../services/services";
-import { Container } from "../StyledComponents/Container";
 
-const Checkout = ({ userDetails, getUserDetails, setCartItems }) => {
-  let items = [];
+import { orderService } from "../services/services";
+import { ItemFromCart, ProductType, UserDetails } from "../models/models";
+
+interface Props {
+  userDetails: UserDetails;
+  getUserDetails: (id: any) => Promise<void>;
+  setCartItems: React.Dispatch<React.SetStateAction<Array<ProductType>>>;
+}
+
+type CheckoutItem = {
+  productId: number;
+  productName: string;
+  quantity: number;
+};
+
+const Checkout: React.FC<Props> = ({
+  userDetails,
+  getUserDetails,
+  setCartItems,
+}) => {
+  let items: CheckoutItem[] = [];
   const context = useContext(ItemsContext);
   const user = userDetails;
 
-  const createOrder = async (cartItems) => {
-    let order = cartItems.map(
+  const createOrder = async (cartItems: ProductType[]) => {
+    let order: { items: CheckoutItem[]; user: string | number };
+    cartItems.map(
       (cartItems) =>
         (items = [
           ...items,
@@ -24,7 +41,7 @@ const Checkout = ({ userDetails, getUserDetails, setCartItems }) => {
           },
         ])
     );
-
+    console.log(items);
     order = { items, user: user._id };
 
     const response = await orderService.createOrder(order);
@@ -36,7 +53,7 @@ const Checkout = ({ userDetails, getUserDetails, setCartItems }) => {
   return (
     <CheckoutContainer>
       <CheckoutWrapper>
-        {context.cartItems.map((x) => (
+        {context.cartItems.map((x: ProductType) => (
           <div key={x.productId}>
             <div>{x.name.toUpperCase()}</div>
             <div>Quantity:{x.quantity}</div>
@@ -49,9 +66,10 @@ const Checkout = ({ userDetails, getUserDetails, setCartItems }) => {
               Total cost:{context.totalPrice}PLN
             </h2>
             <h3>Regular customer discount is Active!</h3>
+
             <h2>
               Total cost:
-              {context.totalPrice * (0.9).toFixed(1)}
+              {context.totalPrice * Number((0.9).toFixed(1))}
               PLN
             </h2>
           </div>

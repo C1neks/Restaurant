@@ -1,12 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  categoryService,
-  opinionService,
-  productService,
-} from "../services/services";
+import { categoryService, productService } from "../services/services";
 import {
   CartButton,
-  CategoryImg,
   Details,
   Item,
   ItemDetails,
@@ -16,9 +11,9 @@ import {
 } from "../Menu/Menu.styles";
 import { HiOutlineCurrencyDollar } from "react-icons/hi";
 import { ItemsContext } from "../App";
-import { MainFooter, MainSubTitle } from "../Main/Main.styles";
+import { MainFooter } from "../Main/Main.styles";
 import Opinion from "../Opinion/Opinion";
-
+import { CategoryType, ProductType } from "../models/models";
 import {
   ContainerOfButtons,
   DescriptionP,
@@ -32,20 +27,27 @@ import {
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { PrdctImg } from "../Image/Image.styles";
+import { UserDetails } from "../models/models";
+interface Props {
+  cat: string;
+  userDetails: UserDetails;
+}
 
-const Product = ({ cat, userDetails }) => {
+const Product: React.FC<Props> = ({ cat, userDetails }) => {
   const context = useContext(ItemsContext);
   const [productCategory, setProductCategory] = useState([]);
   const getCategories = async () => {
     const response = await categoryService.getAll();
 
     const myCategory = response.data.data;
-    const category = myCategory.find((c) => c.name === cat);
+    const category = myCategory.find(
+      (category: CategoryType) => category.name === cat
+    );
 
     setProductCategory(category.products);
   };
 
-  const deleteProduct = async (id) => {
+  const deleteProduct = async (id: number) => {
     const response = await productService.deleteProduct(id);
 
     getCategories();
@@ -60,7 +62,7 @@ const Product = ({ cat, userDetails }) => {
   return (
     <Wrapper>
       <ItemWrapper>
-        {productCategory.map((m) => (
+        {productCategory.map((m: ProductType) => (
           <Item key={m._id}>
             <PrdctImg image={m.image}>
               <ItemDetails>
@@ -69,12 +71,12 @@ const Product = ({ cat, userDetails }) => {
                   <Opinion
                     userDetails={userDetails}
                     productId={m._id}
-                    usersVoted={m.usersVoted}
                     getCategories={getCategories}
                   />
+
                   <DescriptionP>{m.description}</DescriptionP>
                 </Details>
-                {userDetails.isAdmin === false ? (
+                {!userDetails.isAdmin ? (
                   <PriceAndButtonContainer>
                     <PriceDollarSignContainer>
                       <h2>
@@ -97,7 +99,7 @@ const Product = ({ cat, userDetails }) => {
                       <h3>{m.price}</h3>
                     </PriceDollarSignContainer>
 
-                    {userDetails.isAdmin === false ? (
+                    {!userDetails.isAdmin ? (
                       <ContainerOfButtons>
                         <CartButton
                           admin
@@ -126,7 +128,7 @@ const Product = ({ cat, userDetails }) => {
           </Item>
         ))}
       </ItemWrapper>
-      <IconContext.Provider value={{ color: "black", size: 35 }}>
+      <IconContext.Provider value={{ color: "black", size: "35" }}>
         <MainFooter>
           <a href="https://www.facebook.com/">
             <FaFacebookSquare style={{ margin: "1rem" }} />

@@ -9,28 +9,28 @@ import {
   StyledList,
   Wrapper,
   Category,
-  MenuImage,
   MenuCategoryLink,
   MenuProductName,
   CategoryIconImage,
 } from "./Menu.styles";
 
 import { ItemsContext } from "../App";
-import { MainFooter, MainSubTitle } from "../Main/Main.styles";
+import { MainFooter } from "../Main/Main.styles";
 import {
   FaFacebookSquare,
   FaInstagramSquare,
-  FaStar,
   FaTripadvisor,
 } from "react-icons/fa";
 import { Spacer } from "../Account/Account.styles";
 import { categoryService, productService } from "../services/services";
-import { MenuLink } from "../NavBar/Navbar.styles";
-
 import Basket from "../Basket/Basket";
 import { IconContext } from "react-icons";
+import { CategoryDetails } from "../models/models";
 
-const Menu = ({ userDetails, setCat }) => {
+interface Props {
+  setCat: React.Dispatch<React.SetStateAction<string>>;
+}
+const Menu: React.FC<Props> = ({ setCat }) => {
   const context = useContext(ItemsContext);
   const [category, setCategory] = useState([]);
 
@@ -38,10 +38,11 @@ const Menu = ({ userDetails, setCat }) => {
     const response = await categoryService.getAll();
 
     const myCategory = response.data.data;
+
     setCategory(myCategory);
   };
 
-  const deleteProduct = async (id) => {
+  const deleteProduct = async (id: number) => {
     const response = await productService.deleteProduct(id);
 
     getCategories();
@@ -55,12 +56,11 @@ const Menu = ({ userDetails, setCat }) => {
   return (
     <Wrapper>
       <StyledList>
-        {/*<MenuImage />*/}
         {context.cartItems.length === 0 ? null : <Basket />}
 
-        {category.map((repos) => (
+        {category.map((repos: CategoryDetails) => (
           <Category key={repos._id}>
-            <Spacer></Spacer>
+            <Spacer />
 
             <MenuCategoryLink
               to="category"
@@ -87,7 +87,7 @@ const Menu = ({ userDetails, setCat }) => {
           </Category>
         ))}
       </StyledList>
-      <IconContext.Provider value={{ color: "black", size: 35 }}>
+      <IconContext.Provider value={{ color: "black", size: "35" }}>
         <MainFooter>
           <a href="https://www.facebook.com/">
             <FaFacebookSquare style={{ margin: "1rem" }} />

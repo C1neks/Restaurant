@@ -1,18 +1,29 @@
 import React from "react";
-import { Container } from "../FormField/AddProductForm.styles";
-import { MainSubTitle } from "../Main/Main.styles";
 import FormField from "../FormField/FormField";
 import { Button } from "../StyledComponents/Button";
 import { LoginLink, RegisterTitle } from "../Register/Register.styles";
-import { Redirect } from "react-router-dom";
 import { LoginContainer } from "./Login.styles";
 
-const Login = ({ loginValues, handleLoginInputChange, handleLoginUser }) => {
+interface Props {
+  loginValues: {
+    name: string;
+    password: string;
+  };
+  handleLoginInputChange: (e: any) => void;
+  handleLoginUser: (e: any) => void;
+}
+
+const Login: React.FC<Props> = ({
+  loginValues,
+  handleLoginInputChange,
+  handleLoginUser,
+}) => {
   return (
     <div>
       <LoginContainer as="form" onSubmit={handleLoginUser}>
         <RegisterTitle>Login</RegisterTitle>
         <FormField
+          type="text"
           label="Name"
           id="name"
           name="name"

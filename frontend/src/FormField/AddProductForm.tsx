@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import { MainSubTitle } from "../Main/Main.styles";
+import React, { useRef, useState } from "react";
+
 import { Button } from "../StyledComponents/Button";
 
 import FormField from "./FormField";
 import { Container, ShadowContainer } from "./AddProductForm.styles";
 import { productService } from "../services/services";
 import { RegisterTitle } from "../Register/Register.styles";
+import FileFormField from "./FileFormField";
 
 const initialFormState = {
   name: "",
@@ -14,13 +15,13 @@ const initialFormState = {
   description: "",
 };
 
-const AddProductForm = ({}) => {
-  const createProduct = async (a) => {
+const AddProductForm: React.FC = ({}) => {
+  const createProduct = async (a: FormData) => {
     await productService.addProduct(a);
   };
   const [formValues, setFormValues] = useState(initialFormState);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: { target: { name: string; value: any } }) => {
     setFormValues({
       ...formValues,
       [e.target.name]: e.target.value,
@@ -28,12 +29,12 @@ const AddProductForm = ({}) => {
   };
 
   const [file, setFile] = useState(null);
-  const handleFile = (e) => {
+  const handleFile = (e: { target: { files: any[] } }) => {
     const file = e.target.files[0];
     setFile(file);
   };
 
-  const handleAddProduct = async (e) => {
+  const handleAddProduct = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData(myContainer.current);
@@ -41,7 +42,7 @@ const AddProductForm = ({}) => {
     await createProduct(formData);
     setFormValues(initialFormState);
   };
-  const myContainer = useRef(null);
+  const myContainer = useRef<HTMLFormElement | undefined>(undefined);
 
   return (
     <>
@@ -56,6 +57,7 @@ const AddProductForm = ({}) => {
         <RegisterTitle adminAccount>Add new Product</RegisterTitle>
         <ShadowContainer>
           <FormField
+            type="text"
             label="Name"
             id="name"
             name="name"
@@ -71,6 +73,7 @@ const AddProductForm = ({}) => {
             onChange={handleInputChange}
           />
           <FormField
+            type="text"
             label="Category"
             id="category"
             name="category"
@@ -78,18 +81,19 @@ const AddProductForm = ({}) => {
             onChange={handleInputChange}
           />
           <FormField
+            type="text"
             label="Description"
             id="description"
             name="description"
             value={formValues.description}
             onChange={handleInputChange}
           />
-          <FormField
+
+          <FileFormField
             type="file"
             label="Choose a file..."
             id="image"
             name="image"
-            // value={file}
             onChange={handleFile}
           />
           <Button editAddButton type="submit">

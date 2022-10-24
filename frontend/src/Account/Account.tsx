@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import { Button } from "../StyledComponents/Button";
-import axios from "axios";
-import AddProductForm from "../FormField/AddProductForm";
-import { MainSubTitle } from "../Main/Main.styles";
+import React from "react";
+
 import {
   AccountContainer,
   Spacer,
@@ -13,8 +10,13 @@ import {
 import { MdDoneOutline } from "react-icons/md";
 import { GrInProgress } from "react-icons/gr";
 import { RegisterTitle } from "../Register/Register.styles";
+import { Order, OrderDetails, UserDetails } from "../models/models";
 
-const Account = ({ userDetails }) => {
+interface Props {
+  userDetails: UserDetails;
+}
+
+const Account: React.FC<Props> = ({ userDetails }) => {
   return (
     <>
       {
@@ -28,13 +30,13 @@ const Account = ({ userDetails }) => {
 
           <UserOrders>
             <RegisterTitle>Order History</RegisterTitle>
-            {userDetails.orders.map((y) => (
+            {userDetails.orders.map((y: Order) => (
               <UserOrder key={y._id}>
                 <Spacer></Spacer>
                 <h4>Order Number</h4>
                 <p>{y._id}</p>
                 <h4>Products</h4>
-                {y.items.map((z) => (
+                {y.items.map((z: OrderDetails) => (
                   <div key={z.productId}>
                     <p>{z.productName}</p>
                   </div>

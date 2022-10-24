@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { BiMenu, BiX } from "react-icons/bi";
-import GlobalStyles from "../GlobalStyles";
+
 import { Button } from "../StyledComponents/Button";
 import {
   Nav,
@@ -17,8 +17,19 @@ import {
 } from "./Navbar.styles";
 import CartCount from "../Basket/CartCount";
 import { LoggedContext } from "../App";
+import { UserDetails } from "../models/models";
 
-const Navbar = ({ countCartItems, handleLogout, userDetails }) => {
+interface Props {
+  countCartItems: number;
+  handleLogout: () => void;
+  userDetails: UserDetails;
+}
+
+const Navbar: React.FC<Props> = ({
+  countCartItems,
+  handleLogout,
+  userDetails,
+}) => {
   const [click, setClick] = useState(false);
   const context = useContext(LoggedContext);
   const handleClick = () => setClick(!click);
@@ -42,7 +53,7 @@ const Navbar = ({ countCartItems, handleLogout, userDetails }) => {
                 </MenuLink>
               </MenuItem>
               <MenuItem>
-                {userDetails.isAdmin === true ? (
+                {userDetails.isAdmin ? (
                   <MenuLink main key={userDetails._id} to="/admin">
                     Admin Panel
                   </MenuLink>

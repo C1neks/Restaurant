@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
-import { Input, Label, RatingDiv } from "./Opinion.styles";
+import { Input, Label, RatingDiv, RatingSign } from "./Opinion.styles";
 import { Button } from "../StyledComponents/Button";
 import axios from "axios";
 import { opinionService } from "../services/services";
-const Opinion = ({
+import { UserDetails } from "../models/models";
+
+interface Props {
+  userDetails: UserDetails;
+  productId: number;
+  getCategories: () => void;
+}
+
+const Opinion: React.FC<Props> = ({
   userDetails,
   productId,
-  usersVoted,
   getCategories,
-  votesMade,
 }) => {
-  const [rating, setRating] = useState(null);
-  const [hover, setHover] = useState(null);
-  const [votes, setVotes] = useState(false);
-  const [totalRating, settotalRating] = useState(null);
-  const [isOrdered, setIsOrdered] = useState(0);
-  // const isUserOrdered =  await userDetails.orders.length;
+  const [rating, setRating] = useState<number>(0);
+  const [hover, setHover] = useState<number>(0);
+  const [votes, setVotes] = useState<boolean>(false);
+  const [totalRating, settotalRating] = useState<number>(0);
+  const [isOrdered, setIsOrdered] = useState<number>(0);
 
-  const IsUserOrdered = async (userDetails) => {
+  const IsUserOrdered = async (userDetails: UserDetails) => {
     const isUserOrdered = userDetails.orders.length;
     setIsOrdered(isUserOrdered);
   };
@@ -30,26 +35,26 @@ const Opinion = ({
   }, []);
 
   const userID = localStorage.getItem("userID");
-  const getRating = async (id) => {
+  const getRating = async (id: number) => {
     const response = await opinionService.getRate(id);
 
     settotalRating(response.data.rating / response.data.numberOfRates);
   };
 
-  const getVotesMade = async (id) => {
+  const getVotesMade = async (id: number) => {
     const response = await opinionService.getRate(id);
 
     setVotes(response.data.ratedByCurrentUser);
   };
 
-  const addRating = async (id, rating) => {
+  const addRating = async (id: number, rating: number) => {
     const body = {
       voter: userID,
       rating: rating,
     };
 
     await opinionService.addRating(id, body);
-    setRating(null);
+    setRating(0);
     getCategories();
   };
 
@@ -83,7 +88,7 @@ const Opinion = ({
                   color={ratingValue <= (hover || rating) ? "orange" : "gray"}
                   size={30}
                   onMouseEnter={() => setHover(ratingValue)}
-                  onMouseLeave={() => setHover(null)}
+                  onMouseLeave={() => setHover(0)}
                 />
               </Label>
             );
@@ -92,7 +97,7 @@ const Opinion = ({
           {totalRating !== null ? (
             <RatingDiv>
               <FaStar color={"orange"} size={30} />
-              <p style={{ color: "white", "font-size": "2rem" }}>0 votes</p>
+              <RatingSign>0 votes</RatingSign>
             </RatingDiv>
           ) : (
             <h3>0 votes made</h3>
@@ -108,9 +113,7 @@ const Opinion = ({
           {totalRating != null ? (
             <RatingDiv>
               <FaStar color={"orange"} size={30} />
-              <p style={{ color: "white", "font-size": "2rem" }}>
-                {totalRating.toFixed(1)}
-              </p>
+              <RatingSign>{totalRating.toFixed(1)}</RatingSign>
             </RatingDiv>
           ) : (
             <>

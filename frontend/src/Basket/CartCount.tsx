@@ -1,18 +1,22 @@
 import React from "react";
 import { BsMinecart } from "react-icons/bs";
 import { CartCounter, ItemCounter } from "./Basket.styles";
-const CartCount = (props) => {
-  const { countCartItems } = props;
+
+type CountCart = {
+  countCartItems: number;
+};
+
+const CartCount: React.FC<CountCart> = ({ countCartItems }) => {
   return (
     <div>
       {countCartItems ? (
         <CartCounter>
-          <BsMinecart></BsMinecart>
+          <BsMinecart />
           <ItemCounter>{countCartItems}</ItemCounter>
         </CartCounter>
       ) : (
         <div>
-          <BsMinecart></BsMinecart>
+          <BsMinecart />
         </div>
       )}
     </div>

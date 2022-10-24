@@ -1,20 +1,13 @@
 import React, { useContext, useState } from "react";
-import { Container } from "../FormField/AddProductForm.styles";
-import { MainSubTitle } from "../Main/Main.styles";
+
 import FormField from "../FormField/FormField";
 import { Button } from "../StyledComponents/Button";
-import { MenuLink } from "../NavBar/Navbar.styles";
+
 import { LoginLink, RegisterContainer, RegisterTitle } from "./Register.styles";
-import axios from "axios";
+
 import { userService } from "../services/services";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-} from "react-router-dom";
-import Login from "../Login/Login";
+import { Redirect } from "react-router-dom";
+
 import { LoggedContext } from "../App";
 
 const initialUserFormState = {
@@ -23,14 +16,18 @@ const initialUserFormState = {
   password: "",
 };
 
-const Register = () => {
+const Register: React.FC = () => {
   const context = useContext(LoggedContext);
   const [formUserValues, setFormUserValues] = useState(initialUserFormState);
-  const createUser = async (registerValues) => {
+  const createUser = async (registerValues: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
     await userService.registerUser(registerValues);
   };
 
-  const handleAddUser = (e) => {
+  const handleAddUser = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const newUser = {
       name: formUserValues.name,
@@ -40,7 +37,9 @@ const Register = () => {
     createUser(newUser);
     setFormUserValues(initialUserFormState);
   };
-  const handleUserInputChange = (e) => {
+  const handleUserInputChange = (e: {
+    target: { name: string; value: any };
+  }) => {
     setFormUserValues({
       ...formUserValues,
       [e.target.name]: e.target.value,
@@ -55,6 +54,7 @@ const Register = () => {
           <RegisterContainer as="form" onSubmit={handleAddUser}>
             <RegisterTitle>Register</RegisterTitle>
             <FormField
+              type="text"
               label="Name"
               id="name"
               name="name"

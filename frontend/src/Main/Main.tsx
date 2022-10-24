@@ -14,17 +14,13 @@ import {
   MainTitle,
   MainTitleText,
   MainSubTitle,
-  MainText,
   MainBtn,
   MainFooter,
-  MainAboutUsContainer,
-  AboutTextContainer,
   MainContentWithImage,
   BannerContainer,
   DeliveryDiv,
   WaitressDiv,
   OrderDiv,
-  serveSpan,
   Serve,
   DeliveryPartner,
   IconsContainer,
@@ -32,7 +28,7 @@ import {
 } from "./Main.styles";
 import { Spacer } from "../Account/Account.styles";
 
-const Main = () => {
+const Main: React.FC = () => {
   return (
     <div>
       <MainContainer>
@@ -84,7 +80,7 @@ const Main = () => {
           </UnderIconsText>
         </IconsContainer>
       </BannerContainer>
-      <IconContext.Provider value={{ color: "black", size: 35 }}>
+      <IconContext.Provider value={{ color: "black", size: "35" }}>
         <MainFooter>
           <a href="https://www.facebook.com/">
             <FaFacebookSquare style={{ margin: "1rem" }} />
