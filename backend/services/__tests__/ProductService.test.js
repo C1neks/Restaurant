@@ -37,7 +37,7 @@ describe("ProductService", () => {
     });
   });
 
-  it("creating product should increase number of products by 1 ", async () => {
+  it("creating product should increase the number of products by 1 ", async () => {
     expect((await productService.getProducts()).data).toHaveLength(0);
     await createTestProduct();
     expect((await productService.getProducts()).data).toHaveLength(1);
