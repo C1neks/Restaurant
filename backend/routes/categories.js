@@ -2,10 +2,16 @@ import express from "express";
 import { CategoryService } from "../services/CategoryService.js";
 import { Repository } from "../repository/repository.js";
 import Category from "../models/categoryModel.js";
+import Product from "../models/productModel.js";
+import { ProductService } from "../services/ProductService.js";
 
 const router = express.Router();
+const productService = new ProductService(new Repository(Product));
 
-export const categoryService = new CategoryService(new Repository(Category));
+export const categoryService = new CategoryService(
+  new Repository(Category),
+  productService
+);
 
 router.get("/", async (req, res) => {
   const response = await categoryService.getCategories();
