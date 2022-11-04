@@ -69,7 +69,7 @@ const Main: React.FC = () => {
           <DeliveryDiv />
           <UnderIconsText primary>Fastest Delivery</UnderIconsText>
           <UnderIconsText>
-            Delivery that is always ontime even faster.
+            Delivery that is always on time even faster.
           </UnderIconsText>
         </IconsContainer>
         <IconsContainer>
