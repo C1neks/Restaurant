@@ -14,7 +14,7 @@ const AccountPage: React.FC<Props> = ({ userDetails, getUserDetails }) => {
 
   useEffect(() => {
     (async () => {
-      await getUserDetails(localStorage.getItem("userID"));
+      getUserDetails(localStorage.getItem("userID"));
     })();
   }, []);
 

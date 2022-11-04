@@ -14,8 +14,6 @@ export const CheckoutWrapper = styled.div`
     width: 50%;
     &:hover {
       border: none;
-      font-size: 2.1rem;
-      width: 57%;
     }
   }
 `;

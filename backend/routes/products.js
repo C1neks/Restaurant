@@ -52,7 +52,8 @@ const categoryService = new CategoryService(
 );
 const productRatingService = new ProductRatingService(
   new Repository(ProductRating),
-  categoryService
+  categoryService,
+  new ProductService(productRepository)
 );
 export const productService = new ProductService(
   productRepository,

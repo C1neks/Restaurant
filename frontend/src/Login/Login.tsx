@@ -3,6 +3,7 @@ import FormField from "../FormField/FormField";
 import { Button } from "../StyledComponents/Button";
 import { LoginLink, RegisterTitle } from "../Register/Register.styles";
 import { LoginContainer } from "./Login.styles";
+import { Redirect } from "react-router-dom";
 
 interface Props {
   loginValues: {
@@ -39,6 +40,7 @@ const Login: React.FC<Props> = ({
           value={loginValues.password}
           onChange={handleLoginInputChange}
         />
+
         <Button editAddButton type="submit">
           Login
         </Button>

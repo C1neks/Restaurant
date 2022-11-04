@@ -231,8 +231,7 @@ export const Item = styled.div`
   width: 92%;
   min-height: 16rem;
   border-radius: 10px;
-  //box-shadow: 0 5px 15px -10px rgba(0, 0, 0, 0.3);
-  //box-shadow: 0px 0px 15px -3px rgba(41, 22, 22, 0.34);
+
   margin-bottom: 20px;
 
   @media only screen and (min-width: 768px) and (max-width: 1000px) {
@@ -255,7 +254,6 @@ export const Item = styled.div`
 
   :hover {
     background: white;
-    transform: scale(1.12, 1.08) translateY(0px) translateZ(0px);
   }
 `;
 
